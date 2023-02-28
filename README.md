@@ -33,78 +33,73 @@ Not yet started.
 
 
 ## Status
-Per-Header status (10/74):
-- [ ] Network/IpAddress.h
-- [ ] Network/SocketStatus.h
-- [ ] Network/SocketSelector.h
-- [ ] Network/Export.h
-- [ ] Network/Types.h
-- [ ] Network/TcpSocket.h
-- [ ] Network/Http.h
-- [ ] Network/TcpListener.h
-- [ ] Network/Ftp.h
-- [ ] Network/UdpSocket.h
-- [ ] Network/Packet.h
-- [ ] Window/WindowHandle.h
-- [ ] Window/Touch.h
-- [ ] Window/Event.h
-- [ ] Window/Clipboard.h
-- [ ] Window/Export.h
-- [ ] Window/Types.h
-- [ ] Window/Mouse.h
-- [ ] Window/JoystickIdentification.h
-- [ ] Window/Sensor.h
-- [ ] Window/Window.h
-- [ ] Window/Context.h
-- [ ] Window/Cursor.h
-- [ ] Window/Joystick.h
-- [ ] Window/VideoMode.h
-- [ ] Window/Keyboard.h
-- [ ] Graphics/RectangleShape.h
-- [ ] Graphics/RenderTexture.h
-- [ ] Graphics/RenderStates.h
-- [ ] Graphics/RenderWindow.h
-- [ ] Graphics/Color.h
-- [ ] Graphics/View.h
-- [ ] Graphics/Vertex.h
-- [ ] Graphics/VertexBuffer.h
-- [ ] Graphics/Texture.h
-- [ ] Graphics/Export.h
-- [ ] Graphics/Sprite.h
-- [ ] Graphics/BlendMode.h
-- [ ] Graphics/Types.h
-- [ ] Graphics/Rect.h
-- [ ] Graphics/CircleShape.h
-- [ ] Graphics/Glyph.h
-- [ ] Graphics/Glsl.h
-- [ ] Graphics/Shader.h
-- [ ] Graphics/Transform.h
-- [ ] Graphics/VertexArray.h
-- [ ] Graphics/ConvexShape.h
-- [ ] Graphics/Transformable.h
-- [ ] Graphics/PrimitiveType.h
-- [ ] Graphics/Text.h
-- [ ] Graphics/FontInfo.h
-- [ ] Graphics/Font.h
-- [ ] Graphics/Image.h
-- [ ] Graphics/Shape.h
-- [x] System/Vector2.h
-- [x] System/Vector3.h
-- [x] System/Clock.h
-- [x] System/Export.h
-- [x] System/Sleep.h
-- [x] System/Types.h
-- [x] System/Thread.h
-- [x] System/Mutex.h
-- [x] System/InputStream.h
-- [x] System/Time.h
-- [ ] Audio/Music.h
-- [ ] Audio/Export.h
-- [ ] Audio/SoundRecorder.h
-- [ ] Audio/Types.h
-- [ ] Audio/Listener.h
-- [ ] Audio/SoundStatus.h
-- [ ] Audio/SoundBuffer.h
-- [ ] Audio/Sound.h
-- [ ] Audio/SoundStream.h
-- [ ] Audio/SoundBufferRecorder.h
+Per-Header status (9/69):
+- [ ] Network/IpAddress.h (15 SLOC)
+- [ ] Network/SocketStatus.h (8 SLOC)
+- [ ] Network/SocketSelector.h (14 SLOC)
+- [ ] Network/Types.h (12 SLOC)
+- [ ] Network/TcpSocket.h (14 SLOC)
+- [ ] Network/Http.h (56 SLOC)
+- [ ] Network/TcpListener.h (7 SLOC)
+- [ ] Network/Ftp.h (95 SLOC)
+- [ ] Network/UdpSocket.h (12 SLOC)
+- [ ] Network/Packet.h (31 SLOC)
+- [ ] Window/WindowHandle.h (7 SLOC)
+- [ ] Window/Touch.h (2 SLOC)
+- [ ] Window/Event.h (124 SLOC)
+- [ ] Window/Clipboard.h (4 SLOC)
+- [ ] Window/Types.h (3 SLOC)
+- [ ] Window/Mouse.h (17 SLOC)
+- [ ] Window/JoystickIdentification.h (6 SLOC)
+- [ ] Window/Sensor.h (13 SLOC)
+- [ ] Window/Window.h (54 SLOC)
+- [ ] Window/Context.h (8 SLOC)
+- [ ] Window/Cursor.h (19 SLOC)
+- [ ] Window/Joystick.h (24 SLOC)
+- [ ] Window/VideoMode.h (9 SLOC)
+- [ ] Window/Keyboard.h (114 SLOC)
+- [ ] Graphics/RectangleShape.h (32 SLOC)
+- [ ] Graphics/RenderTexture.h (37 SLOC)
+- [ ] Graphics/RenderStates.h (8 SLOC)
+- [ ] Graphics/RenderWindow.h (57 SLOC)
+- [ ] Graphics/Color.h (23 SLOC)
+- [ ] Graphics/View.h (16 SLOC)
+- [ ] Graphics/Vertex.h (6 SLOC)
+- [ ] Graphics/VertexBuffer.h (20 SLOC)
+- [ ] Graphics/Texture.h (33 SLOC)
+- [ ] Graphics/Sprite.h (24 SLOC)
+- [ ] Graphics/BlendMode.h (32 SLOC)
+- [ ] Graphics/Types.h (16 SLOC)
+- [ ] Graphics/Rect.h (18 SLOC)
+- [ ] Graphics/CircleShape.h (33 SLOC)
+- [ ] Graphics/Glyph.h (6 SLOC)
+- [ ] Graphics/Glsl.h (49 SLOC)
+- [ ] Graphics/Shader.h (42 SLOC)
+- [ ] Graphics/Transform.h (19 SLOC)
+- [ ] Graphics/VertexArray.h (11 SLOC)
+- [ ] Graphics/ConvexShape.h (32 SLOC)
+- [ ] Graphics/Transformable.h (16 SLOC)
+- [ ] Graphics/PrimitiveType.h (13 SLOC)
+- [ ] Graphics/Text.h (50 SLOC)
+- [ ] Graphics/FontInfo.h (4 SLOC)
+- [ ] Graphics/Font.h (12 SLOC)
+- [ ] Graphics/Image.h (17 SLOC)
+- [ ] Graphics/Shape.h (35 SLOC)
+- [x] System/Vector2.h (15 SLOC)
+- [x] System/Vector3.h (6 SLOC)
+- [x] System/Clock.h (5 SLOC)
+- [x] System/Sleep.h (1 SLOC)
+- [x] System/Types.h (3 SLOC)
+- [x] System/Thread.h (5 SLOC)
+- [x] System/Mutex.h (4 SLOC)
+- [x] System/InputStream.h (12 SLOC)
+- [x] System/Time.h (11 SLOC)
+- [ ] Audio/Music.h (34 SLOC)
+- [ ] Audio/SoundRecorder.h (19 SLOC)
+- [ ] Audio/Types.h (6 SLOC)
+- [ ] Audio/Listener.h (8 SLOC)
+- [ ] Audio/SoundStatus.h (6 SLOC)
+- [ ] Audio/SoundBuffer.h (12 SLOC)
+- [ ] Audio/Sound.h (25 SLOC)
+- [ ] Audio/SoundStream.h (35 SLOC)
+- [ ] Audio/SoundBufferRecorder.h (8 SLOC)
