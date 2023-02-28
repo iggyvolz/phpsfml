@@ -9,15 +9,14 @@ use iggyvolz\SFML\System\SystemLib;
  * 3-component vector of floats
  * @see System/Vector3.h
  */
-class Vector3F
+readonly class Vector3F
 {
     public function __construct(
-        private readonly SystemLib $systemLib,
         // sfVector3f
         /**
          * @internal
          */
-        public readonly CData $cdata
+        public CData $cdata
     )
     {
     }
@@ -28,7 +27,7 @@ class Vector3F
         $vector->x = $x;
         $vector->y = $y;
         $vector->z = $z;
-        return new self($systemLib, $vector);
+        return new self($vector);
     }
     public function getX(): float
     {

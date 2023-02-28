@@ -2,13 +2,13 @@
 
 namespace iggyvolz\SFML\System;
 
-class InputStreamFromStream implements InputStreamInterface
+readonly class InputStreamFromStream implements InputStreamInterface
 {
 
     /**
      * @param resource $stream
      */
-    public function __construct(public readonly mixed $stream)
+    public function __construct(public mixed $stream)
     {
     }
 

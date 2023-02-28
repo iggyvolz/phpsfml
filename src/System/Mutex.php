@@ -4,12 +4,12 @@ namespace iggyvolz\SFML\System;
 
 use FFI\CData;
 
-class Mutex
+readonly class Mutex
 {
     public function __construct(
-        private readonly SystemLib $systemLib,
+        private SystemLib $systemLib,
         // sfMutex*
-        private readonly CData $cdata
+        private CData     $cdata
     )
     {
     }

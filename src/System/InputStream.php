@@ -5,12 +5,12 @@ namespace iggyvolz\SFML\System;
 use FFI;
 use FFI\CData;
 
-class InputStream implements InputStreamInterface
+readonly class InputStream implements InputStreamInterface
 {
     public function __construct(
-        private readonly SystemLib $systemLib,
+        private SystemLib $systemLib,
         // sfInputStream
-        private readonly CData $cdata
+        private CData     $cdata
     )
     {
     }
@@ -41,6 +41,7 @@ class InputStream implements InputStreamInterface
     }
 
     /**
+     * @param SystemLib $lib
      * @param resource $stream Opened stream
      * @return self
      */
@@ -50,6 +51,7 @@ class InputStream implements InputStreamInterface
     }
 
     /**
+     * @param SystemLib $lib
      * @param string $file Path to file
      * @return self
      */
@@ -59,6 +61,7 @@ class InputStream implements InputStreamInterface
     }
 
     /**
+     * @param SystemLib $lib
      * @param string $string String to be read
      * @return self
      */

@@ -9,15 +9,14 @@ use iggyvolz\SFML\System\SystemLib;
  * 2-component vector of integers
  * @see System/Vector2.h
  */
-class Vector2I
+readonly class Vector2I
 {
     public function __construct(
-        private readonly SystemLib $systemLib,
         // sfVector2i
         /**
          * @internal
          */
-        public readonly CData $cdata
+        public CData $cdata
     )
     {
     }
@@ -27,7 +26,7 @@ class Vector2I
         $vector = $systemLib->ffi->new("sfVector2i");
         $vector->x = $x;
         $vector->y = $y;
-        return new self($systemLib, $vector);
+        return new self($vector);
     }
 
     public function getX(): int

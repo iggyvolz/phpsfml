@@ -8,15 +8,15 @@ use FFI\CData;
  * Represents a time value
  * @see System/Time.h
  */
-class Time
+readonly class Time
 {
     public function __construct(
-        private readonly SystemLib $systemLib,
+        private SystemLib $systemLib,
         // sfTime
         /**
          * @internal
          */
-        public readonly CData $cdata
+        public CData      $cdata
     )
     {
     }

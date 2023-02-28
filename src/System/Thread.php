@@ -8,12 +8,12 @@ use FFI\CData;
 /**
  * TODO this instantly segfaults.  Hahahahahahaa *cries*
  */
-class Thread
+readonly class Thread
 {
     public function __construct(
-        private readonly SystemLib $systemLib,
+        private SystemLib $systemLib,
         // sfThread*
-        private readonly CData $cdata
+        private CData     $cdata
     )
     {
     }
