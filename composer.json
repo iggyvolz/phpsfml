@@ -1,0 +1,23 @@
+{
+  "name": "iggyvolz/phpsfml",
+  "description": "PHP bindings for SFML",
+  "license": "0BSD",
+  "authors": [
+    {
+      "name": "Katie \"iggy\" Volz",
+      "email": "iggyvolz@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2",
+    "ext-ffi": "*"
+  },
+  "require-dev": {
+    "nette/tester": "^2"
+  },
+  "autoload": {
+    "psr-4": {
+      "iggyvolz\\SFML\\": "src/"
+    }
+  }
+}
