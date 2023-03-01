@@ -5,6 +5,7 @@ use iggyvolz\SFML\Window\EventType;
 use iggyvolz\SFML\Window\Window;
 use iggyvolz\SFML\Window\WindowLib;
 use League\Event\EventDispatcher;
+use League\Event\ListenerRegistry;
 use Revolt\EventLoop;
 
 require_once __DIR__ . "/vendor/autoload.php";
@@ -12,15 +13,15 @@ $windowLib = new WindowLib(__DIR__ . "/CSFML/lib/libcsfml-window.so");
 $window = Window::create(
     $windowLib,
     "abcdefghijklmnopqrstuvwxyz",
+    eventDispatcher: $listener = new EventDispatcher(),
 );
-$eventDispatcher = new EventDispatcher();
-$window->addEventHandler($eventDispatcher);
-$eventDispatcher->subscribeTo(Event::class, function(Event $e): void {
+/** @var ListenerRegistry $listener */
+$listener->subscribeTo(Event::class, function(Event $e): void {
     if($e->getType() === EventType::Closed) {
         $e->window->close();
     }
 });
-$eventDispatcher->subscribeTo(Event::class, function(Event $e): void {
+$listener->subscribeTo(Event::class, function(Event $e): void {
     echo $e->getType()->name . PHP_EOL;
 });
 EventLoop::run();

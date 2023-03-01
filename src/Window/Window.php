@@ -28,16 +28,21 @@ class Window
         array $windowStyle = WindowStyle::default,
         ?ContextSettings $contextSettings = null,
         string $titleEncoding = "UTF-8",
+        ?EventDispatcherInterface $eventDispatcher = null,
     ): self
     {
         $videoMode ??= VideoMode::getDesktopMode($windowLib);
         $contextSettings ??= $contextSettings ?? ContextSettings::create($windowLib);
-        return new self($windowLib, $windowLib->ffi->sfWindow_createUnicode(
+        $self = new self($windowLib, $windowLib->ffi->sfWindow_createUnicode(
             $videoMode->cdata,
             UTF32::fromString($title, $titleEncoding)->cdata,
             WindowStyle::toInt(...$windowStyle),
             FFI::addr($contextSettings->cdata),
         ));
+        if($eventDispatcher) {
+            $self->addEventHandler($eventDispatcher);
+        }
+        return $self;
     }
 
     /**
@@ -110,7 +115,7 @@ class Window
         $this->windowLib->ffi->sfWindow_destroy($this->cdata);
     }
 
-    public function addEventHandler(EventDispatcherInterface $eventDispatcher): void
+    private function addEventHandler(EventDispatcherInterface $eventDispatcher): void
     {
         EventLoop::repeat(0, function (string $id) use ($eventDispatcher) {
             if(!$this->isOpen()) {
