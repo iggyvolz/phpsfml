@@ -11,7 +11,7 @@ class Event
      * @param WindowLib $windowLib
      * @param CData $cdata
      */
-    public function __construct(private readonly WindowLib $windowLib, private readonly CData $cdata)
+    public function __construct(private readonly WindowLib $windowLib, public readonly Window $window, private readonly CData $cdata)
     {
     }
 

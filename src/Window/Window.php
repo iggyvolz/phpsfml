@@ -5,6 +5,8 @@ namespace iggyvolz\SFML\Window;
 use FFI;
 use FFI\CData;
 use iggyvolz\SFML\Utils\UTF32;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Revolt\EventLoop;
 
 class Window
 {
@@ -94,7 +96,7 @@ class Window
         $event = $this->windowLib->ffi->new("sfEvent");
         $success = $this->windowLib->ffi->sfWindow_pollEvent($this->cdata, FFI::addr($event)) === 1;
         if($success) {
-            return new Event($this->windowLib, $event);
+            return new Event($this->windowLib, $this, $event);
         } else {
             return null;
         }
@@ -106,5 +108,17 @@ class Window
     public function __destruct()
     {
         $this->windowLib->ffi->sfWindow_destroy($this->cdata);
+    }
+
+    public function addEventHandler(EventDispatcherInterface $eventDispatcher): void
+    {
+        EventLoop::repeat(0, function (string $id) use ($eventDispatcher) {
+            if(!$this->isOpen()) {
+                EventLoop::cancel($id);
+            }
+            if($event = $this->pollEvent()) {
+                $eventDispatcher->dispatch($event);
+            }
+        });
     }
 }

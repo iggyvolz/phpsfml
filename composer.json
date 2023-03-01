@@ -8,13 +8,19 @@
       "email": "iggyvolz@gmail.com"
     }
   ],
+  "suggest": {
+    "league/event": "An event dispatcher"
+  },
   "require": {
     "php": "^8.2",
     "ext-ffi": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "revolt/event-loop": "^1.0",
+    "psr/event-dispatcher": "^1.0"
   },
   "require-dev": {
-    "nette/tester": "^2"
+    "nette/tester": "^2",
+    "league/event": "^3.0"
   },
   "autoload": {
     "psr-4": {
