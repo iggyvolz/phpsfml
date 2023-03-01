@@ -29,11 +29,11 @@ Done!
 Thread support is... ah heck it segfaults instantly (as I expected).  Might come back and debug this at some point but the code is all there if you want to try.
 
 ### Window
-Not yet started.
+Started on this one.  We can make a window!!!
 
 
 ## Status
-Per-Header status (9/69):
+Per-Header status (14/69):
 - [ ] Network/IpAddress.h (15 SLOC)
 - [ ] Network/SocketStatus.h (8 SLOC)
 - [ ] Network/SocketSelector.h (14 SLOC)
@@ -44,19 +44,19 @@ Per-Header status (9/69):
 - [ ] Network/Ftp.h (95 SLOC)
 - [ ] Network/UdpSocket.h (12 SLOC)
 - [ ] Network/Packet.h (31 SLOC)
-- [ ] Window/WindowHandle.h (7 SLOC)
+- [x] Window/WindowHandle.h (7 SLOC)
 - [ ] Window/Touch.h (2 SLOC)
-- [ ] Window/Event.h (124 SLOC)
-- [ ] Window/Clipboard.h (4 SLOC)
-- [ ] Window/Types.h (3 SLOC)
+- [ ] Window/Event.h (124 SLOC) - Partially
+- [x] Window/Clipboard.h (4 SLOC)
+- [x] Window/Types.h (3 SLOC)
 - [ ] Window/Mouse.h (17 SLOC)
 - [ ] Window/JoystickIdentification.h (6 SLOC)
 - [ ] Window/Sensor.h (13 SLOC)
-- [ ] Window/Window.h (54 SLOC)
-- [ ] Window/Context.h (8 SLOC)
+- [ ] Window/Window.h (54 SLOC - Parially
+- [x] Window/Context.h (8 SLOC)
 - [ ] Window/Cursor.h (19 SLOC)
 - [ ] Window/Joystick.h (24 SLOC)
-- [ ] Window/VideoMode.h (9 SLOC)
+- [x] Window/VideoMode.h (9 SLOC)
 - [ ] Window/Keyboard.h (114 SLOC)
 - [ ] Graphics/RectangleShape.h (32 SLOC)
 - [ ] Graphics/RenderTexture.h (37 SLOC)

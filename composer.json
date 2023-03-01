@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": "^8.2",
-    "ext-ffi": "*"
+    "ext-ffi": "*",
+    "ext-mbstring": "*"
   },
   "require-dev": {
     "nette/tester": "^2"

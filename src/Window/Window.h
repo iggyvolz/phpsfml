@@ -389,6 +389,7 @@ extern sfVideoMode sfVideoMode_getDesktopMode(void);
 extern const sfVideoMode* sfVideoMode_getFullscreenModes(size_t* count);
 extern sfBool sfVideoMode_isValid(sfVideoMode mode);
     // Window handle is Window (unsigned long) on Unix - X11
+    // Author's note - this happens to be the same size everywhere so it's fine to treat it as an unsigned long
     typedef unsigned long sfWindowHandle;
 typedef enum
 {
