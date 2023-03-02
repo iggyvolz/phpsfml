@@ -26,14 +26,16 @@ Of dubious use in PHP, which already has countless networking libraries.  Will p
 ### System
 Done!
 
-Thread support is... ah heck it segfaults instantly (as I expected).  Might come back and debug this at some point but the code is all there if you want to try.
+Thread support is... ah heck it segfaults instantly (as I expected).  Might come back and debug this at some point but the code is all there if you want to try.  Probably best to stick with single-threading for now or try parallel.
 
 ### Window
-Started on this one.  We can make a window!!!
+Done!
+
+Definitely needs a lot of testing, probably made some typos here.
 
 
 ## Status
-Per-Header status (14/69):
+Per-Header status (23/69):
 - [ ] Network/IpAddress.h (15 SLOC)
 - [ ] Network/SocketStatus.h (8 SLOC)
 - [ ] Network/SocketSelector.h (14 SLOC)
@@ -45,19 +47,19 @@ Per-Header status (14/69):
 - [ ] Network/UdpSocket.h (12 SLOC)
 - [ ] Network/Packet.h (31 SLOC)
 - [x] Window/WindowHandle.h (7 SLOC)
-- [ ] Window/Touch.h (2 SLOC)
-- [ ] Window/Event.h (124 SLOC) - Partially
+- [x] Window/Touch.h (2 SLOC)
+- [x] Window/Event.h (124 SLOC)
 - [x] Window/Clipboard.h (4 SLOC)
 - [x] Window/Types.h (3 SLOC)
-- [ ] Window/Mouse.h (17 SLOC)
-- [ ] Window/JoystickIdentification.h (6 SLOC)
-- [ ] Window/Sensor.h (13 SLOC)
-- [ ] Window/Window.h (54 SLOC - Parially
+- [x] Window/Mouse.h (17 SLOC)
+- [x] Window/JoystickIdentification.h (6 SLOC)
+- [x] Window/Sensor.h (13 SLOC)
+- [x] Window/Window.h (54 SLOC
 - [x] Window/Context.h (8 SLOC)
-- [ ] Window/Cursor.h (19 SLOC)
-- [ ] Window/Joystick.h (24 SLOC)
+- [x] Window/Cursor.h (19 SLOC)
+- [x] Window/Joystick.h (24 SLOC)
 - [x] Window/VideoMode.h (9 SLOC)
-- [ ] Window/Keyboard.h (114 SLOC)
+- [x] Window/Keyboard.h (114 SLOC)
 - [ ] Graphics/RectangleShape.h (32 SLOC)
 - [ ] Graphics/RenderTexture.h (37 SLOC)
 - [ ] Graphics/RenderStates.h (8 SLOC)

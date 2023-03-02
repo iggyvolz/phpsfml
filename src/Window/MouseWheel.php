@@ -1,6 +1,6 @@
 <?php
 
-namespace iggyvolz\SFML\Window\Mouse;
+namespace iggyvolz\SFML\Window;
 
 enum MouseWheel: int
 {

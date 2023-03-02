@@ -448,9 +448,9 @@ extern sfWindowHandle sfWindow_getSystemHandle(const sfWindow* window);
 typedef void (*GlFunctionPointer)();
 extern sfContext* sfContext_create(void);
 extern void sfContext_destroy(sfContext* context);
-extern sfBool sfContext_isExtensionAvailable(const char* name);
+//extern sfBool sfContext_isExtensionAvailable(const char* name); // Doesn't bind on windows for some reason?
 extern sfBool sfContext_setActive(sfContext* context, sfBool active);
-extern GlFunctionPointer sfContext_getFunction(const char* name);
+//extern GlFunctionPointer sfContext_getFunction(const char* name); // Doesn't bind on windows for some reason?
 extern sfContextSettings sfContext_getSettings(const sfContext* context);
 extern sfUint64 sfContext_getActiveContextId();
 typedef enum
