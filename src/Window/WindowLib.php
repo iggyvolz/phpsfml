@@ -14,7 +14,6 @@ readonly class WindowLib
 
     public function __construct(
         string $libPath,
-        public readonly SystemLib $systemLib,
     )
     {
         $this->ffi = FFI::cdef(file_get_contents(__DIR__ . "/Window.h"), $libPath);

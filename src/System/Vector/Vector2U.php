@@ -4,6 +4,7 @@ namespace iggyvolz\SFML\System\Vector;
 
 use FFI\CData;
 use iggyvolz\SFML\System\SystemLib;
+use iggyvolz\SFML\Window\WindowLib;
 
 /**
  * 2-component vector of unsigned integers
@@ -21,7 +22,7 @@ readonly class Vector2U
     {
     }
 
-    public static function create(SystemLib $systemLib, int $x, int $y): self
+    public static function create(SystemLib|WindowLib $systemLib, int $x, int $y): self
     {
         $vector = $systemLib->ffi->new("sfVector2u");
         $vector->x = $x;

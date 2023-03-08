@@ -21,7 +21,7 @@ require_once __DIR__ . "/vendor/autoload.php";
 //$systemLib = new SystemLib(__DIR__ . "/CSFML/CSFML-2.5.1-windows-64-bit/bin/csfml-system-2.dll");
 //$windowLib = new WindowLib(__DIR__ . "/CSFML/CSFML-2.5.1-windows-64-bit/bin/csfml-window-2.dll", $systemLib);
 $systemLib = new SystemLib(__DIR__ . "/CSFML/lib/libcsfml-system.so");
-$windowLib = new WindowLib(__DIR__ . "/CSFML/lib/libcsfml-window.so", $systemLib);
+$windowLib = new WindowLib(__DIR__ . "/CSFML/lib/libcsfml-window.so");
 $window = Window::create(
     $windowLib,
     "abcdefghijklmnopqrstuvwxyz",

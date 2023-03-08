@@ -39,7 +39,7 @@ class Cursor
      */
     public static function createFromPixels(WindowLib $windowLib, PixelArray $pixels, Vector2U $hotspot): self
     {
-        return new self($windowLib, $windowLib->ffi->sfCursor_createFromPixels($pixels->CData, Vector2U::create($windowLib->systemLib, $pixels->width, $pixels->height)->cdata, $hotspot->cdata));
+        return new self($windowLib, $windowLib->ffi->sfCursor_createFromPixels($pixels->CData, Vector2U::create($windowLib, $pixels->width, $pixels->height)->cdata, $hotspot->cdata));
     }
 
     /**

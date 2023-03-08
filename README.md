@@ -1,51 +1,43 @@
-Bindings of [SFML](https://sfml-dev.org) for PHP using FFI (no extensions needed!).
+Bindings of [SFML](https://sfml-dev.org) for PHP using FFI (no custom extensions needed!).
 
 ## How to use
 *TODO: expand this out and provide actual examples*
 
 - Obtain the CSFML binaries for your platform (https://github.com/SFML/CSFML)
-- Create an AudioLib, GraphicsLib, NetworkLib, SystemLib, or WindowLib object with the path of the appropriate `.so` (Linux), `.dylib` (Mac) or `.dll` (Windows) library file
+- Create an AudioLib, GraphicsLib, SystemLib, or WindowLib object with the path of the appropriate `.so` (Linux), `.dylib` (Mac) or `.dll` (Windows) library file
 - Call functions and have fun!  Make sure to stay away from `@internal` stuff - there be ~~demons~~ implementation details!
 
 ## High level todos
 - Make sure everything is marked as `@internal` if for internal use
 - Provide a full demo w/ instructions on how to run
+- Make abstract classes for C objects - cleans up some of the __construct copy-pasta
+- Establish patterns for C-object-to-pointer vs C-object-to-struct (rough: go to pointer if there is a create and delete method, and/or if you only get a pointer returned on create)
+- Autogenerate most code from C (long-term pipe dream)
 
 ## APIs
 ### Audio
-Not yet started.
+Not yet started (0/9 files, 0/153 SLOC).
+
 ### Graphics
-Not yet started.
+Work in progress (8/27 files, 130/661 SLOC).
 
-Not sure how OpenGL is handled here - need to dig deeper once I get to it.  Might skip for right now or try and link up with some other OpenGL binding if one exists.  From my understanding it's possible to do all the "SFML-y" things without OpenGL so it might make sense to just provide an endpoint for an OpenGL context.
+Exciting things happen here.
+
 ### Network
-Not yet started.
-
-Of dubious use in PHP, which already has countless networking libraries.  Will probably do this one last or as a completion exercise.
+Not planning to port this one.  PHP has much better native networking capabilities, and the system in SFML is inherently limited.
 
 ### System
 Done!
 
-Thread support is... ah heck it segfaults instantly (as I expected).  Might come back and debug this at some point but the code is all there if you want to try.  Probably best to stick with single-threading for now or try parallel.
+Threading and mutexes are not supported as PHP does tons of ugly things with parallellism and it segfaults instantly.  Might want to look at the parallel extension instead.
 
 ### Window
 Done!
 
 Definitely needs a lot of testing, probably made some typos here.
 
-
 ## Status
-Per-Header status (2/5 systems - 31/69 files - 596/1544 SLOC):
-- [ ] Network/IpAddress.h (15 SLOC)
-- [ ] Network/SocketStatus.h (8 SLOC)
-- [ ] Network/SocketSelector.h (14 SLOC)
-- [ ] Network/Types.h (12 SLOC)
-- [ ] Network/TcpSocket.h (14 SLOC)
-- [ ] Network/Http.h (56 SLOC)
-- [ ] Network/TcpListener.h (7 SLOC)
-- [ ] Network/Ftp.h (95 SLOC)
-- [ ] Network/UdpSocket.h (12 SLOC)
-- [ ] Network/Packet.h (31 SLOC)
+Per-Header status (2.5/4 systems - 31/59 files - 596/1280 SLOC):
 - [x] Window/WindowHandle.h (7 SLOC)
 - [x] Window/Touch.h (2 SLOC)
 - [x] Window/Event.h (124 SLOC)
