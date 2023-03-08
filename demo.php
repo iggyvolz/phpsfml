@@ -1,5 +1,6 @@
 <?php
 
+use iggyvolz\SFML\System\Clock;
 use iggyvolz\SFML\System\SystemLib;
 use iggyvolz\SFML\Window\Event\ClosedEvent;
 use iggyvolz\SFML\Window\Event\JoystickConnectedEvent;
@@ -19,7 +20,7 @@ use Revolt\EventLoop;
 
 require_once __DIR__ . "/vendor/autoload.php";
 //$systemLib = new SystemLib(__DIR__ . "/CSFML/CSFML-2.5.1-windows-64-bit/bin/csfml-system-2.dll");
-//$windowLib = new WindowLib(__DIR__ . "/CSFML/CSFML-2.5.1-windows-64-bit/bin/csfml-window-2.dll", $systemLib);
+//$windowLib = new WindowLib(__DIR__ . "/CSFML/CSFML-2.5.1-windows-64-bit/bin/csfml-window-2.dll");
 $systemLib = new SystemLib(__DIR__ . "/CSFML/lib/libcsfml-system.so");
 $windowLib = new WindowLib(__DIR__ . "/CSFML/lib/libcsfml-window.so");
 $window = Window::create(
@@ -66,6 +67,14 @@ $listener->subscribeTo(JoystickConnectedEvent::class, function(JoystickConnected
         } else {
             echo "Does not have axis " . $axis->name . "\n";
         }
+    }
+});
+$clock = Clock::create($systemLib);
+EventLoop::repeat(1/60, function(string $id) use($window, $clock) {
+    $time = $clock->restart();
+    echo 1000 / $time->asMilliseconds() . " FPS\n";
+    if(!$window->isOpen()) {
+        EventLoop::cancel($id);
     }
 });
 EventLoop::run();
