@@ -20,9 +20,10 @@ abstract class JoystickMoveDataEvent extends Event
     )
     {
         parent::__construct($window);
-        $this->JoystickId = $cdata->joystickButton->joystickId;
-        $this->Axis = JoystickAxis::from($cdata->joystickButton->axis);
-        $this->Position = $cdata->joystickButton->position;
+        var_dump($cdata);
+        $this->JoystickId = $cdata->joystickMove->joystickId;
+        $this->Axis = JoystickAxis::from($cdata->joystickMove->axis);
+        $this->Position = $cdata->joystickMove->position;
 
     }
 
