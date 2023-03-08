@@ -10,7 +10,7 @@ readonly class InputStream implements InputStreamInterface
     public function __construct(
         private SystemLib $systemLib,
         // sfInputStream
-        private CData     $cdata
+        public CData     $cdata
     )
     {
     }
