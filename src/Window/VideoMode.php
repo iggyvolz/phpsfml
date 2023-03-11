@@ -2,6 +2,7 @@
 
 namespace iggyvolz\SFML\Window;
 
+use FFI;
 use FFI\CData;
 
 /**
@@ -24,12 +25,13 @@ class VideoMode
         WindowLib $windowLib,
         int $width,
         int $height,
-        int $bitsPerPixel,
-    ) {
+        int $bitsPerPixel = 32,
+    ): self {
         $self = new self($windowLib, $windowLib->ffi->new("sfVideoMode"));
         $self->setWidth($width);
         $self->setHeight($height);
         $self->setBitsPerPixel($bitsPerPixel);
+        return $self;
     }
 
     /**
@@ -109,7 +111,7 @@ class VideoMode
     {
         $ret = [];
         $count = $windowLib->ffi->new("size_t");
-        $modes = $windowLib->ffi->sfVideoMode_getFullscreenModes(\FFI::addr($count));
+        $modes = $windowLib->ffi->sfVideoMode_getFullscreenModes(FFI::addr($count));
         for($i = 0; $i < $count->cdata; $i++) {
             $ret[]= new self($windowLib, $modes[$i]);
         }

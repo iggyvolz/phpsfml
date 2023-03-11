@@ -81,10 +81,10 @@ readonly class WindowLib
      * This function returns the current touch position
      * relative to the given window, or desktop if NULL is passed.
      * @param int $finger Finger index
-     * @param Window|null $relativeTo Reference window
+     * @param StandardWindow|null $relativeTo Reference window
      * @return Vector2I Current position of a finger, or undefined if it's not down
      */
-    public function getTouchPosition(int $finger, ?Window $relativeTo = null): Vector2I
+    public function getTouchPosition(int $finger, ?StandardWindow $relativeTo = null): Vector2I
     {
         return new Vector2I($this->ffi->sfTouch_getPosition($finger, $relativeTo?->cdata));
     }
@@ -105,10 +105,10 @@ readonly class WindowLib
      *
      * This function returns the current position of the mouse
      * cursor relative to the given window, or desktop if NULL is passed.
-     * @param Window|null $relativeTo Reference window
+     * @param StandardWindow|null $relativeTo Reference window
      * @return Vector2I Position of the mouse cursor, relative to the given window
      */
-    public function getMousePosition(?Window $relativeTo = null): Vector2I
+    public function getMousePosition(?StandardWindow $relativeTo = null): Vector2I
     {
         return $this->ffi->sfMouse_getPosition($relativeTo?->cdata);
     }
@@ -119,9 +119,9 @@ readonly class WindowLib
      * This function sets the current position of the mouse
      * cursor relative to the given window, or desktop if NULL is passed.
      * @param Vector2I $position New position of the mouse
-     * @param Window|null $relativeTo Reference window
+     * @param StandardWindow|null $relativeTo Reference window
      */
-    public function setMousePosition(Vector2I $position, ?Window $relativeTo = null): void
+    public function setMousePosition(Vector2I $position, ?StandardWindow $relativeTo = null): void
     {
         $this->ffi->sfMouse_setPosition($position->cdata, $relativeTo?->cdata);
     }

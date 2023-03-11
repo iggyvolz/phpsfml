@@ -7,9 +7,9 @@ use FFI\CData;
 class Glyph
 {
     public function __construct(
-        private GraphicsLib $graphicsLib,
+        private readonly GraphicsLib $graphicsLib,
         // sfGlyph
-        public CData $cdata
+        public CData                 $cdata
     )
     {
     }

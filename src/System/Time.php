@@ -3,6 +3,7 @@
 namespace iggyvolz\SFML\System;
 
 use FFI\CData;
+use iggyvolz\SFML\Audio\AudioLib;
 
 /**
  * Represents a time value
@@ -11,7 +12,7 @@ use FFI\CData;
 readonly class Time
 {
     public function __construct(
-        private SystemLib $systemLib,
+        private SystemLib|AudioLib $systemLib,
         // sfTime
         /**
          * @internal

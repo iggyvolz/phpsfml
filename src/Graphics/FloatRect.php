@@ -9,9 +9,9 @@ class FloatRect
 {
 
     public function __construct(
-        private GraphicsLib $graphicsLib,
+        private readonly GraphicsLib $graphicsLib,
         // sfFloatRect
-        public CData $cdata
+        public CData                 $cdata
     )
     {
     }
@@ -84,7 +84,7 @@ class FloatRect
         float $top,
         float $right,
         float $bottom,
-    ) {
+    ): self {
         $self = new self($graphicsLib, $graphicsLib->ffi->new("sfFloatRect"));
         $self->setLeft($left);
         $self->setTop($top);

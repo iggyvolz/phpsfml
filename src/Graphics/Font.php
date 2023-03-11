@@ -11,9 +11,9 @@ use iggyvolz\SFML\Utils\UTF32;
 class Font
 {
     public function __construct(
-        private GraphicsLib $graphicsLib,
+        private readonly GraphicsLib $graphicsLib,
         // sfFont*
-        public CData $cdata
+        public CData                 $cdata
     )
     {
     }

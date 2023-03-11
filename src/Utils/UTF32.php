@@ -5,11 +5,11 @@ namespace iggyvolz\SFML\Utils;
 use FFI;
 use FFI\CData;
 
-class UTF32
+readonly class UTF32
 {
     public function __construct(
         // const uint32_t*
-        public readonly CData $cdata
+        public CData $cdata
     )
     {
     }

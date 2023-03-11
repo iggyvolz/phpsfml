@@ -5,11 +5,11 @@ namespace iggyvolz\SFML\Graphics;
 use FFI\CData;
 use iggyvolz\SFML\Window\WindowLib;
 
-class BlendMode
+readonly class BlendMode
 {
     public function __construct(
         // sfBlendMode
-        public readonly CData $cdata
+        public CData $cdata
     )
     {
     }

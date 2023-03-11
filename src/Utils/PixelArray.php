@@ -4,31 +4,32 @@ namespace iggyvolz\SFML\Utils;
 
 use FFI;
 use FFI\CData;
+use InvalidArgumentException;
 
-class PixelArray
+readonly class PixelArray
 {
     public function __construct(
         /** @internal */
-        public readonly CData $CData,
-        public readonly int $width,
-        public readonly int $height,
+        public CData $cdata,
+        public int   $width,
+        public int   $height,
     )
     {
     }
     public function create(array $pixels): self
     {
         if(!array_is_list($pixels)) {
-            throw new \InvalidArgumentException("Pixels must be a list");
+            throw new InvalidArgumentException("Pixels must be a list");
         }
         if(empty($pixels)) {
-            throw new \InvalidArgumentException("Non-empty array required");
+            throw new InvalidArgumentException("Non-empty array required");
         }
         $height = count($pixels);
         $width = count($pixels[0]);
         // verify that each row is the same number of pixels wide
         foreach ($pixels as $row) {
             if(count($row) !== $width) {
-                throw new \InvalidArgumentException("All rows must be the same number of pixels wide");
+                throw new InvalidArgumentException("All rows must be the same number of pixels wide");
             }
         }
         // flatten pixels array

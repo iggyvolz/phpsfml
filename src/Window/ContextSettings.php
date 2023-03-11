@@ -3,6 +3,7 @@
 namespace iggyvolz\SFML\Window;
 
 use FFI\CData;
+use iggyvolz\SFML\Graphics\GraphicsLib;
 
 /**
  * Structure defining the window's creation settings
@@ -10,7 +11,6 @@ use FFI\CData;
 class ContextSettings
 {
     public function __construct(
-        private readonly WindowLib $windowLib,
         // sfContextSettings*
         /** @internal  */
         public /* [almost] readonly */ CData $cdata
@@ -22,7 +22,7 @@ class ContextSettings
      * @param list<ContextAttribute> $contextAttributes
      */
     public static function create(
-        WindowLib $windowLib,
+        WindowLib|GraphicsLib $windowLib,
         int $depthBits = 0,
         int $stencilBits = 0,
         int $antialiasingLevel = 0,
@@ -31,7 +31,7 @@ class ContextSettings
         array $contextAttributes = ContextAttribute::default,
         bool $srgbCapable = false,
     ): self{
-        $self = new self($windowLib, $windowLib->ffi->new("sfContextSettings"));
+        $self = new self($windowLib->ffi->new("sfContextSettings"));
         $self->setDepthBits($depthBits);
         $self->setStencilBits($stencilBits);
         $self->setAntialiasingLevel($antialiasingLevel);

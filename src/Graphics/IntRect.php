@@ -8,9 +8,9 @@ use FFI\CData;
 class IntRect
 {
     public function __construct(
-        private GraphicsLib $graphicsLib,
+        private readonly GraphicsLib $graphicsLib,
         // sfIntRect
-        public CData $cdata
+        public CData                 $cdata
     )
     {
     }
@@ -83,7 +83,7 @@ class IntRect
         int $top,
         int $right,
         int $bottom,
-    ) {
+    ): self {
         $self = new self($graphicsLib, $graphicsLib->ffi->new("sfIntRect"));
         $self->setLeft($left);
         $self->setTop($top);

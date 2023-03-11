@@ -1,18 +1,18 @@
 <?php
 
+use iggyvolz\SFML\Event\ClosedEvent;
+use iggyvolz\SFML\Event\JoystickConnectedEvent;
+use iggyvolz\SFML\Event\KeyPressedEvent;
+use iggyvolz\SFML\Graphics\CircleShape;
+use iggyvolz\SFML\Graphics\Color;
+use iggyvolz\SFML\Graphics\GraphicsLib;
+use iggyvolz\SFML\Graphics\RectangleShape;
+use iggyvolz\SFML\Graphics\RenderWindow;
 use iggyvolz\SFML\System\Clock;
 use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\Window\Event\ClosedEvent;
-use iggyvolz\SFML\Window\Event\JoystickConnectedEvent;
-use iggyvolz\SFML\Window\Event\KeyPressedEvent;
-use iggyvolz\SFML\Window\Event\KeyReleasedEvent;
-use iggyvolz\SFML\Window\Event\MouseButtonPressedEvent;
-use iggyvolz\SFML\Window\Event\MouseButtonReleasedEvent;
-use iggyvolz\SFML\Window\Event\MouseMovedEvent;
-use iggyvolz\SFML\Window\Event\MouseWheelScrolledEvent;
+use iggyvolz\SFML\System\Vector\Vector2F;
 use iggyvolz\SFML\Window\JoystickAxis;
 use iggyvolz\SFML\Window\KeyCode;
-use iggyvolz\SFML\Window\Window;
 use iggyvolz\SFML\Window\WindowLib;
 use League\Event\EventDispatcher;
 use League\Event\ListenerRegistry;
@@ -23,7 +23,9 @@ require_once __DIR__ . "/vendor/autoload.php";
 //$windowLib = new WindowLib(__DIR__ . "/CSFML/CSFML-2.5.1-windows-64-bit/bin/csfml-window-2.dll");
 $systemLib = new SystemLib(__DIR__ . "/CSFML/lib/libcsfml-system.so");
 $windowLib = new WindowLib(__DIR__ . "/CSFML/lib/libcsfml-window.so");
-$window = Window::create(
+$graphicsLib = new GraphicsLib(__DIR__ . "/CSFML/lib/libcsfml-graphics.so");
+$window = RenderWindow::create(
+    $graphicsLib,
     $windowLib,
     "abcdefghijklmnopqrstuvwxyz",
     eventDispatcher: $listener = new EventDispatcher(),
@@ -70,11 +72,16 @@ $listener->subscribeTo(JoystickConnectedEvent::class, function(JoystickConnected
     }
 });
 $clock = Clock::create($systemLib);
-EventLoop::repeat(1/60, function(string $id) use($window, $clock) {
+$rect = CircleShape::create($graphicsLib, 50);
+$rect->setFillColor(Color::createFromRGB($graphicsLib, 80, 80, 80));
+EventLoop::repeat(1/60, function(string $id) use($window, $clock, $rect) {
     $time = $clock->restart();
     echo 1000 / $time->asMilliseconds() . " FPS\n";
     if(!$window->isOpen()) {
         EventLoop::cancel($id);
     }
+    $window->clear();
+    $rect->draw($window);
+    $window->display();
 });
 EventLoop::run();

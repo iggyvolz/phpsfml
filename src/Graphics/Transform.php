@@ -10,9 +10,9 @@ class Transform
 {
 
     public function __construct(
-        private GraphicsLib $graphicsLib,
+        private readonly GraphicsLib $graphicsLib,
         // sfTransform
-        public CData $cdata
+        public CData                 $cdata
     )
     {
     }

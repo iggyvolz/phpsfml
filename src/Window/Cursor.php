@@ -6,13 +6,13 @@ use FFI\CData;
 use iggyvolz\SFML\System\Vector\Vector2U;
 use iggyvolz\SFML\Utils\PixelArray;
 
-class Cursor
+readonly class Cursor
 {
 
     public function __construct(
-        private readonly WindowLib $windowLib,
+        private WindowLib $windowLib,
         // sfCursor*
-        public readonly CData $cdata
+        public CData      $cdata
     )
     {
     }
@@ -39,7 +39,7 @@ class Cursor
      */
     public static function createFromPixels(WindowLib $windowLib, PixelArray $pixels, Vector2U $hotspot): self
     {
-        return new self($windowLib, $windowLib->ffi->sfCursor_createFromPixels($pixels->CData, Vector2U::create($windowLib, $pixels->width, $pixels->height)->cdata, $hotspot->cdata));
+        return new self($windowLib, $windowLib->ffi->sfCursor_createFromPixels($pixels->cdata, Vector2U::create($windowLib, $pixels->width, $pixels->height)->cdata, $hotspot->cdata));
     }
 
     /**
