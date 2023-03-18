@@ -16,8 +16,6 @@ use iggyvolz\SFML\Window\VideoMode;
 use iggyvolz\SFML\Window\Window;
 use iggyvolz\SFML\Window\WindowLib;
 use iggyvolz\SFML\Window\WindowStyle;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use Revolt\EventLoop;
 
 class RenderWindow implements Window, RenderTarget
 {
@@ -38,7 +36,6 @@ class RenderWindow implements Window, RenderTarget
         array $windowStyle = WindowStyle::default,
         ?ContextSettings $contextSettings = null,
         string $titleEncoding = "UTF-8",
-        ?EventDispatcherInterface $eventDispatcher = null,
     ): RenderWindow
     {
 
@@ -50,9 +47,6 @@ class RenderWindow implements Window, RenderTarget
             WindowStyle::toInt(...$windowStyle),
             FFI::addr($graphicsLib->ffi->cast("sfContextSettings", $contextSettings->cdata)),
         ));
-        if($eventDispatcher) {
-            $self->addEventHandler($eventDispatcher);
-        }
         return $self;
     }
 
@@ -115,20 +109,6 @@ class RenderWindow implements Window, RenderTarget
     {
         $this->graphicsLib->ffi->sfRenderWindow_resetGLStates($this->cdata);
     }
-
-
-    protected function addEventHandler(EventDispatcherInterface $eventDispatcher): void
-    {
-        EventLoop::repeat(0, function (string $id) use ($eventDispatcher) {
-            if(!$this->isOpen()) {
-                EventLoop::cancel($id);
-            }
-            if($event = $this->pollEvent()) {
-                $eventDispatcher->dispatch($event);
-            }
-        });
-    }
-
 
     /**
      * Close a window and destroy all the attached resources

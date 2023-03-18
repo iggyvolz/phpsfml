@@ -9,8 +9,6 @@ use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector2U;
 use iggyvolz\SFML\Utils\PixelArray;
 use iggyvolz\SFML\Utils\UTF32;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use Revolt\EventLoop;
 
 class StandardWindow implements Window
 {
@@ -26,9 +24,6 @@ class StandardWindow implements Window
     /**
      * Creates a window.
      *
-     * If given an EventDispatcher, a callback will be added to the
-     * \Revolt\EventLoop to poll the event and dispatch it with the given dispatcher.
-     * If not, you will need to manually call pollEvent() to avoid the window not responding.
      * @param list<WindowStyle> $windowStyle
      */
     public static function create(
@@ -38,7 +33,6 @@ class StandardWindow implements Window
         array $windowStyle = WindowStyle::default,
         ?ContextSettings $contextSettings = null,
         string $titleEncoding = "UTF-8",
-        ?EventDispatcherInterface $eventDispatcher = null,
     ): self
     {
         $videoMode ??= VideoMode::getDesktopMode($windowLib);
@@ -49,9 +43,6 @@ class StandardWindow implements Window
             WindowStyle::toInt(...$windowStyle),
             FFI::addr($contextSettings->cdata),
         ));
-        if($eventDispatcher) {
-            $self->addEventHandler($eventDispatcher);
-        }
         return $self;
     }
 
@@ -389,17 +380,5 @@ class StandardWindow implements Window
     public function __destruct()
     {
         $this->windowLib->ffi->sfWindow_destroy($this->cdata);
-    }
-
-    protected function addEventHandler(EventDispatcherInterface $eventDispatcher): void
-    {
-        EventLoop::repeat(0, function (string $id) use ($eventDispatcher) {
-            if(!$this->isOpen()) {
-                EventLoop::cancel($id);
-            }
-            if($event = $this->pollEvent()) {
-                $eventDispatcher->dispatch($event);
-            }
-        });
     }
 }

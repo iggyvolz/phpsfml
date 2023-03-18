@@ -12,9 +12,6 @@ use iggyvolz\SFML\Graphics\Texture;
 use iggyvolz\SFML\System\SystemLib;
 use iggyvolz\SFML\Window\VideoMode;
 use iggyvolz\SFML\Window\WindowLib;
-use League\Event\EventDispatcher;
-use League\Event\ListenerRegistry;
-use Revolt\EventLoop;
 
 require_once __DIR__ . "/vendor/autoload.php";
 $systemLib = new SystemLib(__DIR__ . "/CSFML/lib/libcsfml-system.so");
@@ -23,8 +20,7 @@ $graphicsLib = new GraphicsLib(__DIR__ . "/CSFML/lib/libcsfml-graphics.so");
 $audioLib = new AudioLib(__DIR__ . "/CSFML/lib/libcsfml-audio.so");
 $window = RenderWindow::create(
     $graphicsLib, $windowLib, "SFML window",
-    VideoMode::create($windowLib, 800, 600),
-    eventDispatcher: $listener = new EventDispatcher()
+    VideoMode::create($windowLib, 800, 600)
 );
 $texture = Texture::createFromFile($graphicsLib, __DIR__ . "/demo/cute_image.jpg") ?? throw new RuntimeException();
 $sprite = Sprite::create($graphicsLib) ?? throw new RuntimeException();
@@ -36,17 +32,14 @@ $text->setFont($font);
 $text->setCharacterSize(50);
 $music = Music::createFromFile($audioLib, __DIR__ . "/demo/nice_music.ogg") ?? throw new RuntimeException();
 $music->play();
-/** @var ListenerRegistry $listener */
-$listener->subscribeTo(ClosedEvent::class, function(ClosedEvent $e): void {
-    $e->window->close();
-});
-EventLoop::repeat(1/60, function(string $id) use($text, $sprite, $window) {
-    if(!$window->isOpen()) {
-        EventLoop::cancel($id);
+while($window->isOpen()) {
+    if($event = $window->pollEvent()) {
+        if($event instanceof ClosedEvent) {
+            $window->close();
+        }
     }
     $window->clear();
     $window->draw($sprite);
     $window->draw($text);
     $window->display();
-});
-EventLoop::run();
+}

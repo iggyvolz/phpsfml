@@ -8,15 +8,10 @@
       "email": "iggyvolz@gmail.com"
     }
   ],
-  "suggest": {
-    "league/event": "An event dispatcher"
-  },
   "require": {
     "php": "^8.2",
     "ext-ffi": "*",
-    "ext-mbstring": "*",
-    "revolt/event-loop": "^1.0",
-    "psr/event-dispatcher": "^1.0"
+    "ext-mbstring": "*"
   },
   "require-dev": {
     "nette/tester": "^2",
