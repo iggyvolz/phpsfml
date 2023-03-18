@@ -1,7 +1,7 @@
 {
   "name": "iggyvolz/phpsfml",
   "description": "PHP bindings for SFML",
-  "license": "0BSD",
+  "license": "BSD0",
   "authors": [
     {
       "name": "Katie \"iggy\" Volz",
