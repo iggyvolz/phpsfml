@@ -2,8 +2,6 @@
 
 namespace iggyvolz\SFML\Window;
 
-use FFI\CData;
-use iggyvolz\SFML\Graphics\GraphicsLib;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\CType;
 

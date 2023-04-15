@@ -2,6 +2,7 @@
 
 namespace iggyvolz\SFML\Utils;
 
+use FFI;
 use FFI\CData;
 
 /**
@@ -9,7 +10,7 @@ use FFI\CData;
  */
 final class FFIProxy
 {
-    public function __construct(private \FFI $ffi)
+    public function __construct(private FFI $ffi)
     {
     }
     public function __call(string $name, array $arguments): mixed

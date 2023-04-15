@@ -1,20 +1,17 @@
 <?php
 
-use iggyvolz\SFML\Audio\AudioLib;
 use iggyvolz\SFML\Audio\Music;
 use iggyvolz\SFML\Graphics\Font;
-use iggyvolz\SFML\Graphics\GraphicsLib;
 use iggyvolz\SFML\Graphics\RenderWindow;
 use iggyvolz\SFML\Graphics\Sprite;
 use iggyvolz\SFML\Graphics\Text;
 use iggyvolz\SFML\Graphics\Texture;
-use iggyvolz\SFML\System\SystemLib;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Window\Event\ClosedEvent;
 use iggyvolz\SFML\Window\VideoMode;
-use iggyvolz\SFML\Window\WindowLib;
 
 require_once __DIR__ . "/vendor/autoload.php";
-$sfml = new \iggyvolz\SFML\Sfml(
+$sfml = new Sfml(
     __DIR__ . "/../CSFML/lib/libcsfml-audio.so",
     __DIR__ . "/../CSFML/lib/libcsfml-graphics.so",
     __DIR__ . "/../CSFML/lib/libcsfml-network.so",

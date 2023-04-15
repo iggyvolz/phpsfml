@@ -2,7 +2,6 @@
 
 namespace iggyvolz\SFML\Window;
 
-use FFI\CData;
 use iggyvolz\SFML\Utils\CType;
 
 #[CType("sfJoystickIdentification")]

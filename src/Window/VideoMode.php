@@ -3,7 +3,6 @@
 namespace iggyvolz\SFML\Window;
 
 use FFI;
-use FFI\CData;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\CType;
 

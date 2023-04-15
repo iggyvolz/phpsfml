@@ -1,7 +1,6 @@
 <?php
 
 namespace iggyvolz\SFML\Network;
-use FFI;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\Lib;
 

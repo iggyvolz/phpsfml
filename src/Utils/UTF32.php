@@ -3,7 +3,6 @@
 namespace iggyvolz\SFML\Utils;
 
 use FFI;
-use FFI\CData;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\SystemObject;
 #[CType("uint32_t*")]

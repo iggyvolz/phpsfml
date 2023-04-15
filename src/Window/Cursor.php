@@ -2,7 +2,6 @@
 
 namespace iggyvolz\SFML\Window;
 
-use FFI\CData;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2U;
 use iggyvolz\SFML\Utils\CType;

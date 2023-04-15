@@ -3,7 +3,6 @@
 namespace iggyvolz\SFML\Graphics;
 
 use FFI;
-use FFI\CData;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\InputStream;
 use iggyvolz\SFML\System\Vector\Vector2U;

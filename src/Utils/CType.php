@@ -2,7 +2,9 @@
 
 namespace iggyvolz\SFML\Utils;
 
-#[\Attribute]
+use Attribute;
+
+#[Attribute]
 final readonly class CType
 {
     public function __construct(public string $type)

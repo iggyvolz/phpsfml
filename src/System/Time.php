@@ -2,8 +2,6 @@
 
 namespace iggyvolz\SFML\System;
 
-use FFI\CData;
-use iggyvolz\SFML\Audio\AudioLib;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\CType;
 
