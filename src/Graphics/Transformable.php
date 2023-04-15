@@ -5,7 +5,7 @@ namespace iggyvolz\SFML\Graphics;
 use iggyvolz\SFML\System\Vector\Vector2F;
 use iggyvolz\SFML\Utils\ISfmlObject;
 
-interface Transformable extends ISfmlObject
+interface Transformable
 {
     public function setPosition(Vector2F $position): void;
     public function setRotation(float $angle): void;
