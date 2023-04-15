@@ -4,7 +4,6 @@ use iggyvolz\SFML\Audio\AudioLib;
 use iggyvolz\SFML\Graphics\GraphicsLib;
 use iggyvolz\SFML\Network\NetworkLib;
 use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\System\Time;
 use iggyvolz\SFML\Window\WindowLib;
 use Tester\Assert;
 use Tester\Environment;

@@ -2,62 +2,54 @@
 
 namespace iggyvolz\SFML\Graphics;
 
-use FFI\CData;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
-class RenderStates
+#[CType("sfRenderStates")]
+class RenderStates extends GraphicsObject
 {
-    public function __construct(
-        public readonly GraphicsLib $graphicsLib,
-        // sfRenderStates
-        /**
-         * @internal
-         */
-        public CData $cdata,
-    )
-    {
-    }
-    public function create(
-        GraphicsLib $graphicsLib,
+    public static function create(
+        Sfml $sfml,
         Transform $transform,
         Texture $texture,
         Shader $shader,
     ): self
     {
-        $obj = $graphicsLib->ffi->new("sfRenderStates");
-        $this->setTransform($transform);
-        $this->setTexture($texture);
-        $this->setShader($shader);
-        return new self($graphicsLib, $obj);
+        $self = static::newObject($sfml);
+        $self->setTransform($transform);
+        $self->setTexture($texture);
+        $self->setShader($shader);
+        return $self;
     }
-    public static function default(GraphicsLib $graphicsLib): self
+    public static function default(Sfml $sfml): self
     {
-        return new self($graphicsLib, $graphicsLib->ffi->sfRenderStates_default());
+        return new self($sfml, $sfml->graphics->ffi->sfRenderStates_default());
     }
 
     public function setTransform(Transform $transform): void
     {
-        $this->cdata->transform = $transform->cdata;
+        $this->cdata->transform = $transform->asGraphics();
     }
     public function getTransform(): Transform
     {
-        return new Transform($this->graphicsLib, $this->cdata->transform);
+        return new Transform($this->sfml, $this->cdata->transform);
     }
 
     public function setTexture(Texture $texture): void
     {
-        $this->cdata->texture = $texture->cdata;
+        $this->cdata->texture = $texture->asGraphics();
     }
     public function getTexture(): Texture
     {
-        return new Texture($this->graphicsLib, $this->cdata->texture);
+        return new Texture($this->sfml, $this->cdata->texture);
     }
 
     public function setShader(Shader $shader): void
     {
-        $this->cdata->shader = $shader->cdata;
+        $this->cdata->shader = $shader->asGraphics();
     }
     public function getShader(): Shader
     {
-        return new Shader($this->graphicsLib, $this->cdata->shader);
+        return new Shader($this->sfml, $this->cdata->shader);
     }
 }

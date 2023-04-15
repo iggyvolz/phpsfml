@@ -3,8 +3,9 @@
 namespace iggyvolz\SFML\Audio;
 
 use iggyvolz\SFML\System\Vector\Vector3F;
+use iggyvolz\SFML\Utils\ISfmlObject;
 
-interface SoundSource
+interface SoundSource extends ISfmlObject
 {
     public function setPitch(float $pitch): void;
     public function setVolume(float $volume): void;

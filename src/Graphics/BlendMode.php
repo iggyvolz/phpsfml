@@ -2,18 +2,12 @@
 
 namespace iggyvolz\SFML\Graphics;
 
-use FFI\CData;
-use iggyvolz\SFML\Window\WindowLib;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
-readonly class BlendMode
+#[CType("sfBlendMode")]
+class BlendMode extends GraphicsObject
 {
-    public function __construct(
-        // sfBlendMode
-        public CData $cdata
-    )
-    {
-    }
-
     /**
      * @param BlendFactor $colorSrcFactor Source blending factor for the color channels
      * @param BlendFactor $colorDstFactor Destination blending factor for the color channels
@@ -23,7 +17,7 @@ readonly class BlendMode
      * @param BlendEquation $alphaEquation Blending equation for the alpha channel
      */
     public function create(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         BlendFactor $colorSrcFactor,
         BlendFactor $colorDstFactor,
         BlendEquation $colorEquation,
@@ -31,7 +25,7 @@ readonly class BlendMode
         BlendFactor $alphaDstFactor,
         BlendEquation $alphaEquation,
     ): self {
-        $self = new self($graphicsLib->ffi->new("sfBlendMode"));
+        $self = static::newObject($sfml);
         $self->setColorSrcFactor($colorSrcFactor);
         $self->setColorDstFactor($colorDstFactor);
         $self->setColorEquation($colorEquation);
@@ -45,100 +39,100 @@ readonly class BlendMode
      * @return BlendFactor Source blending factor for the color channels
      */
     public function getColorSrcFactor(): BlendFactor {
-        return $this->cdata->colorSrcFactor;
+        return BlendFactor::from($this->cdata->colorSrcFactor);
     }
     /**
      * @param BlendFactor $colorSrcFactor Source blending factor for the color channels
      */
     public function setColorSrcFactor(BlendFactor $colorSrcFactor): void {
-        $this->cdata->colorSrcFactor = $colorSrcFactor;
+        $this->cdata->colorSrcFactor = $colorSrcFactor->value;
     }
     /**
      * @return BlendFactor Destination blending factor for the color channels
      */
     public function getColorDstFactor(): BlendFactor {
-        return $this->cdata->colorDstFactor;
+        return BlendFactor::from($this->cdata->colorDstFactor);
     }
     /**
      * @param BlendFactor $colorDstFactor Destination blending factor for the color channels
      */
     public function setColorDstFactor(BlendFactor $colorDstFactor): void {
-        $this->cdata->colorDstFactor = $colorDstFactor;
+        $this->cdata->colorDstFactor = $colorDstFactor->value;
     }
     /**
      * @return BlendEquation Blending equation for the color channels
      */
     public function getColorEquation(): BlendEquation {
-        return $this->cdata->colorEquation;
+        return BlendEquation::from($this->cdata->colorEquation);
     }
     /**
      * @param BlendEquation $colorEquation Blending equation for the color channels
      */
     public function setColorEquation(BlendEquation $colorEquation): void {
-        $this->cdata->colorEquation = $colorEquation;
+        $this->cdata->colorEquation = $colorEquation->value;
     }
     /**
      * @return BlendFactor Source blending factor for the alpha channel
      */
     public function getAlphaSrcFactor(): BlendFactor {
-        return $this->cdata->alphaSrcFactor;
+        return BlendFactor::from($this->cdata->alphaSrcFactor);
     }
     /**
      * @param BlendFactor $alphaSrcFactor Source blending factor for the alpha channel
      */
     public function setAlphaSrcFactor(BlendFactor $alphaSrcFactor): void {
-        $this->cdata->alphaSrcFactor = $alphaSrcFactor;
+        $this->cdata->alphaSrcFactor = $alphaSrcFactor->value;
     }
     /**
      * @return BlendFactor Destination blending factor for the alpha channel
      */
     public function getAlphaDstFactor(): BlendFactor {
-        return $this->cdata->alphaDstFactor;
+        return BlendFactor::from($this->cdata->alphaDstFactor);
     }
     /**
      * @param BlendFactor $alphaDstFactor Destination blending factor for the alpha channel
      */
     public function setAlphaDstFactor(BlendFactor $alphaDstFactor): void {
-        $this->cdata->alphaDstFactor = $alphaDstFactor;
+        $this->cdata->alphaDstFactor = $alphaDstFactor->value;
     }
     /**
      * @return BlendEquation Blending equation for the alpha channel
      */
     public function getAlphaEquation(): BlendEquation {
-        return $this->cdata->alphaEquation;
+        return BlendEquation::from($this->cdata->alphaEquation);
     }
     /**
      * @param BlendEquation $alphaEquation Blending equation for the alpha channel
      */
     public function setAlphaEquation(BlendEquation $alphaEquation): void {
-        $this->cdata->alphaEquation = $alphaEquation;
+        $this->cdata->alphaEquation = $alphaEquation->value;
     }
 
     /**
      * @return self Blend source and dest according to dest alpha
      */
-    public static function getBlendAlpha(GraphicsLib $graphicsLib): self {
-        return $graphicsLib->ffi->sfBlendAlpha;
+    public static function getBlendAlpha(Sfml $sfml): self {
+        return new self($sfml, $sfml->graphics->ffi->sfBlendAlpha);
     }
 
     /**
      * @return self Add source to dest
      */
-    public static function getBlendAdd(GraphicsLib $graphicsLib): self {
-        return $graphicsLib->ffi->sfBlendAdd;
+    public static function getBlendAdd(Sfml $sfml): self {
+        return new self($sfml, $sfml->graphics->ffi->sfBlendAdd);
     }
 
     /**
      * @return self Multiply source and dest
      */
-    public static function getBlendMultiply(GraphicsLib $graphicsLib): self {
-        return $graphicsLib->ffi->sfBlendMultiply;
+    public static function getBlendMultiply(Sfml $sfml): self {
+        return new self($sfml, $sfml->graphics->ffi->sfBlendMultiply);
     }
 
     /**
      * @return self Overwrite dest with source
      */
-    public static function getBlendNone(GraphicsLib $graphicsLib): self {
-        return $graphicsLib->ffi->sfBlendNone;
+    public static function getBlendNone(Sfml $sfml): self {
+        return new self($sfml, $sfml->graphics->ffi->sfBlendNone);
     }
 }

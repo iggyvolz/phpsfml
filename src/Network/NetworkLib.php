@@ -2,15 +2,13 @@
 
 namespace iggyvolz\SFML\Network;
 use FFI;
-use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\System\Time;
-use iggyvolz\SFML\Window\WindowLib;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\Lib;
 
-readonly class NetworkLib
+readonly class NetworkLib extends Lib
 {
-    public FFI $ffi;
-    public function __construct(string $libPath)
+    public function __construct(Sfml $sfml, string $libPath)
     {
-        $this->ffi = FFI::cdef(file_get_contents(__DIR__ . "/Network.h"), $libPath);
+        parent::__construct($sfml, __DIR__ . "/Network.h", $libPath);
     }
 }

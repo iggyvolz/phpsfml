@@ -2,32 +2,24 @@
 
 namespace iggyvolz\SFML\System\Vector;
 
-use FFI\CData;
-use iggyvolz\SFML\System\SystemLib;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\System\SystemObject;
+use iggyvolz\SFML\Utils\CType;
 
 /**
  * 3-component vector of floats
  * @see System/Vector3.h
  */
-readonly class Vector3F
+#[CType("sfVector3f")]
+class Vector3F extends SystemObject
 {
-    public function __construct(
-        // sfVector3f
-        /**
-         * @internal
-         */
-        public CData $cdata
-    )
+    public static function create(Sfml $sfml, float $x, float $y, float $z): self
     {
-    }
-
-    public static function create(SystemLib $systemLib, float $x, float $y, float $z): self
-    {
-        $vector = $systemLib->ffi->new("sfVector3f");
-        $vector->x = $x;
-        $vector->y = $y;
-        $vector->z = $z;
-        return new self($vector);
+        $self = static::newObject($sfml);
+        $self->setX($x);
+        $self->setY($y);
+        $self->setZ($z);
+        return $self;
     }
     public function getX(): float
     {

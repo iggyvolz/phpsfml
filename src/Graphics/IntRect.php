@@ -3,17 +3,12 @@
 namespace iggyvolz\SFML\Graphics;
 
 use FFI;
-use FFI\CData;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
-class IntRect
+#[CType("sfIntRect")]
+class IntRect extends GraphicsObject
 {
-    public function __construct(
-        private readonly GraphicsLib $graphicsLib,
-        // sfIntRect
-        public CData                 $cdata
-    )
-    {
-    }
     public function getLeft(): int
     {
         return $this->cdata->left;
@@ -63,14 +58,14 @@ class IntRect
         $this->setHeight($this->getTop() - $bottom);
     }
     public static function create(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         int $left,
         int $top,
         int $width,
         int $height,
     ): self
     {
-        $self = new self($graphicsLib, $graphicsLib->ffi->new("sfIntRect"));
+        $self = static::newObject($sfml);
         $self->setLeft($left);
         $self->setTop($top);
         $self->setWidth($width);
@@ -78,13 +73,13 @@ class IntRect
         return $self;
     }
     public static function createFromBoundaries(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         int $left,
         int $top,
         int $right,
         int $bottom,
     ): self {
-        $self = new self($graphicsLib, $graphicsLib->ffi->new("sfIntRect"));
+        $self = static::newObject($sfml);
         $self->setLeft($left);
         $self->setTop($top);
         $self->setRight($right);
@@ -94,7 +89,7 @@ class IntRect
 
     public function contains(int $x, int $y): bool
     {
-        return $this->graphicsLib->ffi->sfIntRect_contains($x, $y) === 1;
+        return $this->sfml->graphics->ffi->sfIntRect_contains($x, $y) === 1;
     }
 
     /**
@@ -103,15 +98,15 @@ class IntRect
      */
     public function getIntersection(self $other): ?self
     {
-        $intersection = $this->graphicsLib->ffi->new("sfIntRect");
-        if($this->graphicsLib->ffi->sfIntRect_intersects($this->cdata, $other->cdata, FFI::addr($intersection))) {
-            return new self($this->graphicsLib, $intersection);
+        $intersection = $this->sfml->graphics->ffi->new("sfIntRect");
+        if($this->sfml->graphics->ffi->sfIntRect_intersects($this->cdata, $other->asGraphics(), FFI::addr($intersection))) {
+            return new self($this->sfml, $intersection);
         }
         return null;
     }
 
     public function intersects(self $other): bool
     {
-        return $this->graphicsLib->ffi->sfIntRect_intersects($this->cdata, $other->cdata, null) === 1;
+        return $this->sfml->graphics->ffi->sfIntRect_intersects($this->cdata, $other->asGraphics(), null) === 1;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\System\Time;
 use iggyvolz\SFML\System\Vector\Vector2F;
 use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector2U;

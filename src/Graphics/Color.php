@@ -2,21 +2,15 @@
 
 namespace iggyvolz\SFML\Graphics;
 
-use FFI\CData;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
 /**
- * Utility class for manpulating RGBA colors
+ * Utility class for manipulating RGBA colors
  */
-readonly class Color
+#[CType("sfColor")]
+class Color extends GraphicsObject
 {
-
-    public function __construct(
-        private GraphicsLib $graphicsLib,
-        // sfColor
-        public CData $cdata
-    )
-    {
-    }
     public function getR(): int
     {
         return $this->cdata->r;
@@ -36,25 +30,23 @@ readonly class Color
 
     /**
      * Construct a color from its 3 RGB components
-     * @param GraphicsLib $graphicsLib
      * @param int $red Red component (0 .. 255)
      * @param int $green Green component (0 .. 255)
      * @param int $blue Blue component (0 .. 255)
      * @return self Color constructed from the components
      */
     public static function createFromRGB(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         int $red,
         int $green,
         int $blue,
     ): self
     {
-        return new self($graphicsLib, $graphicsLib->ffi->sfColor_fromRGB($red, $green, $blue));
+        return new self($sfml, $sfml->graphics->ffi->sfColor_fromRGB($red, $green, $blue));
     }
 
     /**
      * Construct a color from its 4 RGBA components
-     * @param GraphicsLib $graphicsLib
      * @param int $red Red component (0 .. 255)
      * @param int $green Green component (0 .. 255)
      * @param int $blue Blue component (0 .. 255)
@@ -62,14 +54,14 @@ readonly class Color
      * @return self Color constructed from the components
      */
     public static function createFromRGBA(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         int $red,
         int $green,
         int $blue,
         int $alpha,
     ): self
     {
-        return new self($graphicsLib, $graphicsLib->ffi->sfColor_fromRGBA($red, $green, $blue, $alpha));
+        return new self($sfml, $sfml->graphics->ffi->sfColor_fromRGBA($red, $green, $blue, $alpha));
     }
 
     /**
@@ -78,7 +70,7 @@ readonly class Color
      */
     public function convertToInteger(): int
     {
-        return $this->graphicsLib->ffi->sfColor_toInteger($this->cdata);
+        return $this->sfml->graphics->ffi->sfColor_toInteger($this->cdata);
     }
 
     /**
@@ -87,7 +79,7 @@ readonly class Color
      */
     public function add(Color $color2): Color
     {
-        return new self($this->graphicsLib, $this->graphicsLib->ffi->sfColor_add($this->cdata, $color2->cdata));
+        return new self($this->sfml, $this->sfml->graphics->ffi->sfColor_add($this->cdata, $color2->asGraphics()));
     }
 
     /**
@@ -96,7 +88,7 @@ readonly class Color
      */
     public function subtract(Color $color2): Color
     {
-        return new self($this->graphicsLib, $this->graphicsLib->ffi->sfColor_subtract($this->cdata, $color2->cdata));
+        return new self($this->sfml, $this->sfml->graphics->ffi->sfColor_subtract($this->cdata, $color2->asGraphics()));
     }
 
     /**
@@ -105,6 +97,6 @@ readonly class Color
      */
     public function modulate(Color $color2): Color
     {
-        return new self($this->graphicsLib, $this->graphicsLib->ffi->sfColor_modulate($this->cdata, $color2->cdata));
+        return new self($this->sfml, $this->sfml->graphics->ffi->sfColor_modulate($this->cdata, $color2->asGraphics()));
     }
 }

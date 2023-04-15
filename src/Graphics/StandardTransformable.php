@@ -3,83 +3,75 @@
 namespace iggyvolz\SFML\Graphics;
 
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2F;
+use iggyvolz\SFML\Utils\CType;
 
-class StandardTransformable implements Transformable
+#[CType("sfTransformable*")]
+class StandardTransformable extends GraphicsObject implements Transformable
 {
-
-    public function __construct(
-        public readonly GraphicsLib $graphicsLib,
-        // sfTransformable*
-        /**
-         * @internal
-         */
-        public CData $cdata,
-    )
+    public static function create(Sfml $sfml): self
     {
-    }
-    public static function create(GraphicsLib $graphicsLib): self
-    {
-        return new self($graphicsLib, $graphicsLib->ffi->sfTransformable_create());
+        return new self($sfml, $sfml->graphics->ffi->sfTransformable_create());
     }
     public function __clone(): void
     {
-        $this->cdata = $this->graphicsLib->ffi->sfTransformable_copy($this->cdata);
+        $this->cdata = $this->sfml->graphics->ffi->sfTransformable_copy($this->cdata);
     }
     public function __destruct()
     {
-        $this->graphicsLib->ffi->sfTransformable_destroy($this->cdata);
+        $this->sfml->graphics->ffi->sfTransformable_destroy($this->cdata);
     }
     public function setPosition(Vector2F $position): void
     {
-        $this->graphicsLib->ffi->sfTransformable_setPosition($this->cdata, $position->cdata);
+        $this->sfml->graphics->ffi->sfTransformable_setPosition($this->cdata, $position->asGraphics());
     }
     public function setRotation(float $angle): void
     {
-        $this->graphicsLib->ffi->sfTransformable_setRotation($this->cdata, $angle);
+        $this->sfml->graphics->ffi->sfTransformable_setRotation($this->cdata, $angle);
     }
     public function setScale(Vector2F $scale): void
     {
-        $this->graphicsLib->ffi->sfTransformable_setScale($this->cdata, $scale->cdata);
+        $this->sfml->graphics->ffi->sfTransformable_setScale($this->cdata, $scale->asGraphics());
     }
     public function setOrigin(Vector2F $origin): void
     {
-        $this->graphicsLib->ffi->sfTransformable_setOrigin($this->cdata, $origin->cdata);
+        $this->sfml->graphics->ffi->sfTransformable_setOrigin($this->cdata, $origin->asGraphics());
     }
     public function getPosition(): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfTransformable_getPosition($this->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfTransformable_getPosition($this->cdata), true);
     }
     public function getRotation(): float
     {
-        return new $this->graphicsLib->ffi->sfTransformable_getRotation($this->cdata);
+        return new $this->sfml->graphics->ffi->sfTransformable_getRotation($this->cdata);
     }
     public function getScale(): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfTransformable_getScale($this->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfTransformable_getScale($this->cdata), true);
     }
     public function getOrigin(): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfTransformable_getOrigin($this->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfTransformable_getOrigin($this->cdata), true);
     }
     public function move(Vector2F $offset): void
     {
-        $this->graphicsLib->ffi->sfTransformable_move($this->cdata, $offset->cdata);
+        $this->sfml->graphics->ffi->sfTransformable_move($this->cdata, $offset->asGraphics());
     }
     public function rotate(float $offset): void
     {
-        $this->graphicsLib->ffi->sfTransformable_rotate($this->cdata, $offset);
+        $this->sfml->graphics->ffi->sfTransformable_rotate($this->cdata, $offset);
     }
     public function scale(Vector2F $offset): void
     {
-        $this->graphicsLib->ffi->sfTransformable_scale($this->cdata, $offset->cdata);
+        $this->sfml->graphics->ffi->sfTransformable_scale($this->cdata, $offset->asGraphics());
     }
     public function getTransform(): Transform
     {
-        return new Transform($this->graphicsLib, $this->graphicsLib->ffi->sfTransformable_getTransform($this->cdata));
+        return new Transform($this->sfml, $this->sfml->graphics->ffi->sfTransformable_getTransform($this->cdata));
     }
     public function getInverseTransform(): Transform
     {
-        return new Transform($this->graphicsLib, $this->graphicsLib->ffi->sfTransformable_getInverseTransform($this->cdata));
+        return new Transform($this->sfml, $this->sfml->graphics->ffi->sfTransformable_getInverseTransform($this->cdata));
     }
 }

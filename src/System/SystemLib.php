@@ -1,14 +1,14 @@
 <?php
 
 namespace iggyvolz\SFML\System;
-use FFI;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\Lib;
 
-readonly class SystemLib
+readonly class SystemLib extends Lib
 {
-    public FFI $ffi;
-    public function __construct(string $libPath)
+    public function __construct(Sfml $sfml, string $libPath)
     {
-        $this->ffi = FFI::cdef(file_get_contents(__DIR__ . "/System.h"), $libPath);
+        parent::__construct($sfml, __DIR__ . "/System.h", $libPath);
     }
 
     /**
@@ -21,6 +21,6 @@ readonly class SystemLib
      */
     public function sleep(Time $duration): void
     {
-        $this->ffi->sfSleep($duration->cdata);
+        $this->ffi->sfSleep($duration->asSystem());
     }
 }

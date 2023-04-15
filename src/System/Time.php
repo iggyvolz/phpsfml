@@ -4,30 +4,23 @@ namespace iggyvolz\SFML\System;
 
 use FFI\CData;
 use iggyvolz\SFML\Audio\AudioLib;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
 /**
  * Represents a time value
  * @see System/Time.h
  */
-readonly class Time
+#[CType("sfTime")]
+class Time extends SystemObject
 {
-    public function __construct(
-        private SystemLib|AudioLib $systemLib,
-        // sfTime
-        /**
-         * @internal
-         */
-        public CData      $cdata
-    )
-    {
-    }
 
     /**
      * Predefined "zero" time value
      */
-    public static function zero(SystemLib $systemLib): self
+    public static function zero(Sfml $sfml): self
     {
-        return new self($systemLib, $systemLib->ffi->sfTime_Zero);
+        return new self($sfml, $sfml->system->ffi->sfTime_Zero);
     }
 
     /**
@@ -36,7 +29,7 @@ readonly class Time
      */
     public function asSeconds(): float
     {
-        return $this->systemLib->ffi->sfTime_asSeconds($this->cdata);
+        return $this->sfml->system->ffi->sfTime_asSeconds($this->cdata);
     }
 
     /**
@@ -45,7 +38,7 @@ readonly class Time
      */
     public function asMilliseconds(): int
     {
-        return $this->systemLib->ffi->sfTime_asMilliseconds($this->cdata);
+        return $this->sfml->system->ffi->sfTime_asMilliseconds($this->cdata);
     }
 
     /**
@@ -54,40 +47,37 @@ readonly class Time
      */
     public function asMicroseconds(): int
     {
-        return $this->systemLib->ffi->sfTime_asMicroseconds($this->cdata);
+        return $this->sfml->system->ffi->sfTime_asMicroseconds($this->cdata);
     }
 
     /**
      * Construct a time value from a number of seconds
-     * @param SystemLib $systemLib System library to load
      * @param float $amount Number of seconds
      * @return self Time value constructed from the amount of seconds
      */
-    public static function fromSeconds(SystemLib $systemLib, float $amount): self
+    public static function fromSeconds(Sfml $sfml, float $amount): self
     {
-        return new self($systemLib, $systemLib->ffi->sfSeconds($amount));
+        return new self($sfml, $sfml->system->ffi->sfSeconds($amount));
     }
 
     /**
      * Construct a time value from a number of milliseconds
-     * @param SystemLib $systemLib System library to load
      * @param int $amount Number of milliseconds
      * @return self Time value constructed from the amount of milliseconds
      */
-    public static function fromMilliseconds(SystemLib $systemLib, int $amount): self
+    public static function fromMilliseconds(Sfml $sfml, int $amount): self
     {
-        return new self($systemLib, $systemLib->ffi->sfMilliseconds($amount));
+        return new self($sfml, $sfml->system->ffi->sfMilliseconds($amount));
     }
 
     /**
      * Construct a time value from a number of microseconds
-     * @param SystemLib $systemLib System library to load
      * @param int $amount Number of microseconds
      * @return self Time value constructed from the amount of microseconds
      */
-    public static function fromMicroseconds(SystemLib $systemLib, int $amount): self
+    public static function fromMicroseconds(Sfml $sfml, int $amount): self
     {
-        return new self($systemLib, $systemLib->ffi->sfMicroseconds($amount));
+        return new self($sfml, $sfml->system->ffi->sfMicroseconds($amount));
     }
 
 }

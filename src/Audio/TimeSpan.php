@@ -2,38 +2,28 @@
 
 namespace iggyvolz\SFML\Audio;
 
-use FFI\CData;
-use iggyvolz\SFML\System\SystemLib;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Time;
+use iggyvolz\SFML\Utils\CType;
 
-readonly class TimeSpan
+#[CType("sfTimeSpan")]
+class TimeSpan extends AudioObject
 {
-    public function __construct(
-        private AudioLib $audioLib,
-        // sfTimeSpan
-        /**
-         * @internal
-         */
-        public CData $cdata
-    )
+    public static function create(Sfml $sfml, Time $offset, Time $length): self
     {
-    }
-
-    public static function create(AudioLib $audioLib, Time $offset, Time $length): self
-    {
-        $vector = $audioLib->ffi->new("sfTimeSpan");
+        $vector = $sfml->audio->ffi->new("sfTimeSpan");
         $vector->offset = $offset;
         $vector->length = $length;
-        return new self($audioLib, $vector);
+        return new self($sfml, $vector);
     }
 
     public function getOffset(): Time
     {
-        return new Time($this->audioLib, $this->cdata->offset);
+        return new Time($this->sfml, $this->cdata->offset);
     }
 
     public function getLength(): Time
     {
-        return new Time($this->audioLib, $this->cdata->length);
+        return new Time($this->sfml, $this->cdata->length);
     }
 }

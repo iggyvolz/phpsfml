@@ -3,34 +3,25 @@
 namespace iggyvolz\SFML\Graphics;
 
 use FFI;
-use FFI\CData;
-use iggyvolz\SFML\Event\Event;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2F;
 use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector2U;
+use iggyvolz\SFML\Utils\CType;
 use iggyvolz\SFML\Utils\PixelArray;
 use iggyvolz\SFML\Utils\UTF32;
 use iggyvolz\SFML\Window\ContextSettings;
 use iggyvolz\SFML\Window\Cursor;
+use iggyvolz\SFML\Window\CursorType;
+use iggyvolz\SFML\Window\Event\Event;
 use iggyvolz\SFML\Window\VideoMode;
 use iggyvolz\SFML\Window\Window;
-use iggyvolz\SFML\Window\WindowLib;
 use iggyvolz\SFML\Window\WindowStyle;
-
-class RenderWindow implements Window, RenderTarget
+#[CType("sfRenderWindow*")]
+class RenderWindow extends GraphicsObject implements Window, RenderTarget
 {
-    public function __construct(
-        private readonly GraphicsLib $graphicsLib,
-        // sfRenderWindow*
-        /** @internal  */
-        public readonly CData $cdata
-    )
-    {
-    }
-
     public static function create(
-        GraphicsLib $graphicsLib,
-        WindowLib $windowLib,
+        Sfml $sfml,
         string $title,
         ?VideoMode $videoMode = null,
         array $windowStyle = WindowStyle::default,
@@ -39,55 +30,54 @@ class RenderWindow implements Window, RenderTarget
     ): RenderWindow
     {
 
-        $videoMode ??= VideoMode::getDesktopMode($windowLib);
-        $contextSettings ??= $contextSettings ?? ContextSettings::create($windowLib);
-        $self = new self($graphicsLib, $graphicsLib->ffi->sfRenderWindow_createUnicode(
-            $graphicsLib->ffi->cast("sfVideoMode", $videoMode->cdata),
-            UTF32::fromString($title, $titleEncoding)->cdata,
+        $videoMode ??= VideoMode::getDesktopMode($sfml);
+        $contextSettings ??= $contextSettings ?? ContextSettings::create($sfml);
+        return new self($sfml, $sfml->graphics->ffi->sfRenderWindow_createUnicode(
+            $videoMode->asGraphics(),
+            UTF32::fromString($sfml, $title, $titleEncoding)->asGraphics(),
             WindowStyle::toInt(...$windowStyle),
-            FFI::addr($graphicsLib->ffi->cast("sfContextSettings", $contextSettings->cdata)),
+            FFI::addr($contextSettings->asGraphics()),
         ));
-        return $self;
     }
 
     public function __destruct()
     {
-        $this->graphicsLib->ffi->sfRenderWindow_destroy($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_destroy($this->cdata);
     }
 
     public function clear(?Color $color = null): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_clear($this->cdata, ($color ?? Color::createFromRGBA($this->graphicsLib, 0, 0, 0, 255))->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_clear($this->cdata, ($color ?? Color::createFromRGBA($this->sfml, 0, 0, 0, 255))->asGraphics());
     }
 
     public function setView(View $view): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setView($this->cdata, $view->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_setView($this->cdata, $view->asGraphics());
     }
 
     public function getView(): View
     {
-        return new View($this->graphicsLib, $this->graphicsLib->ffi->sfRenderWindow_getView($this->cdata));
+        return new View($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_getView($this->cdata));
     }
 
     public function getDefaultView(): View
     {
-        return new View($this->graphicsLib, $this->graphicsLib->ffi->sfRenderWindow_getDefaultView($this->cdata));
+        return new View($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_getDefaultView($this->cdata));
     }
 
     public function getViewport(View $view): IntRect
     {
-        return new IntRect($this->graphicsLib, $this->graphicsLib->ffi->sfRenderWindow_getViewport($this->cdata, $view->cdata));
+        return new IntRect($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_getViewport($this->cdata, $view->asGraphics()));
     }
 
     public function mapPixelToCoords(Vector2I $point, ?View $view = null): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfRenderWindow_mapPixelToCoords($this->cdata, $point->cdata, $view?->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_mapPixelToCoords($this->cdata, $point->asGraphics(), $view?->asGraphics()), true);
     }
 
     public function mapCoordsToPixel(Vector2F $point, ?View $view = null): Vector2I
     {
-        return new Vector2I($this->graphicsLib->ffi->sfRenderWindow_mapCoordsToPixel($this->cdata, $point->cdata, $view?->cdata));
+        return new Vector2I($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_mapCoordsToPixel($this->cdata, $point->asGraphics(), $view?->asGraphics()), true);
     }
 
     public function draw(Drawable $drawable, ?RenderStates $renderStates = null): void
@@ -97,17 +87,17 @@ class RenderWindow implements Window, RenderTarget
 
     public function pushGLStates(): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_pushGLStates($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_pushGLStates($this->cdata);
     }
 
     public function popGLStates(): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_popGLStates($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_popGLStates($this->cdata);
     }
 
     public function resetGLStates(): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_resetGLStates($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_resetGLStates($this->cdata);
     }
 
     /**
@@ -121,7 +111,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function close(): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_close($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_close($this->cdata);
     }
 
     /**
@@ -134,7 +124,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function isOpen(): bool
     {
-        return $this->graphicsLib->ffi->sfRenderWindow_isOpen($this->cdata) === 1;
+        return $this->sfml->graphics->ffi->sfRenderWindow_isOpen($this->cdata) === 1;
     }
 
     /**
@@ -149,7 +139,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function getSettings(): ContextSettings
     {
-        return new ContextSettings($this->graphicsLib->ffi->sfRenderWindow_getSettings($this->cdata));
+        return new ContextSettings($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_getSettings($this->cdata), true);
     }
 
     /**
@@ -163,10 +153,10 @@ class RenderWindow implements Window, RenderTarget
      */
     public function pollEvent(): ?Event
     {
-        $event = $this->graphicsLib->ffi->new("sfEvent");
-        $success = $this->graphicsLib->ffi->sfRenderWindow_pollEvent($this->cdata, FFI::addr($event)) === 1;
+        $event = $this->sfml->graphics->ffi->new("sfEvent");
+        $success = $this->sfml->graphics->ffi->sfRenderWindow_pollEvent($this->cdata, FFI::addr($event)) === 1;
         if($success) {
-            return Event::create($this, $event);
+            return Event::create($this->sfml, $event, true);
         } else {
             return null;
         }
@@ -186,10 +176,10 @@ class RenderWindow implements Window, RenderTarget
      */
     public function waitEvent(): ?Event
     {
-        $event = $this->graphicsLib->ffi->new("sfEvent");
-        $success = $this->graphicsLib->ffi->sfRenderWindow_waitEvent($this->cdata, FFI::addr($event)) === 1;
+        $event = $this->sfml->graphics->ffi->new("sfEvent");
+        $success = $this->sfml->graphics->ffi->sfRenderWindow_waitEvent($this->cdata, FFI::addr($event)) === 1;
         if($success) {
-            return Event::create($this, $event);
+            return Event::create($this->sfml, $event, true);
         } else {
             return null;
         }
@@ -202,7 +192,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function getPosition(): Vector2I
     {
-        return new Vector2I($this->graphicsLib->ffi->sfRenderWindow_getPosition($this->cdata));
+        return new Vector2I($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_getPosition($this->cdata), true);
     }
 
     /**
@@ -215,7 +205,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setPosition(Vector2I $position): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setPosition($this->cdata, $position->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_setPosition($this->cdata, $position->asGraphics());
     }
 
     /**
@@ -227,7 +217,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function getSize(): Vector2U
     {
-        return new Vector2U($this->graphicsLib->ffi->sfRenderWindow_getSize($this->cdata));
+        return new Vector2U($this->sfml, $this->sfml->graphics->ffi->sfRenderWindow_getSize($this->cdata), true);
     }
 
     /**
@@ -237,7 +227,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setSize(Vector2U $size): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setSize($this->cdata, $size->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_setSize($this->cdata, $size->asGraphics());
     }
 
     /**
@@ -247,7 +237,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setTitle(string $title, string $encoding = "UTF-8"): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setUnicodeTitle($this->cdata, UTF32::fromString($title, $encoding)->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_setUnicodeTitle($this->cdata, UTF32::fromString($this->sfml, $title, $encoding)->asGraphics());
     }
 
     /**
@@ -258,7 +248,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setIcon(PixelArray $pixels): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setIcon($this->cdata, $pixels->width, $pixels->height, $pixels->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_setIcon($this->cdata, $pixels->width, $pixels->height, $pixels->cdata);
     }
 
     /**
@@ -267,7 +257,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setVisible(bool $visible): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setVisible($this->cdata, $visible?1:0);
+        $this->sfml->graphics->ffi->sfRenderWindow_setVisible($this->cdata, $visible?1:0);
     }
 
     /**
@@ -281,7 +271,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setVerticalSyncEnabled(bool $enabled): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setVerticalSyncEnabled($this->cdata, $enabled?1:0);
+        $this->sfml->graphics->ffi->sfRenderWindow_setVerticalSyncEnabled($this->cdata, $enabled?1:0);
     }
 
     /**
@@ -290,7 +280,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setMouseCursorVisible(bool $visible): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setMouseCursorVisible($this->cdata, $visible?1:0);
+        $this->sfml->graphics->ffi->sfRenderWindow_setMouseCursorVisible($this->cdata, $visible?1:0);
     }
 
     /**
@@ -306,7 +296,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setMouseCursorGrabbed(bool $grabbed): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setMouseCursorGrabbed($this->cdata, $grabbed?1:0);
+        $this->sfml->graphics->ffi->sfRenderWindow_setMouseCursorGrabbed($this->cdata, $grabbed?1:0);
     }
 
     /**
@@ -314,6 +304,10 @@ class RenderWindow implements Window, RenderTarget
      */
     private ?Cursor $cursor = null;
 
+    public function getMouseCursor(): Cursor
+    {
+        return $this->cursor ?? Cursor::createFromSystem($this->sfml, CursorType::CursorArrow);
+    }
     /**
      * Set the displayed cursor to a native system cursor
      *
@@ -323,7 +317,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setMouseCursor(Cursor $cursor): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setMouseCursor($this->cdata, $cursor->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_setMouseCursor($this->cdata, $cursor->asGraphics());
         $this->cursor = $cursor;
     }
 
@@ -337,7 +331,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setKeyRepeatEnabled(bool $enabled): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setKeyRepeatEnabled($this->cdata, $enabled?1:0);
+        $this->sfml->graphics->ffi->sfRenderWindow_setKeyRepeatEnabled($this->cdata, $enabled?1:0);
     }
 
     /**
@@ -351,7 +345,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setFramerateLimit(?int $limit): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setFramerateLimit($this->cdata, $limit ?? 0);
+        $this->sfml->graphics->ffi->sfRenderWindow_setFramerateLimit($this->cdata, $limit ?? 0);
     }
 
     /**
@@ -364,7 +358,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setJoystickThreshold(float $threshold): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_setJoystickThreshold($this->cdata, $threshold);
+        $this->sfml->graphics->ffi->sfRenderWindow_setJoystickThreshold($this->cdata, $threshold);
     }
 
     /**
@@ -381,7 +375,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function setActive(bool $active = true): bool
     {
-        return $this->graphicsLib->ffi->sfRenderWindow_setActive($this->cdata, $active ? 1 : 0) === 1;
+        return $this->sfml->graphics->ffi->sfRenderWindow_setActive($this->cdata, $active ? 1 : 0) === 1;
     }
 
     /**
@@ -395,7 +389,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function requestFocus(): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_requestFocus($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_requestFocus($this->cdata);
     }
 
     /**
@@ -408,7 +402,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function hasFocus(): bool
     {
-        return $this->graphicsLib->ffi->sfRenderWindow_hasFocus($this->cdata) === 1;
+        return $this->sfml->graphics->ffi->sfRenderWindow_hasFocus($this->cdata) === 1;
     }
 
     /**
@@ -420,7 +414,7 @@ class RenderWindow implements Window, RenderTarget
      */
     public function display(): void
     {
-        $this->graphicsLib->ffi->sfRenderWindow_display($this->cdata);
+        $this->sfml->graphics->ffi->sfRenderWindow_display($this->cdata);
     }
 
     /**
@@ -432,6 +426,6 @@ class RenderWindow implements Window, RenderTarget
      */
     public function getSystemHandle(): int
     {
-        return $this->graphicsLib->ffi->sfRenderWindow_getSystemHandle($this->cdata);
+        return $this->sfml->graphics->ffi->sfRenderWindow_getSystemHandle($this->cdata);
     }
 }

@@ -5,8 +5,9 @@ namespace iggyvolz\SFML\Graphics;
 use iggyvolz\SFML\System\Vector\Vector2F;
 use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector2U;
+use iggyvolz\SFML\Utils\ISfmlObject;
 
-interface RenderTarget
+interface RenderTarget extends ISfmlObject
 {
     public function clear(?Color $color = null): void;
     public function setView(View $view): void;

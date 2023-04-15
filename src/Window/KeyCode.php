@@ -5,6 +5,10 @@ namespace iggyvolz\SFML\Window;
 enum KeyCode: int
 {
     /**
+     * Unhandled key
+     */
+    case Unknown = -1;
+    /**
      * The A key
      */
     case A = 0;

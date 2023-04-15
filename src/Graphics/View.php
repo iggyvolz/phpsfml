@@ -3,80 +3,73 @@
 namespace iggyvolz\SFML\Graphics;
 
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2F;
+use iggyvolz\SFML\Utils\CType;
 
-class View
+#[CType("sfView*")]
+class View extends GraphicsObject
 {
-    public function __construct(
-        public readonly GraphicsLib $graphicsLib,
-        // sfView*
-        /**
-         * @internal
-         */
-        public CData $cdata,
-    )
+    public static function create(Sfml $sfml, ?FloatRect $rectangle = null): self
     {
-    }
-    public static function create(GraphicsLib $graphicsLib, ?FloatRect $rectangle = null): self
-    {
-        return new self($graphicsLib, is_null($rectangle) ? $graphicsLib->ffi->sfView_create() : $graphicsLib->ffi->sfView_createFromRect($rectangle->cdata));
+        return new self($sfml, is_null($rectangle) ? $sfml->graphics->ffi->sfView_create() : $sfml->graphics->ffi->sfView_createFromRect($rectangle->asGraphics()));
     }
     public function __clone(): void
     {
-        $this->cdata = $this->graphicsLib->ffi->sfView_copy($this->cdata);
+        $this->cdata = $this->sfml->graphics->ffi->sfView_copy($this->cdata);
     }
     public function __destruct()
     {
-        $this->graphicsLib->ffi->sfView_destroy($this->cdata);
+        $this->sfml->graphics->ffi->sfView_destroy($this->cdata);
     }
 
     public function setCenter(Vector2F $center): void
     {
-        $this->graphicsLib->ffi->sfView_setCenter($this->cdata, $center->cdata);
+        $this->sfml->graphics->ffi->sfView_setCenter($this->cdata, $center->asGraphics());
     }
 
     public function setSize(Vector2F $size): void
     {
-        $this->graphicsLib->ffi->sfView_setSize($this->cdata, $size->cdata);
+        $this->sfml->graphics->ffi->sfView_setSize($this->cdata, $size->asGraphics());
     }
     public function setRotation(float $angle): void
     {
-        $this->graphicsLib->ffi->sfView_setSize($this->cdata, $angle);
+        $this->sfml->graphics->ffi->sfView_setSize($this->cdata, $angle);
     }
     public function setViewport(Vector2F $viewport): void
     {
-        $this->graphicsLib->ffi->sfView_setViewport($this->cdata, $viewport->cdata);
+        $this->sfml->graphics->ffi->sfView_setViewport($this->cdata, $viewport->asGraphics());
     }
     public function reset(FloatRect $rectangle): void
     {
-        $this->graphicsLib->ffi->sfView_reset($this->cdata, $rectangle->cdata);
+        $this->sfml->graphics->ffi->sfView_reset($this->cdata, $rectangle->asGraphics());
     }
     public function getCenter(): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfView_getCenter($this->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfView_getCenter($this->cdata), true);
     }
     public function getSize(): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfView_getSize($this->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfView_getSize($this->cdata), true);
     }
     public function getRotation(): float
     {
-        return $this->graphicsLib->ffi->sfView_getRotation($this->cdata);
+        return $this->sfml->graphics->ffi->sfView_getRotation($this->cdata);
     }
     public function getViewport(): FloatRect
     {
-        return new FloatRect($this->graphicsLib, $this->graphicsLib->ffi->sfView_getViewport($this->cdata));
+        return new FloatRect($this->sfml, $this->sfml->graphics->ffi->sfView_getViewport($this->cdata));
     }
     public function move(Vector2F $offset): void
     {
-        $this->graphicsLib->ffi->sfView_move($this->cdata, $offset->cdata);
+        $this->sfml->graphics->ffi->sfView_move($this->cdata, $offset->asGraphics());
     }
     public function rotate(float $angle): void
     {
-        $this->graphicsLib->ffi->sfView_rotate($this->cdata, $angle);
+        $this->sfml->graphics->ffi->sfView_rotate($this->cdata, $angle);
     }
     public function zoom(float $factor): void
     {
-        $this->graphicsLib->ffi->sfView_rotate($this->cdata, $factor);
+        $this->sfml->graphics->ffi->sfView_rotate($this->cdata, $factor);
     }
 }

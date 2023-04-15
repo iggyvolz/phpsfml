@@ -6,7 +6,7 @@ use FFI;
 use FFI\CData;
 use InvalidArgumentException;
 
-readonly class PixelArray
+class PixelArray
 {
     public function __construct(
         /** @internal */

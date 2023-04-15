@@ -2,21 +2,17 @@
 
 namespace iggyvolz\SFML\Window;
 use FFI;
-use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\System\Time;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector3F;
+use iggyvolz\SFML\Utils\Lib;
 use iggyvolz\SFML\Utils\UTF32;
 
-readonly class WindowLib
+readonly class WindowLib extends Lib
 {
-    public FFI $ffi;
-
-    public function __construct(
-        string $libPath,
-    )
+    public function __construct(Sfml $sfml, string $libPath)
     {
-        $this->ffi = FFI::cdef(file_get_contents(__DIR__ . "/Window.h"), $libPath);
+        parent::__construct($sfml, __DIR__ . "/Window.h", $libPath);
     }
 
     /**
@@ -48,7 +44,7 @@ readonly class WindowLib
      */
     public function getClipboard(string $encoding = "UTF-8"): string
     {
-        return (new UTF32($this->ffi->sfClipboard_getUnicodeString()))->toString($encoding);
+        return (new UTF32($this->sfml, $this->ffi->sfClipboard_getUnicodeString()))->toString($encoding);
     }
 
 
@@ -62,7 +58,7 @@ readonly class WindowLib
      */
     public function setClipboard(string $text, string $encoding = "UTF-8"): void
     {
-        $this->ffi->sfClipboard_setUnicodeString(UTF32::fromString($text, $encoding)->cdata);
+        $this->ffi->sfClipboard_setUnicodeString(UTF32::fromString($this->sfml, $text, $encoding)->asWindow());
     }
 
     /**
@@ -86,7 +82,7 @@ readonly class WindowLib
      */
     public function getTouchPosition(int $finger, ?StandardWindow $relativeTo = null): Vector2I
     {
-        return new Vector2I($this->ffi->sfTouch_getPosition($finger, $relativeTo?->cdata));
+        return new Vector2I($this->sfml, $this->ffi->sfTouch_getPosition($finger, $relativeTo?->asWindow()), true);
     }
 
     /**
@@ -110,7 +106,7 @@ readonly class WindowLib
      */
     public function getMousePosition(?StandardWindow $relativeTo = null): Vector2I
     {
-        return $this->ffi->sfMouse_getPosition($relativeTo?->cdata);
+        return $this->ffi->sfMouse_getPosition($relativeTo?->asWindow());
     }
 
     /**
@@ -123,7 +119,7 @@ readonly class WindowLib
      */
     public function setMousePosition(Vector2I $position, ?StandardWindow $relativeTo = null): void
     {
-        $this->ffi->sfMouse_setPosition($position->cdata, $relativeTo?->cdata);
+        $this->ffi->sfMouse_setPosition($position->asWindow(), $relativeTo?->asWindow());
     }
 
     /**
@@ -198,7 +194,7 @@ readonly class WindowLib
      */
     public function getJoystickIdentification(int $joystick): JoystickIdentification
     {
-        return new JoystickIdentification($this->ffi->sfJoystick_getIdentification($joystick));
+        return new JoystickIdentification($this->sfml, $this->ffi->sfJoystick_getIdentification($joystick));
     }
 
     /**
@@ -273,6 +269,6 @@ readonly class WindowLib
      */
     public function getSensorValue(SensorType $sensor): Vector3F
     {
-        return new Vector3F($this->ffi->sfSensor_getValue($sensor->value));
+        return new Vector3F($this->sfml, $this->ffi->sfSensor_getValue($sensor->value), true);
     }
 }

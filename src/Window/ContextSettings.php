@@ -4,25 +4,20 @@ namespace iggyvolz\SFML\Window;
 
 use FFI\CData;
 use iggyvolz\SFML\Graphics\GraphicsLib;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
 /**
  * Structure defining the window's creation settings
  */
-class ContextSettings
+#[CType("sfContextSettings")]
+class ContextSettings extends WindowObject
 {
-    public function __construct(
-        // sfContextSettings*
-        /** @internal  */
-        public /* [almost] readonly */ CData $cdata
-    )
-    {
-    }
-
     /**
      * @param list<ContextAttribute> $contextAttributes
      */
     public static function create(
-        WindowLib|GraphicsLib $windowLib,
+        Sfml $sfml,
         int $depthBits = 0,
         int $stencilBits = 0,
         int $antialiasingLevel = 0,
@@ -31,7 +26,7 @@ class ContextSettings
         array $contextAttributes = ContextAttribute::default,
         bool $srgbCapable = false,
     ): self{
-        $self = new self($windowLib->ffi->new("sfContextSettings"));
+        $self = static::newObject($sfml);
         $self->setDepthBits($depthBits);
         $self->setStencilBits($stencilBits);
         $self->setAntialiasingLevel($antialiasingLevel);

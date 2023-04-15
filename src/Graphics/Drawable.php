@@ -2,7 +2,9 @@
 
 namespace iggyvolz\SFML\Graphics;
 
-interface Drawable
+use iggyvolz\SFML\Utils\ISfmlObject;
+
+interface Drawable extends ISfmlObject
 {
     public function draw(RenderTarget $target, ?RenderStates $renderStates = null): void;
 }

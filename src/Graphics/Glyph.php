@@ -2,18 +2,11 @@
 
 namespace iggyvolz\SFML\Graphics;
 
-use FFI\CData;
+use iggyvolz\SFML\Utils\CType;
 
-class Glyph
+#[CType("sfGlyph")]
+class Glyph extends GraphicsObject
 {
-    public function __construct(
-        private readonly GraphicsLib $graphicsLib,
-        // sfGlyph
-        public CData                 $cdata
-    )
-    {
-    }
-
     /**
      * @return float Offset to move horizontically to the next character
      */
@@ -26,7 +19,7 @@ class Glyph
      */
     public function getBounds(): FloatRect
     {
-        return new FloatRect($this->graphicsLib, $this->cdata->bounds);
+        return new FloatRect($this->sfml, $this->cdata->bounds);
     }
 
     /**
@@ -34,6 +27,6 @@ class Glyph
      */
     public function getTextureRect(): IntRect
     {
-        return new IntRect($this->graphicsLib, $this->cdata->textureRect);
+        return new IntRect($this->sfml, $this->cdata->textureRect);
     }
 }

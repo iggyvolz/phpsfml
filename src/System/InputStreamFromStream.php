@@ -2,7 +2,7 @@
 
 namespace iggyvolz\SFML\System;
 
-readonly class InputStreamFromStream implements InputStreamInterface
+class InputStreamFromStream implements InputStreamInterface
 {
 
     /**

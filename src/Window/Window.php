@@ -2,12 +2,13 @@
 
 namespace iggyvolz\SFML\Window;
 
-use iggyvolz\SFML\Event\Event;
 use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector2U;
+use iggyvolz\SFML\Utils\ISfmlObject;
 use iggyvolz\SFML\Utils\PixelArray;
+use iggyvolz\SFML\Window\Event\Event;
 
-interface Window
+interface Window extends ISfmlObject
 {
 
     /**

@@ -4,8 +4,102 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "024308b10e2ff986edab983b4c921898",
-    "packages": [],
+    "content-hash": "8e6f9ad2649218881f2c5b9770196635",
+    "packages": [
+        {
+            "name": "iggyvolz/simple-attribute-reflection",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iggyvolz/SimpleAttributeReflection.git",
+                "reference": "c098f2f50c33f96b1a828a0c5c6b2e4df1273c10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iggyvolz/SimpleAttributeReflection/zipball/c098f2f50c33f96b1a828a0c5c6b2e4df1273c10",
+                "reference": "c098f2f50c33f96b1a828a0c5c6b2e4df1273c10",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Iggyvolz\\SimpleAttributeReflection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "0BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Katie Volz",
+                    "email": "iggyvolz@gmail.com"
+                }
+            ],
+            "description": "Simpler reflection for attributes",
+            "support": {
+                "issues": "https://github.com/iggyvolz/SimpleAttributeReflection/issues",
+                "source": "https://github.com/iggyvolz/SimpleAttributeReflection/tree/v1.0"
+            },
+            "time": "2021-07-08T15:26:12+00:00"
+        },
+        {
+            "name": "roave/dont",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Roave/Dont.git",
+                "reference": "e40b8fbeb9c0b076eedd54dae2e1b27bfad74930"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Roave/Dont/zipball/e40b8fbeb9c0b076eedd54dae2e1b27bfad74930",
+                "reference": "e40b8fbeb9c0b076eedd54dae2e1b27bfad74930",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
+            },
+            "require-dev": {
+                "infection/infection": "^0.26.16",
+                "phpunit/phpunit": "^9.5.26"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dont\\": "src/Dont"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.io/"
+                }
+            ],
+            "description": "A small set of traits that can be used to prevent misuse of your objects",
+            "homepage": "https://github.com/Roave/Dont",
+            "keywords": [
+                "defensive programming",
+                "strictness"
+            ],
+            "support": {
+                "issues": "https://github.com/Roave/Dont/issues",
+                "source": "https://github.com/Roave/Dont/tree/1.6.0"
+            },
+            "time": "2022-12-06T14:04:48+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "league/event",

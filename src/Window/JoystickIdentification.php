@@ -3,22 +3,34 @@
 namespace iggyvolz\SFML\Window;
 
 use FFI\CData;
-use iggyvolz\SFML\System\Vector\Vector2U;
-use iggyvolz\SFML\Utils\PixelArray;
+use iggyvolz\SFML\Utils\CType;
 
-class JoystickIdentification
+#[CType("sfJoystickIdentification")]
+class JoystickIdentification extends WindowObject
 {
-    public string $name;
-    public int $vendorId;
-    public int $productid;
-    public function __construct(
-        // sfJoystickIdentification
-        CData $cdata
-    )
+    public function getName(): string
     {
-        $this->name = $cdata->name;
-        $this->vendorId = $cdata->vendorId;
-        $this->productid = $cdata->productId;
+        return $this->cdata->name;
+    }
+    public function setName(string $name): void
+    {
+        $this->cdata->name = $name;
+    }
+    public function getVendorId(): int
+    {
+        return $this->cdata->vendorId;
+    }
+    public function setVendorId(int $vendorId): void
+    {
+        $this->cdata->vendorId = $vendorId;
+    }
+    public function getProductId(): int
+    {
+        return $this->cdata->productId;
+    }
+    public function setProductId(int $productId): void
+    {
+        $this->cdata->productId = $productId;
     }
 
 }

@@ -3,31 +3,23 @@
 namespace iggyvolz\SFML\Window;
 
 use FFI;
-use FFI\CData;
-use iggyvolz\SFML\Event\Event;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2I;
 use iggyvolz\SFML\System\Vector\Vector2U;
+use iggyvolz\SFML\Utils\CType;
 use iggyvolz\SFML\Utils\PixelArray;
 use iggyvolz\SFML\Utils\UTF32;
-
-class StandardWindow implements Window
+use iggyvolz\SFML\Window\Event\Event;
+#[CType("sfWindow*")]
+class StandardWindow extends WindowObject implements Window
 {
-    public function __construct(
-        protected readonly WindowLib $windowLib,
-        // sfWindow*
-        /** @internal  */
-        public readonly CData $cdata
-    )
-    {
-    }
-
     /**
      * Creates a window.
      *
      * @param list<WindowStyle> $windowStyle
      */
     public static function create(
-        WindowLib $windowLib,
+        Sfml $sfml,
         string $title,
         ?VideoMode $videoMode = null,
         array $windowStyle = WindowStyle::default,
@@ -35,15 +27,14 @@ class StandardWindow implements Window
         string $titleEncoding = "UTF-8",
     ): self
     {
-        $videoMode ??= VideoMode::getDesktopMode($windowLib);
-        $contextSettings ??= $contextSettings ?? ContextSettings::create($windowLib);
-        $self = new self($windowLib, $windowLib->ffi->sfWindow_createUnicode(
-            $videoMode->cdata,
-            UTF32::fromString($title, $titleEncoding)->cdata,
+        $videoMode ??= VideoMode::getDesktopMode($sfml);
+        $contextSettings ??= $contextSettings ?? ContextSettings::create($sfml);
+        return new self($sfml, $sfml->window->ffi->sfWindow_createUnicode(
+            $videoMode->asWindow(),
+            UTF32::fromString($sfml, $title, $titleEncoding)->asWindow(),
             WindowStyle::toInt(...$windowStyle),
-            FFI::addr($contextSettings->cdata),
+            FFI::addr($contextSettings->asWindow()),
         ));
-        return $self;
     }
 
     /**
@@ -57,7 +48,7 @@ class StandardWindow implements Window
      */
     public function close(): void
     {
-        $this->windowLib->ffi->sfWindow_close($this->cdata);
+        $this->sfml->window->ffi->sfWindow_close($this->cdata);
     }
 
     /**
@@ -70,7 +61,7 @@ class StandardWindow implements Window
      */
     public function isOpen(): bool
     {
-        return $this->windowLib->ffi->sfWindow_isOpen($this->cdata) === 1;
+        return $this->sfml->window->ffi->sfWindow_isOpen($this->cdata) === 1;
     }
 
     /**
@@ -85,7 +76,7 @@ class StandardWindow implements Window
      */
     public function getSettings(): ContextSettings
     {
-        return new ContextSettings($this->windowLib->ffi->sfWindow_getSettings($this->cdata));
+        return new ContextSettings($this->sfml, $this->sfml->window->ffi->sfWindow_getSettings($this->cdata));
     }
 
     /**
@@ -99,10 +90,10 @@ class StandardWindow implements Window
      */
     public function pollEvent(): ?Event
     {
-        $event = $this->windowLib->ffi->new("sfEvent");
-        $success = $this->windowLib->ffi->sfWindow_pollEvent($this->cdata, FFI::addr($event)) === 1;
+        $event = $this->sfml->window->ffi->new("sfEvent");
+        $success = $this->sfml->window->ffi->sfWindow_pollEvent($this->cdata, FFI::addr($event)) === 1;
         if($success) {
-            return Event::create($this, $event);
+            return Event::create($this->sfml, $event, false);
         } else {
             return null;
         }
@@ -122,10 +113,10 @@ class StandardWindow implements Window
      */
     public function waitEvent(): ?Event
     {
-        $event = $this->windowLib->ffi->new("sfEvent");
-        $success = $this->windowLib->ffi->sfWindow_waitEvent($this->cdata, FFI::addr($event)) === 1;
+        $event = $this->sfml->window->ffi->new("sfEvent");
+        $success = $this->sfml->window->ffi->sfWindow_waitEvent($this->cdata, FFI::addr($event)) === 1;
         if($success) {
-            return Event::create($this, $event);
+            return Event::create($this->sfml, $event, false);
         } else {
             return null;
         }
@@ -138,7 +129,7 @@ class StandardWindow implements Window
      */
     public function getPosition(): Vector2I
     {
-        return new Vector2I($this->windowLib->ffi->sfWindow_getPosition($this->cdata));
+        return new Vector2I($this->sfml, $this->sfml->window->ffi->sfWindow_getPosition($this->cdata), true);
     }
 
     /**
@@ -151,7 +142,7 @@ class StandardWindow implements Window
      */
     public function setPosition(Vector2I $position): void
     {
-        $this->windowLib->ffi->sfWindow_setPosition($this->cdata, $position->cdata);
+        $this->sfml->window->ffi->sfWindow_setPosition($this->cdata, $position->asWindow());
     }
 
     /**
@@ -163,7 +154,7 @@ class StandardWindow implements Window
      */
     public function getSize(): Vector2U
     {
-        return new Vector2U($this->windowLib->ffi->sfWindow_getSize($this->cdata));
+        return new Vector2U($this->sfml, $this->sfml->window->ffi->sfWindow_getSize($this->cdata), true);
     }
 
     /**
@@ -173,7 +164,7 @@ class StandardWindow implements Window
      */
     public function setSize(Vector2U $size): void
     {
-        $this->windowLib->ffi->sfWindow_setSize($this->cdata, $size->cdata);
+        $this->sfml->window->ffi->sfWindow_setSize($this->cdata, $size->asWindow());
     }
 
     /**
@@ -183,7 +174,7 @@ class StandardWindow implements Window
      */
     public function setTitle(string $title, string $encoding = "UTF-8"): void
     {
-        $this->windowLib->ffi->sfWindow_setUnicodeTitle($this->cdata, UTF32::fromString($title, $encoding)->cdata);
+        $this->sfml->window->ffi->sfWindow_setUnicodeTitle($this->cdata, UTF32::fromString($this->sfml, $title, $encoding)->asWindow());
     }
 
     /**
@@ -194,7 +185,7 @@ class StandardWindow implements Window
      */
     public function setIcon(PixelArray $pixels): void
     {
-        $this->windowLib->ffi->sfWindow_setIcon($this->cdata, $pixels->width, $pixels->height, $pixels->cdata);
+        $this->sfml->window->ffi->sfWindow_setIcon($this->cdata, $pixels->width, $pixels->height, $pixels->cdata);
     }
 
     /**
@@ -203,7 +194,7 @@ class StandardWindow implements Window
      */
     public function setVisible(bool $visible): void
     {
-        $this->windowLib->ffi->sfWindow_setVisible($this->cdata, $visible?1:0);
+        $this->sfml->window->ffi->sfWindow_setVisible($this->cdata, $visible?1:0);
     }
 
     /**
@@ -217,7 +208,7 @@ class StandardWindow implements Window
      */
     public function setVerticalSyncEnabled(bool $enabled): void
     {
-        $this->windowLib->ffi->sfWindow_setVerticalSyncEnabled($this->cdata, $enabled?1:0);
+        $this->sfml->window->ffi->sfWindow_setVerticalSyncEnabled($this->cdata, $enabled?1:0);
     }
 
     /**
@@ -226,7 +217,7 @@ class StandardWindow implements Window
      */
     public function setMouseCursorVisible(bool $visible): void
     {
-        $this->windowLib->ffi->sfWindow_setMouseCursorVisible($this->cdata, $visible?1:0);
+        $this->sfml->window->ffi->sfWindow_setMouseCursorVisible($this->cdata, $visible?1:0);
     }
 
     /**
@@ -242,13 +233,18 @@ class StandardWindow implements Window
      */
     public function setMouseCursorGrabbed(bool $grabbed): void
     {
-        $this->windowLib->ffi->sfWindow_setMouseCursorGrabbed($this->cdata, $grabbed?1:0);
+        $this->sfml->window->ffi->sfWindow_setMouseCursorGrabbed($this->cdata, $grabbed?1:0);
     }
 
     /**
      * Keeping a reference to the current cursor to ensure it cannot be deleted
      */
     private ?Cursor $cursor = null;
+
+    public function getMouseCursor(): Cursor
+    {
+        return $this->cursor ?? Cursor::createFromSystem($this->sfml, CursorType::CursorArrow);
+    }
 
     /**
      * Set the displayed cursor to a native system cursor
@@ -260,9 +256,9 @@ class StandardWindow implements Window
     public function setMouseCursor(Cursor|CursorType $cursor): void
     {
         if($cursor instanceof CursorType) {
-            $cursor = Cursor::createFromSystem($this->windowLib, $cursor);
+            $cursor = Cursor::createFromSystem($this->sfml, $cursor);
         }
-        $this->windowLib->ffi->sfWindow_setMouseCursor($this->cdata, $cursor->cdata);
+        $this->sfml->window->ffi->sfWindow_setMouseCursor($this->cdata, $cursor->asWindow());
         $this->cursor = $cursor;
     }
 
@@ -276,7 +272,7 @@ class StandardWindow implements Window
      */
     public function setKeyRepeatEnabled(bool $enabled): void
     {
-        $this->windowLib->ffi->sfWindow_setKeyRepeatEnabled($this->cdata, $enabled?1:0);
+        $this->sfml->window->ffi->sfWindow_setKeyRepeatEnabled($this->cdata, $enabled?1:0);
     }
 
     /**
@@ -290,7 +286,7 @@ class StandardWindow implements Window
      */
     public function setFramerateLimit(?int $limit): void
     {
-        $this->windowLib->ffi->sfWindow_setFramerateLimit($this->cdata, $limit ?? 0);
+        $this->sfml->window->ffi->sfWindow_setFramerateLimit($this->cdata, $limit ?? 0);
     }
 
     /**
@@ -303,7 +299,7 @@ class StandardWindow implements Window
      */
     public function setJoystickThreshold(float $threshold): void
     {
-        $this->windowLib->ffi->sfWindow_setJoystickThreshold($this->cdata, $threshold);
+        $this->sfml->window->ffi->sfWindow_setJoystickThreshold($this->cdata, $threshold);
     }
 
     /**
@@ -320,7 +316,7 @@ class StandardWindow implements Window
      */
     public function setActive(bool $active = true): bool
     {
-        return $this->windowLib->ffi->sfWindow_setActive($this->cdata, $active ? 1 : 0) === 1;
+        return $this->sfml->window->ffi->sfWindow_setActive($this->cdata, $active ? 1 : 0) === 1;
     }
 
     /**
@@ -334,7 +330,7 @@ class StandardWindow implements Window
      */
     public function requestFocus(): void
     {
-        $this->windowLib->ffi->sfWindow_requestFocus($this->cdata);
+        $this->sfml->window->ffi->sfWindow_requestFocus($this->cdata);
     }
 
     /**
@@ -347,7 +343,7 @@ class StandardWindow implements Window
      */
     public function hasFocus(): bool
     {
-        return $this->windowLib->ffi->sfWindow_hasFocus($this->cdata) === 1;
+        return $this->sfml->window->ffi->sfWindow_hasFocus($this->cdata) === 1;
     }
 
     /**
@@ -359,7 +355,7 @@ class StandardWindow implements Window
      */
     public function display(): void
     {
-        $this->windowLib->ffi->sfWindow_display($this->cdata);
+        $this->sfml->window->ffi->sfWindow_display($this->cdata);
     }
 
     /**
@@ -371,7 +367,7 @@ class StandardWindow implements Window
      */
     public function getSystemHandle(): int
     {
-        return $this->windowLib->ffi->sfWindow_getSystemHandle($this->cdata);
+        return $this->sfml->window->ffi->sfWindow_getSystemHandle($this->cdata);
     }
 
     /**
@@ -379,6 +375,6 @@ class StandardWindow implements Window
      */
     public function __destruct()
     {
-        $this->windowLib->ffi->sfWindow_destroy($this->cdata);
+        $this->sfml->window->ffi->sfWindow_destroy($this->cdata);
     }
 }

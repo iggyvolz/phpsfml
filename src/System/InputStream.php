@@ -4,25 +4,19 @@ namespace iggyvolz\SFML\System;
 
 use FFI;
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
-readonly class InputStream implements InputStreamInterface
+#[CType("sfInputStream")]
+class InputStream extends SystemObject implements InputStreamInterface
 {
-    public function __construct(
-        private SystemLib $systemLib,
-        // sfInputStream
-        public CData     $cdata
-    )
-    {
-    }
-
     /**
-     * @param SystemLib $lib Opened library
      * @param InputStreamInterface $stream Opened stream
      * @return self
      */
-    public static function create(SystemLib $lib, InputStreamInterface $stream): self
+    public static function create(Sfml $sfml, InputStreamInterface $stream): self
     {
-        $sfInputStream = $lib->ffi->new("sfInputStream");
+        $sfInputStream = $sfml->system->ffi->new("sfInputStream");
         $sfInputStream->read = function (CData $data, int $size, ?CData $userData) use($stream): int {
             FFI::memcpy($data, $stream->read($size), $size);
             return $size;
@@ -37,43 +31,40 @@ readonly class InputStream implements InputStreamInterface
         $sfInputStream->getSize = function(?CData $userData) use($stream): int {
             return $stream->getSize();
         };
-        return new self($lib, $sfInputStream);
+        return new self($sfml, $sfInputStream);
     }
 
     /**
-     * @param SystemLib $lib
      * @param resource $stream Opened stream
      * @return self
      */
-    public static function createFromStream(SystemLib $lib, mixed $stream): self
+    public static function createFromStream(Sfml $sfml, mixed $stream): self
     {
-        return self::create($lib, new InputStreamFromStream($stream));
+        return self::create($sfml, new InputStreamFromStream($stream));
     }
 
     /**
-     * @param SystemLib $lib
      * @param string $file Path to file
      * @return self
      */
-    public static function createFromFile(SystemLib $lib, string $file): self
+    public static function createFromFile(Sfml $sfml, string $file): self
     {
-        return self::createFromStream($lib, fopen($file, "r"));
+        return self::createFromStream($sfml, fopen($file, "r"));
     }
 
     /**
-     * @param SystemLib $lib
      * @param string $string String to be read
      * @return self
      */
-    public static function createFromString(SystemLib $lib, string $string): self
+    public static function createFromString(Sfml $sfml, string $string): self
     {
-        return self::create($lib, new InputStreamFromString($string));
+        return self::create($sfml, new InputStreamFromString($string));
     }
 
     public function read(int $size): string
     {
-        $string = $this->systemLib->ffi->new("char[$size]");
-        ($this->cdata->read)($this->systemLib->ffi->cast("void*", FFI::addr($string)), $size, $this->cdata->userData);
+        $string = $this->sfml->system->ffi->new("char[$size]");
+        ($this->cdata->read)($this->sfml->system->ffi->cast("void*", FFI::addr($string)), $size, $this->cdata->userData);
         return FFI::string($string, $size);
     }
 

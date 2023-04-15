@@ -4,30 +4,24 @@ namespace iggyvolz\SFML\Window;
 
 use FFI;
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\Utils\CType;
 
 /**
  * sfVideoMode defines a video mode (width, height, bpp, frequency)
  * and provides functions for getting modes supported
  * by the display device
  */
-class VideoMode
+#[CType("sfVideoMode")]
+class VideoMode extends WindowObject
 {
-    public function __construct(
-        private readonly WindowLib $windowLib,
-        // sfVideoMode
-        /** @internal  */
-        public /* [almost] readonly */ CData $cdata
-    )
-    {
-    }
-
     public static function create(
-        WindowLib $windowLib,
+        Sfml $sfml,
         int $width,
         int $height,
         int $bitsPerPixel = 32,
     ): self {
-        $self = new self($windowLib, $windowLib->ffi->new("sfVideoMode"));
+        $self = static::newObject($sfml);
         $self->setWidth($width);
         $self->setHeight($height);
         $self->setBitsPerPixel($bitsPerPixel);
@@ -87,12 +81,11 @@ class VideoMode
 
     /**
      * Get the current desktop video mode
-     * @param WindowLib $windowLib
      * @return self Current desktop video mode
      */
-    public static function getDesktopMode(WindowLib $windowLib): self
+    public static function getDesktopMode(Sfml $sfml): self
     {
-        return new self($windowLib, $windowLib->ffi->sfVideoMode_getDesktopMode());
+        return new self($sfml, $sfml->window->ffi->sfVideoMode_getDesktopMode());
     }
 
     /**
@@ -107,13 +100,13 @@ class VideoMode
      * width, height and bits-per-pixel).
      * @return list<self>
      */
-    public static function getFullscreenModes(WindowLib $windowLib): array
+    public static function getFullscreenModes(Sfml $sfml): array
     {
         $ret = [];
-        $count = $windowLib->ffi->new("size_t");
-        $modes = $windowLib->ffi->sfVideoMode_getFullscreenModes(FFI::addr($count));
+        $count = $sfml->window->ffi->new("size_t");
+        $modes = $sfml->window->ffi->sfVideoMode_getFullscreenModes(FFI::addr($count));
         for($i = 0; $i < $count->cdata; $i++) {
-            $ret[]= new self($windowLib, $modes[$i]);
+            $ret[]= new self($sfml, $modes[$i]);
         }
         return $ret;
     }
@@ -128,7 +121,7 @@ class VideoMode
      */
     public function isValid(): bool
     {
-        return $this->windowLib->ffi->sfVideoMode_isValid($this->cdata) === 1;
+        return $this->sfml->window->ffi->sfVideoMode_isValid($this->cdata) === 1;
     }
 
 }

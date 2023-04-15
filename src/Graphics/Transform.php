@@ -4,43 +4,37 @@ namespace iggyvolz\SFML\Graphics;
 
 use FFI;
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2F;
+use iggyvolz\SFML\Utils\CType;
 
-class Transform
+#[CType("sfTransform")]
+class Transform extends GraphicsObject
 {
-
-    public function __construct(
-        private readonly GraphicsLib $graphicsLib,
-        // sfTransform
-        public CData                 $cdata
-    )
-    {
-    }
-
     /**
      * @return self Identity transform (does nothing)
      */
-    public static function getIdentity(GraphicsLib $graphicsLib): self
+    public static function getIdentity(Sfml $sfml): self
     {
-        $self = new self($graphicsLib, $graphicsLib->ffi->sfTransform_Identity);
+        $self = new self($sfml, $sfml->graphics->ffi->sfTransform_Identity);
         return clone $self;
     }
 
     public function __clone(): void
     {
         $old = $this->cdata;
-        $this->cdata = $this->graphicsLib->ffi->new("sfTransform");
+        $this->cdata = $this->sfml->graphics->ffi->new("sfTransform");
         FFI::memcpy($this->cdata, $old, FFI::sizeof($old));
     }
 
     public static function createFromMatrix(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         float $a00, float $a01, float $a02,
         float $a10, float $a11, float $a12,
         float $a20, float $a21, float $a22,
     ): self
     {
-        return new self($graphicsLib, $graphicsLib->ffi->sfTransform_fromMatrix($a00, $a01, $a02, $a10, $a11, $a12, $a20, $a21, $a22));
+        return new self($sfml, $sfml->graphics->ffi->sfTransform_fromMatrix($a00, $a01, $a02, $a10, $a11, $a12, $a20, $a21, $a22));
     }
 
     /**
@@ -53,8 +47,8 @@ class Transform
      */
     public function getGlMatrix(): CData
     {
-        $matrix = $this->graphicsLib->ffi->new("float[16]");
-        $this->graphicsLib->ffi->sfTransform_getMatrix(FFI::addr($this->cdata), FFI::addr($matrix));
+        $matrix = $this->sfml->graphics->ffi->new("float[16]");
+        $this->sfml->graphics->ffi->sfTransform_getMatrix(FFI::addr($this->cdata), FFI::addr($matrix));
         return $matrix;
     }
 
@@ -67,7 +61,7 @@ class Transform
      */
     public function getInverse(): self
     {
-        return new self($this->graphicsLib, $this->graphicsLib->ffi->sfTransform_getInverse(FFI::addr($this->cdata)));
+        return new self($this->sfml, $this->sfml->graphics->ffi->sfTransform_getInverse(FFI::addr($this->cdata)));
     }
 
     /**
@@ -77,7 +71,7 @@ class Transform
      */
     public function transformPoint(Vector2F $point): Vector2F
     {
-        return new Vector2F($this->graphicsLib->ffi->sfTransform_transformPoint(FFI::addr($this->cdata), $point->cdata));
+        return new Vector2F($this->sfml, $this->sfml->graphics->ffi->sfTransform_transformPoint(FFI::addr($this->cdata), $point->asGraphics()), true);
     }
 
     /**
@@ -93,7 +87,7 @@ class Transform
      */
     public function transformRect(FloatRect $rect): FloatRect
     {
-        return new FloatRect($this->graphicsLib, $this->graphicsLib->ffi->sfTransform_transformRect(FFI::addr($this->cdata), $rect->cdata));
+        return new FloatRect($this->sfml, $this->sfml->graphics->ffi->sfTransform_transformRect(FFI::addr($this->cdata), $rect->asGraphics()));
     }
 
     /**
@@ -106,7 +100,7 @@ class Transform
      */
     public function combine(Transform $other): void
     {
-        $this->graphicsLib->ffi->sfTransform_combine(FFI::addr($this->cdata), FFI::addr($other->cdata));
+        $this->sfml->graphics->ffi->sfTransform_combine(FFI::addr($this->cdata), FFI::addr($other->asGraphics()));
     }
 
     /**
@@ -116,7 +110,7 @@ class Transform
      */
     public function translate(float $x, float $y): void
     {
-        $this->graphicsLib->ffi->sfTransform_translate(FFI::addr($this->cdata), $x, $y);
+        $this->sfml->graphics->ffi->sfTransform_translate(FFI::addr($this->cdata), $x, $y);
     }
 
     /**
@@ -125,7 +119,7 @@ class Transform
      */
     public function rotate(float $angle): void
     {
-        $this->graphicsLib->ffi->sfTransform_rotate(FFI::addr($this->cdata), $angle);
+        $this->sfml->graphics->ffi->sfTransform_rotate(FFI::addr($this->cdata), $angle);
     }
 
     /**
@@ -141,7 +135,7 @@ class Transform
      */
     public function rotateWithCenter(float $angle, float $centerX, float $centerY): void
     {
-        $this->graphicsLib->ffi->sfTransform_rotateWithCenter(FFI::addr($this->cdata), $angle, $centerX, $centerY);
+        $this->sfml->graphics->ffi->sfTransform_rotateWithCenter(FFI::addr($this->cdata), $angle, $centerX, $centerY);
     }
 
     /**
@@ -151,7 +145,7 @@ class Transform
      */
     public function scale(float $scaleX, float $scaleY): void
     {
-        $this->graphicsLib->ffi->sfTransform_scale(FFI::addr($this->cdata), $scaleX, $scaleY);
+        $this->sfml->graphics->ffi->sfTransform_scale(FFI::addr($this->cdata), $scaleX, $scaleY);
     }
 
     /**
@@ -168,7 +162,7 @@ class Transform
      */
     public function scaleWithCenter(float $scaleX, float $scaleY, float $centerX, float $centerY): void
     {
-        $this->graphicsLib->ffi->sfTransform_scaleWithCenter(FFI::addr($this->cdata), $scaleX, $scaleY, $centerX, $centerY);
+        $this->sfml->graphics->ffi->sfTransform_scaleWithCenter(FFI::addr($this->cdata), $scaleX, $scaleY, $centerX, $centerY);
     }
 
     /**
@@ -180,6 +174,6 @@ class Transform
      */
     public function equal(Transform $other): bool
     {
-        return $this->graphicsLib->ffi->sfTransform_equal(FFI::addr($this->cdata), FFI::addr($other->cdata)) === 1;
+        return $this->sfml->graphics->ffi->sfTransform_equal(FFI::addr($this->cdata), FFI::addr($other->asGraphics())) === 1;
     }
 }

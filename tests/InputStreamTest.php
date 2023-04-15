@@ -2,7 +2,6 @@
 
 use iggyvolz\SFML\System\InputStream;
 use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\System\Time;
 use Tester\Assert;
 use Tester\Environment;
 

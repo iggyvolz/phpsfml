@@ -3,19 +3,13 @@
 namespace iggyvolz\SFML\Window;
 
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2U;
+use iggyvolz\SFML\Utils\CType;
 use iggyvolz\SFML\Utils\PixelArray;
-
-readonly class Cursor
+#[CType("sfCursor*")]
+class Cursor extends WindowObject
 {
-
-    public function __construct(
-        private WindowLib $windowLib,
-        // sfCursor*
-        public CData      $cdata
-    )
-    {
-    }
 
     /**
      * Create a cursor with the provided image
@@ -32,14 +26,13 @@ readonly class Cursor
      * transparent, black if the RGB channel are close
      * to zero, and white otherwise.
      *
-     * @param WindowLib $windowLib
      * @param PixelArray $pixels Array of pixels of the image in 32-bit RGBA format
      * @param Vector2U $hotspot (x,y) location of the hotspot
      * @return self
      */
-    public static function createFromPixels(WindowLib $windowLib, PixelArray $pixels, Vector2U $hotspot): self
+    public static function createFromPixels(Sfml $sfml, PixelArray $pixels, Vector2U $hotspot): self
     {
-        return new self($windowLib, $windowLib->ffi->sfCursor_createFromPixels($pixels->cdata, Vector2U::create($windowLib, $pixels->width, $pixels->height)->cdata, $hotspot->cdata));
+        return new self($sfml, $sfml->window->ffi->sfCursor_createFromPixels($pixels->cdata, Vector2U::create($sfml, $pixels->width, $pixels->height)->asWindow(), $hotspot->asWindow()));
     }
 
     /**
@@ -57,9 +50,9 @@ readonly class Cursor
      *
      * @param CursorType $cursorType Type of cursor to create
      */
-    public static function createFromSystem(WindowLib $windowLib, CursorType $cursorType): self
+    public static function createFromSystem(Sfml $sfml, CursorType $cursorType): self
     {
-        return new self($windowLib, $windowLib->ffi->sfCursor_createFromSystem($cursorType->value));
+        return new self($sfml, $sfml->window->ffi->sfCursor_createFromSystem($cursorType->value));
     }
 
     /**
@@ -67,6 +60,6 @@ readonly class Cursor
      */
     public function __destruct()
     {
-        $this->windowLib->ffi->sfCursor_destroy($this->cdata);
+        $this->sfml->window->ffi->sfCursor_destroy($this->cdata);
     }
 }

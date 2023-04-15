@@ -11,7 +11,9 @@
   "require": {
     "php": "^8.2",
     "ext-ffi": "*",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "iggyvolz/simple-attribute-reflection": "^1.0",
+    "roave/dont": "^1.6"
   },
   "require-dev": {
     "nette/tester": "^2",

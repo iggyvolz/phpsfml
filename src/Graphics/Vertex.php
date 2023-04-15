@@ -3,28 +3,21 @@
 namespace iggyvolz\SFML\Graphics;
 
 use FFI\CData;
+use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2F;
-use iggyvolz\SFML\System\Vector\Vector2I;
-use iggyvolz\SFML\System\Vector\Vector2U;
-use iggyvolz\SFML\Window\ContextSettings;
+use iggyvolz\SFML\Utils\CType;
 
-readonly class Vertex
+#[CType("sfVertex")]
+class Vertex extends GraphicsObject
 {
-    public function __construct(
-        // sfVertex
-        /** @internal  */
-        public CData $cdata
-    )
-    {
-    }
     public static function create(
-        GraphicsLib $graphicsLib,
+        Sfml $sfml,
         Vector2F $position,
         Color $color,
         Vector2F $texCoords,
     ): self
     {
-        $self = new self($graphicsLib->ffi->new("sfVertex"));
+        $self = static::newObject($sfml);
         $self->setPosition($position);
         $self->setColor($color);
         $self->setTexCoords($texCoords);
@@ -33,17 +26,17 @@ readonly class Vertex
 
     public function setPosition(Vector2F $position): void
     {
-        $this->cdata->position = $position->cdata;
+        $this->cdata->position = $position->asGraphics();
     }
 
     public function setColor(Color $color): void
     {
-        $this->cdata->color = $color->cdata;
+        $this->cdata->color = $color->asGraphics();
     }
 
     public function setTexCoords(Vector2F $texCoords): void
     {
-        $this->cdata->texCoords = $texCoords->cdata;
+        $this->cdata->texCoords = $texCoords->asGraphics();
     }
 
     public function getPosition(): Vector2F

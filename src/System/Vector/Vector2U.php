@@ -2,32 +2,23 @@
 
 namespace iggyvolz\SFML\System\Vector;
 
-use FFI\CData;
-use iggyvolz\SFML\System\SystemLib;
-use iggyvolz\SFML\Window\WindowLib;
+use iggyvolz\SFML\Sfml;
+use iggyvolz\SFML\System\SystemObject;
+use iggyvolz\SFML\Utils\CType;
 
 /**
  * 2-component vector of unsigned integers
  * @see System/Vector2.h
  */
-readonly class Vector2U
+#[CType("sfVector2u")]
+class Vector2U extends SystemObject
 {
-    public function __construct(
-        // sfVector2i
-        /**
-         * @internal
-         */
-        public CData $cdata
-    )
+    public static function create(Sfml $sfml, int $x, int $y): self
     {
-    }
-
-    public static function create(SystemLib|WindowLib $systemLib, int $x, int $y): self
-    {
-        $vector = $systemLib->ffi->new("sfVector2u");
-        $vector->x = $x;
-        $vector->y = $y;
-        return new self($vector);
+        $self = static::newObject($sfml);
+        $self->setX($x);
+        $self->setY($y);
+        return $self;
     }
 
     public function getX(): int
