@@ -31,7 +31,7 @@ class Font extends GraphicsObject
         $len = strlen($data);
         $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
-        return new self($sfml, $sfml->graphics->ffi->sfFont_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len));
+        return new self($sfml, $sfml->graphics->ffi->sfFont_createFromMemory($sfml->graphics->ffi->cast("void*", FFI::addr($dataPtr)), $len));
     }
 
     /**

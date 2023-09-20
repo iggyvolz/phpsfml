@@ -1,6 +1,7 @@
 <?php
 
 namespace iggyvolz\SFML\Window;
+
 use FFI;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\Vector\Vector2I;
@@ -26,11 +27,11 @@ readonly class WindowLib extends Lib
     {
         $str = $this->ffi->sfClipboard_getUnicodeString();
         $length = 0;
-        while($str[$length] !== 0) {
+        while ($str[$length] !== 0) {
             $length++;
         }
 
-        return FFI::string(FFI::cast("char*", $str), ($length) * 4);
+        return FFI::string($this->ffi->cast("char*", $str), ($length) * 4);
     }
 
 
@@ -222,7 +223,7 @@ readonly class WindowLib extends Lib
 
     /**
      * Show or hide the virtual keyboard.
-     * 
+     *
      * Warning: the virtual keyboard is not supported on all systems.
      * It will typically be implemented on mobile OSes (Android, iOS)
      * but not on desktop OSes (Windows, Linux, ...).
@@ -259,7 +260,7 @@ readonly class WindowLib extends Lib
      */
     public function setSensorEnabled(SensorType $sensor, bool $enabled): void
     {
-        $this->ffi->sfSensor_setEnabled($sensor->value, $enabled?1:0);
+        $this->ffi->sfSensor_setEnabled($sensor->value, $enabled ? 1 : 0);
     }
 
     /**

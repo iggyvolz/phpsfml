@@ -59,7 +59,7 @@ class Image extends GraphicsObject
         $len = strlen($data);
         $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
-        $cdata = $sfml->graphics->ffi->sfImage_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len);
+        $cdata = $sfml->graphics->ffi->sfImage_createFromMemory($sfml->graphics->ffi->cast("void*", FFI::addr($dataPtr)), $len);
         return is_null($cdata) ? null : new self($sfml, $cdata);
     }
 

@@ -31,7 +31,7 @@ class Shader extends GraphicsObject
         $len = strlen($data);
         $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
-        return new self($sfml, $sfml->graphics->ffi->sfShader_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len));
+        return new self($sfml, $sfml->graphics->ffi->sfShader_createFromMemory($sfml->graphics->ffi->cast("void*", FFI::addr($dataPtr)), $len));
     }
 
     public static function createFromStream(Sfml $sfml, InputStream $stream): ?self

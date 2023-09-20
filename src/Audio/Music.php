@@ -22,7 +22,7 @@ class Music extends AudioObject implements SoundSource
         $len = strlen($data);
         $dataPtr = $sfml->audio->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
-        return new self($sfml, $sfml->audio->ffi->sfMusic_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len));
+        return new self($sfml, $sfml->audio->ffi->sfMusic_createFromMemory($sfml->audio->ffi->cast("void*", FFI::addr($dataPtr)), $len));
     }
 
     public static function createFromStream(Sfml $sfml, InputStream $stream): ?self

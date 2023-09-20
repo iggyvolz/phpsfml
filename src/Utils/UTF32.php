@@ -16,7 +16,7 @@ class UTF32 extends SystemObject
             $length++;
         }
 
-        return mb_convert_encoding(FFI::string(FFI::cast("const char*", $this->cdata), ($length) * 4), $encoding, "UTF-32LE");
+        return mb_convert_encoding(FFI::string($this->sfml->system->ffi->cast("const char*", $this->cdata), ($length) * 4), $encoding, "UTF-32LE");
     }
 
     public static function fromString(Sfml $sfml, string $string, string $encoding = "UTF-8"): self
@@ -24,7 +24,7 @@ class UTF32 extends SystemObject
         $string = mb_convert_encoding("$string\0", "UTF-32LE", $encoding);
         $str = $sfml->system->ffi->new("uint32_t[" . (strlen($string) / 4) . "]");
         FFI::memcpy($str, $string, strlen($string));
-        return new self($sfml, FFI::cast("const uint32_t*", $str));
+        return new self($sfml, $sfml->system->ffi->cast("const uint32_t*", $str));
     }
 
     public function __toString(): string

@@ -14,10 +14,11 @@ abstract class SfmlObject
      * almost readonly: https://wiki.php.net/rfc/readonly_amendments#proposal_2readonly_properties_can_be_reinitialized_during_cloning
      */
     protected CData $cdata;
+
     public final function __construct(
         public readonly Sfml $sfml,
-        CData $cdata,
-        bool $external = false,
+        CData                $cdata,
+        bool                 $external = false,
     )
     {
         $this->cdata = $external ? static::getLib($this->sfml)->ffi->cast(self::getCType(), $cdata) : $cdata;
@@ -27,8 +28,10 @@ abstract class SfmlObject
      * @var array<string,string> cache for getCType()
      */
     private static array $ctypes = [];
+
     protected static function getCType(): string
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         return self::$ctypes[static::class] ??=
             (AttributeReflection::getAttribute(new ReflectionClass(static::class), CType::class)?->type) ??
             get_parent_class(static::class)::getCType();
@@ -76,7 +79,7 @@ abstract class SfmlObject
         return $this->sfml->window->ffi->cast(self::getCType(), $this->cdata);
     }
 
-    /** @internal  */
+    /** @internal */
     protected static function newObject(Sfml $sfml): static
     {
         return new static($sfml, static::getLib($sfml)->ffi->new(static::getCType()));
