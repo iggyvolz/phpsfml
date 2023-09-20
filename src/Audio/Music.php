@@ -20,7 +20,7 @@ class Music extends AudioObject implements SoundSource
     public static function createFromMemory(Sfml $sfml, string $data): ?self
     {
         $len = strlen($data);
-        $dataPtr = FFI::new("char[$len]");
+        $dataPtr = $sfml->audio->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
         return new self($sfml, $sfml->audio->ffi->sfMusic_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len));
     }
@@ -114,38 +114,47 @@ class Music extends AudioObject implements SoundSource
     {
         return SoundStatus::from($this->sfml->audio->ffi->sfMusic_getStatus($this->cdata));
     }
+
     public function setLoop(bool $loop): void
     {
         $this->sfml->audio->ffi->sfMusic_setLoop($this->cdata, $loop ? 1 : 0);
     }
+
     public function getLoop(): bool
     {
         return $this->sfml->audio->ffi->sfMusic_getLoop($this->cdata) === 1;
     }
+
     public function getDuration(): Time
     {
         return new Time($this->sfml, $this->sfml->audio->ffi->sfMusic_getDuration($this->cdata), true);
     }
+
     public function getLoopPoints(): TimeSpan
     {
         return new TimeSpan($this->sfml, $this->sfml->audio->ffi->sfMusic_getLoopPoints($this->cdata));
     }
+
     public function setLoopPoints(TimeSpan $timePoints): void
     {
         $this->sfml->audio->ffi->sfMusic_setLoopPoints($this->cdata, $timePoints->asAudio());
     }
+
     public function getChannelCount(): int
     {
         return $this->sfml->audio->ffi->sfMusic_getChannelCount($this->cdata);
     }
+
     public function getSampleRate(): int
     {
         return $this->sfml->audio->ffi->sfMusic_getSampleRate($this->cdata);
     }
+
     public function getPlayingOffset(): Time
     {
         return new Time($this->sfml, $this->sfml->audio->ffi->sfMusic_getPlayingOffset($this->cdata), true);
     }
+
     public function setPlayingOffset(Time $timeOffset): void
     {
         $this->sfml->audio->ffi->sfMusic_setPlayingOffset($this->cdata, $timeOffset->asAudio());

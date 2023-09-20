@@ -8,13 +8,14 @@ use iggyvolz\SFML\Network\NetworkLib;
 use iggyvolz\SFML\System\SystemLib;
 use iggyvolz\SFML\Window\WindowLib;
 
-class Sfml
+readonly class Sfml
 {
-    public readonly AudioLib $audio;
-    public readonly GraphicsLib $graphics;
-    public readonly NetworkLib $network;
-    public readonly SystemLib $system;
-    public readonly WindowLib $window;
+    public AudioLib $audio;
+    public GraphicsLib $graphics;
+    public NetworkLib $network;
+    public SystemLib $system;
+    public WindowLib $window;
+
     public function __construct(
         string $audioLibPath,
         string $graphicsLibPath,

@@ -9,6 +9,7 @@ use iggyvolz\SFML\System\Vector\Vector2U;
 use iggyvolz\SFML\Utils\CType;
 use iggyvolz\SFML\Utils\PixelArray;
 use iggyvolz\SFML\Window\Window;
+
 #[CType("sfTexture*")]
 class Texture extends GraphicsObject
 {
@@ -27,7 +28,7 @@ class Texture extends GraphicsObject
     public static function createFromMemory(Sfml $sfml, string $data, ?IntRect $area = null, bool $srgb = false): ?self
     {
         $len = strlen($data);
-        $dataPtr = FFI::new("char[$len]");
+        $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
 
         $cdata = $srgb ? $sfml->graphics->ffi->sfTexture_createSrgbFromMemory($dataPtr, $len, $area?->asGraphics()) : $sfml->graphics->ffi->sfTexture_createFromMemory($dataPtr, $len, $area?->asGraphics());
@@ -83,36 +84,43 @@ class Texture extends GraphicsObject
 
     public function updateFromWindow(Window $source, int $x, int $y): void
     {
-        if($source instanceof RenderWindow) {
+        if ($source instanceof RenderWindow) {
             $this->sfml->graphics->ffi->sfTexture_updateFromRenderWindow($this->cdata, $source->asGraphics(), $x, $y);
         } else {
             $this->sfml->graphics->ffi->sfTexture_updateFromWindow($this->cdata, $source->asGraphics(), $x, $y);
         }
     }
+
     public function setSmooth(bool $smooth): void
     {
         $this->sfml->graphics->ffi->sfTexture_setSmooth($this->cdata, $smooth ? 1 : 0);
     }
+
     public function isSmooth(): bool
     {
         return $this->sfml->graphics->ffi->sfTexture_isSmooth($this->cdata) === 1;
     }
+
     public function isSrgb(): bool
     {
         return $this->sfml->graphics->ffi->sfTexture_isSrgb($this->cdata) === 1;
     }
+
     public function setRepeated(bool $repeated): void
     {
         $this->sfml->graphics->ffi->sfTexture_setRepeated($this->cdata, $repeated ? 1 : 0);
     }
+
     public function isRepeated(): bool
     {
         return $this->sfml->graphics->ffi->sfTexture_isRepeated($this->cdata) === 1;
     }
+
     public function generateMipmap(): void
     {
         $this->sfml->graphics->ffi->sfTexture_generateMipmap($this->cdata);
     }
+
     public function swap(Texture $other): void
     {
         $this->sfml->graphics->ffi->sfTexture_swap($this->cdata, $other->asGraphics());
@@ -127,10 +135,12 @@ class Texture extends GraphicsObject
     {
         $this->sfml->graphics->ffi->sfTexture_bind($this->cdata);
     }
+
     public static function unbind(Sfml $sfml): void
     {
         $sfml->graphics->ffi->sfTexture_bind(null);
     }
+
     public function getMaximumSize(): int
     {
         return $this->sfml->graphics->ffi->sfTexture_getMaximumSize($this->cdata);

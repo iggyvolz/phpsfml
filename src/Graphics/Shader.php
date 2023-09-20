@@ -1,6 +1,7 @@
 <?php
 
 namespace iggyvolz\SFML\Graphics;
+
 use FFI;
 use iggyvolz\SFML\Graphics\Vector\Mat3;
 use iggyvolz\SFML\Graphics\Vector\Mat4;
@@ -28,7 +29,7 @@ class Shader extends GraphicsObject
     public static function createFromMemory(Sfml $sfml, string $data): ?self
     {
         $len = strlen($data);
-        $dataPtr = FFI::new("char[$len]");
+        $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
         return new self($sfml, $sfml->graphics->ffi->sfShader_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len));
     }
@@ -50,37 +51,37 @@ class Shader extends GraphicsObject
 
     public function setUniform(string $name, float|Mat3|Mat4|Vector2F|Vector3F|Vector4F|int|Vector2I|Vector3I|Vector4I|bool|Vector2B|Vector3B|Vector4B|Texture|CurrentTexture $x): void
     {
-        if(is_float($x)) {
+        if (is_float($x)) {
             $this->sfml->graphics->ffi->sfShader_setFloatUniform($this->cdata, $name, $x);
-        } elseif($x instanceof Vector2F) {
+        } elseif ($x instanceof Vector2F) {
             $this->sfml->graphics->ffi->sfShader_setVec2Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Vector3F) {
+        } elseif ($x instanceof Vector3F) {
             $this->sfml->graphics->ffi->sfShader_setVec3Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Vector4F) {
+        } elseif ($x instanceof Vector4F) {
             $this->sfml->graphics->ffi->sfShader_setVec4Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif(is_int($x)) {
+        } elseif (is_int($x)) {
             $this->sfml->graphics->ffi->sfShader_setIntUniform($this->cdata, $name, $x);
-        } elseif($x instanceof Vector2I) {
+        } elseif ($x instanceof Vector2I) {
             $this->sfml->graphics->ffi->sfShader_setIvec2Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Vector3I) {
+        } elseif ($x instanceof Vector3I) {
             $this->sfml->graphics->ffi->sfShader_setIvec3Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Vector4I) {
+        } elseif ($x instanceof Vector4I) {
             $this->sfml->graphics->ffi->sfShader_setIvec4Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif(is_bool($x)) {
+        } elseif (is_bool($x)) {
             $this->sfml->graphics->ffi->sfShader_setBoolUniform($this->cdata, $name, $x);
-        } elseif($x instanceof Vector2B) {
+        } elseif ($x instanceof Vector2B) {
             $this->sfml->graphics->ffi->sfShader_setBvec2Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Vector3B) {
+        } elseif ($x instanceof Vector3B) {
             $this->sfml->graphics->ffi->sfShader_setBvec3Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Vector4B) {
+        } elseif ($x instanceof Vector4B) {
             $this->sfml->graphics->ffi->sfShader_setBvec4Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Mat3) {
+        } elseif ($x instanceof Mat3) {
             $this->sfml->graphics->ffi->sfShader_setMat3Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Mat4) {
+        } elseif ($x instanceof Mat4) {
             $this->sfml->graphics->ffi->sfShader_setMat4Uniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof Texture) {
+        } elseif ($x instanceof Texture) {
             $this->sfml->graphics->ffi->sfShader_setTextureUniform($this->cdata, $name, $x->asGraphics());
-        } elseif($x instanceof CurrentTexture) {
+        } elseif ($x instanceof CurrentTexture) {
             $this->sfml->graphics->ffi->sfShader_setCurrentTextureUniform($this->cdata, $name);
         }
     }
@@ -94,14 +95,17 @@ class Shader extends GraphicsObject
     {
         $this->sfml->graphics->ffi->sfShader_bind($this->cdata);
     }
+
     public static function unbind(Sfml $sfml): void
     {
         $sfml->graphics->ffi->sfShader_bind(null);
     }
+
     public function isAvailable(): bool
     {
         return $this->sfml->graphics->ffi->sfShader_isAvailable() === 1;
     }
+
     public function isGeometryAvailable(): bool
     {
         return $this->sfml->graphics->ffi->sfShader_isGeometryAvailable() === 1;
