@@ -8,57 +8,63 @@ use iggyvolz\SFML\System\InputStream;
 use iggyvolz\SFML\System\Vector\Vector2U;
 use iggyvolz\SFML\Utils\CType;
 use iggyvolz\SFML\Utils\PixelArray;
+
 #[CType("sfImage*")]
 class Image extends GraphicsObject
 {
     public static function create(
         Sfml $sfml,
-        int $width,
-        int $height,
+        int  $width,
+        int  $height,
     ): ?self
     {
         $cdata = $sfml->graphics->ffi->sfImage_create($width, $height);
         return is_null($cdata) ? null : new self($sfml, $cdata);
     }
+
     public static function createFromColor(
-        Sfml $sfml,
-        int $width,
-        int $height,
+        Sfml  $sfml,
+        int   $width,
+        int   $height,
         Color $color
     ): ?self
     {
         $cdata = $sfml->graphics->ffi->sfImage_createFromColor($width, $height, $color->asGraphics());
         return is_null($cdata) ? null : new self($sfml, $cdata);
     }
+
     public static function createFromPixels(
-        Sfml $sfml,
+        Sfml       $sfml,
         PixelArray $pixels
     ): ?self
     {
         $cdata = $sfml->graphics->ffi->sfImage_createFromPixels($pixels->width, $pixels->height, $pixels->cdata);
         return is_null($cdata) ? null : new self($sfml, $cdata);
     }
+
     public static function createFromFile(
-        Sfml $sfml,
+        Sfml   $sfml,
         string $filename
     ): ?self
     {
         $cdata = $sfml->graphics->ffi->sfImage_createFromFile($filename);
         return is_null($cdata) ? null : new self($sfml, $cdata);
     }
+
     public static function createFromMemory(
-        Sfml $sfml,
+        Sfml   $sfml,
         string $data
     ): ?self
     {
         $len = strlen($data);
-        $dataPtr = FFI::new("char[$len]");
+        $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
         $cdata = $sfml->graphics->ffi->sfImage_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len);
         return is_null($cdata) ? null : new self($sfml, $cdata);
     }
+
     public static function createFromStream(
-        Sfml $sfml,
+        Sfml        $sfml,
         InputStream $stream,
     ): ?self
     {
@@ -109,7 +115,7 @@ class Image extends GraphicsObject
     public function getPixels(): ?PixelArray
     {
         $pixels = $this->sfml->graphics->ffi->sfImage_getPixelsPtr($this->cdata);
-        if(is_null($pixels)) {
+        if (is_null($pixels)) {
             return null;
         }
         $size = $this->getSize();

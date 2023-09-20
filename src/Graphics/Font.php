@@ -7,6 +7,7 @@ use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\InputStream;
 use iggyvolz\SFML\Utils\CType;
 use iggyvolz\SFML\Utils\UTF32;
+
 #[CType("sfFont*")]
 class Font extends GraphicsObject
 {
@@ -28,7 +29,7 @@ class Font extends GraphicsObject
     public static function createFromMemory(Sfml $sfml, string $data): ?self
     {
         $len = strlen($data);
-        $dataPtr = FFI::new("char[$len]");
+        $dataPtr = $sfml->graphics->ffi->new("char[$len]");
         FFI::memcpy($dataPtr, $data, $len);
         return new self($sfml, $sfml->graphics->ffi->sfFont_createFromMemory(FFI::cast("void*", FFI::addr($dataPtr)), $len));
     }
@@ -55,18 +56,18 @@ class Font extends GraphicsObject
 
     public function getGlyph(string|int $codePoint, int $characterSize, bool $bold, float $outlineThickness): Glyph
     {
-        if(is_string($codePoint)) {
+        if (is_string($codePoint)) {
             $codePoint = UTF32::fromString($this->sfml, empty($codePoint) ? "\0" : $codePoint)->asGraphics()[0];
         }
-        return new Glyph($this->sfml, $this->sfml->graphics->ffi->sfFont_getGlyph($this->cdata, $codePoint, $characterSize, $bold?1:0, $outlineThickness));
+        return new Glyph($this->sfml, $this->sfml->graphics->ffi->sfFont_getGlyph($this->cdata, $codePoint, $characterSize, $bold ? 1 : 0, $outlineThickness));
     }
 
     public function getKerning(string|int $first, string|int $second, int $characterSize): float
     {
-        if(is_string($first)) {
+        if (is_string($first)) {
             $first = UTF32::fromString($this->sfml, empty($first) ? "\0" : $first)->asGraphics()[0];
         }
-        if(is_string($second)) {
+        if (is_string($second)) {
             $second = UTF32::fromString($this->sfml, empty($second) ? "\0" : $second)->asGraphics()[0];
         }
         return $this->sfml->graphics->ffi->sfFont_getKerning($this->cdata, $first, $second, $characterSize);
