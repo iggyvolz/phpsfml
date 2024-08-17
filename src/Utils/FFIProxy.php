@@ -34,8 +34,8 @@ final readonly class FFIProxy
         return $this->ffi->cast($type, $ptr);
     }
 
-    public function new(string $type): CData
+    public function new(string $type, bool $owned = true): CData
     {
-        return $this->ffi->new($type);
+        return $this->ffi->new($type, owned: $owned);
     }
 }

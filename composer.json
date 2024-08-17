@@ -12,8 +12,7 @@
     "php": "^8.2",
     "ext-ffi": "*",
     "ext-mbstring": "*",
-    "iggyvolz/simple-attribute-reflection": "^1.0",
-    "roave/dont": "^1.6"
+    "iggyvolz/simple-attribute-reflection": "^1.0"
   },
   "require-dev": {
     "nette/tester": "^2",

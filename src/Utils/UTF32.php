@@ -22,7 +22,7 @@ class UTF32 extends SystemObject
     public static function fromString(Sfml $sfml, string $string, string $encoding = "UTF-8"): self
     {
         $string = mb_convert_encoding("$string\0", "UTF-32LE", $encoding);
-        $str = $sfml->system->ffi->new("uint32_t[" . (strlen($string) / 4) . "]");
+        $str = $sfml->system->ffi->new("uint32_t[" . (strlen($string) / 4) . "]", owned: false);
         FFI::memcpy($str, $string, strlen($string));
         return new self($sfml, $sfml->system->ffi->cast("const uint32_t*", $str));
     }

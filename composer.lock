@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e6f9ad2649218881f2c5b9770196635",
+    "content-hash": "344f40de7a0cd894f8efa89f4acfb0ae",
     "packages": [
         {
             "name": "iggyvolz/simple-attribute-reflection",
@@ -48,56 +48,6 @@
                 "source": "https://github.com/iggyvolz/SimpleAttributeReflection/tree/v1.0"
             },
             "time": "2021-07-08T15:26:12+00:00"
-        },
-        {
-            "name": "roave/dont",
-            "version": "1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Roave/Dont.git",
-                "reference": "e40b8fbeb9c0b076eedd54dae2e1b27bfad74930"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Roave/Dont/zipball/e40b8fbeb9c0b076eedd54dae2e1b27bfad74930",
-                "reference": "e40b8fbeb9c0b076eedd54dae2e1b27bfad74930",
-                "shasum": ""
-            },
-            "require": {
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0"
-            },
-            "require-dev": {
-                "infection/infection": "^0.26.16",
-                "phpunit/phpunit": "^9.5.26"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Dont\\": "src/Dont"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com",
-                    "homepage": "http://ocramius.github.io/"
-                }
-            ],
-            "description": "A small set of traits that can be used to prevent misuse of your objects",
-            "homepage": "https://github.com/Roave/Dont",
-            "keywords": [
-                "defensive programming",
-                "strictness"
-            ],
-            "support": {
-                "issues": "https://github.com/Roave/Dont/issues",
-                "source": "https://github.com/Roave/Dont/tree/1.6.0"
-            },
-            "time": "2022-12-06T14:04:48+00:00"
         }
     ],
     "packages-dev": [
@@ -162,20 +112,20 @@
         },
         {
             "name": "nette/tester",
-            "version": "v2.5.1",
+            "version": "v2.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "92ad30ca60ac1e27f0c7e48b8b4e4ff1395c00c0"
+                "reference": "ee0a4b8402a8c1831db547ec0a56d18196906b51"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/92ad30ca60ac1e27f0c7e48b8b4e4ff1395c00c0",
-                "reference": "92ad30ca60ac1e27f0c7e48b8b4e4ff1395c00c0",
+                "url": "https://api.github.com/repos/nette/tester/zipball/ee0a4b8402a8c1831db547ec0a56d18196906b51",
+                "reference": "ee0a4b8402a8c1831db547ec0a56d18196906b51",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.0 <8.4"
+                "php": "8.0 - 8.3"
             },
             "require-dev": {
                 "ext-simplexml": "*",
@@ -231,9 +181,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/tester/issues",
-                "source": "https://github.com/nette/tester/tree/v2.5.1"
+                "source": "https://github.com/nette/tester/tree/v2.5.3"
             },
-            "time": "2023-07-30T10:24:11+00:00"
+            "time": "2024-06-18T18:44:12+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -297,5 +247,5 @@
         "ext-mbstring": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.6.0"
 }
