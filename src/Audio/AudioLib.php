@@ -4,6 +4,7 @@ namespace iggyvolz\SFML\Audio;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\Lib;
 
+/** @deprecated  */
 readonly class AudioLib extends Lib
 {
     public Listener $listener;

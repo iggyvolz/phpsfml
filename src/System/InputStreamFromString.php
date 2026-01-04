@@ -16,9 +16,10 @@ class InputStreamFromString implements InputStreamInterface
         return $str;
     }
 
-    public function seek(int $position): void
+    public function seek(int $position): ?int
     {
         $this->pos = $position;
+        return $position;
     }
 
     public function tell(): int
@@ -26,8 +27,9 @@ class InputStreamFromString implements InputStreamInterface
         return $this->pos;
     }
 
-    public function getSize(): int
-    {
-        return strlen($this->string);
+    public int|null $size {
+        get {
+            return strlen($this->string);
+        }
     }
 }

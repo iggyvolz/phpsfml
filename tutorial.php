@@ -10,6 +10,13 @@ use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Window\Event\ClosedEvent;
 use iggyvolz\SFML\Window\VideoMode;
 
+#[Attribute(Attribute::TARGET_FUNCTION | Attribute::TARGET_METHOD)]
+class Spem {
+    public function __construct(public string $lib, public string $cMethod)
+    {
+    }
+}
+
 require_once __DIR__ . "/vendor/autoload.php";
 $sfml = new Sfml(
     __DIR__ . "/../CSFML/lib/libcsfml-audio.so",

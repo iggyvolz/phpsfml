@@ -4,6 +4,7 @@ namespace iggyvolz\SFML\Utils;
 
 use FFI;
 use iggyvolz\SFML\Sfml;
+/** @deprecated  */
 
 readonly abstract class Lib
 {

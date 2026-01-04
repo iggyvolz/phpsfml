@@ -4,6 +4,7 @@ namespace iggyvolz\SFML\System;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\Lib;
 
+/** @deprecated  */
 readonly class SystemLib extends Lib
 {
     public function __construct(Sfml $sfml, string $libPath)

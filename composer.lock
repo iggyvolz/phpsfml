@@ -4,65 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "344f40de7a0cd894f8efa89f4acfb0ae",
-    "packages": [
-        {
-            "name": "iggyvolz/simple-attribute-reflection",
-            "version": "v1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/iggyvolz/SimpleAttributeReflection.git",
-                "reference": "c098f2f50c33f96b1a828a0c5c6b2e4df1273c10"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/iggyvolz/SimpleAttributeReflection/zipball/c098f2f50c33f96b1a828a0c5c6b2e4df1273c10",
-                "reference": "c098f2f50c33f96b1a828a0c5c6b2e4df1273c10",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "vimeo/psalm": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Iggyvolz\\SimpleAttributeReflection\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "0BSD"
-            ],
-            "authors": [
-                {
-                    "name": "Katie Volz",
-                    "email": "iggyvolz@gmail.com"
-                }
-            ],
-            "description": "Simpler reflection for attributes",
-            "support": {
-                "issues": "https://github.com/iggyvolz/SimpleAttributeReflection/issues",
-                "source": "https://github.com/iggyvolz/SimpleAttributeReflection/tree/v1.0"
-            },
-            "time": "2021-07-08T15:26:12+00:00"
-        }
-    ],
+    "content-hash": "c7e04d509e143a2acb6b82889904db79",
+    "packages": [],
     "packages-dev": [
         {
             "name": "league/event",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/event.git",
-                "reference": "221867a61087ee265ca07bd39aa757879afca820"
+                "reference": "ec38ff7ea10cad7d99a79ac937fbcffb9334c210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/event/zipball/221867a61087ee265ca07bd39aa757879afca820",
-                "reference": "221867a61087ee265ca07bd39aa757879afca820",
+                "url": "https://api.github.com/repos/thephpleague/event/zipball/ec38ff7ea10cad7d99a79ac937fbcffb9334c210",
+                "reference": "ec38ff7ea10cad7d99a79ac937fbcffb9334c210",
                 "shasum": ""
             },
             "require": {
@@ -106,30 +62,30 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/event/issues",
-                "source": "https://github.com/thephpleague/event/tree/3.0.2"
+                "source": "https://github.com/thephpleague/event/tree/3.0.3"
             },
-            "time": "2022-10-29T09:31:25+00:00"
+            "time": "2024-09-04T16:06:53+00:00"
         },
         {
             "name": "nette/tester",
-            "version": "v2.5.3",
+            "version": "v2.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "ee0a4b8402a8c1831db547ec0a56d18196906b51"
+                "reference": "dc02e7811f3491a72e87538044586cee2f483d58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/ee0a4b8402a8c1831db547ec0a56d18196906b51",
-                "reference": "ee0a4b8402a8c1831db547ec0a56d18196906b51",
+                "url": "https://api.github.com/repos/nette/tester/zipball/dc02e7811f3491a72e87538044586cee2f483d58",
+                "reference": "dc02e7811f3491a72e87538044586cee2f483d58",
                 "shasum": ""
             },
             "require": {
-                "php": "8.0 - 8.3"
+                "php": "8.0 - 8.5"
             },
             "require-dev": {
                 "ext-simplexml": "*",
-                "phpstan/phpstan": "^1.0"
+                "phpstan/phpstan-nette": "^2.0@stable"
             },
             "bin": [
                 "src/tester"
@@ -141,6 +97,9 @@
                 }
             },
             "autoload": {
+                "psr-4": {
+                    "Tester\\": "src"
+                },
                 "classmap": [
                     "src/"
                 ]
@@ -181,9 +140,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/tester/issues",
-                "source": "https://github.com/nette/tester/tree/v2.5.3"
+                "source": "https://github.com/nette/tester/tree/v2.5.7"
             },
-            "time": "2024-06-18T18:44:12+00:00"
+            "time": "2025-11-22T18:50:53+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -238,14 +197,14 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.2",
-        "ext-ffi": "*",
-        "ext-mbstring": "*"
+        "php": "^8.4",
+        "ext-spem": "*",
+        "ext-phpsfml": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

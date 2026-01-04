@@ -2,84 +2,73 @@
 
 namespace iggyvolz\SFML\System;
 
-use FFI;
-use FFI\CData;
-use iggyvolz\SFML\Sfml;
-use iggyvolz\SFML\Utils\CType;
-
-#[CType("sfInputStream")]
-class InputStream extends SystemObject implements InputStreamInterface
+class InputStream implements InputStreamInterface
 {
+    private function __construct()
+    {
+    }
+
     /**
      * @param InputStreamInterface $stream Opened stream
      * @return self
      */
-    public static function create(Sfml $sfml, InputStreamInterface $stream): self
+    #[\Spem("libphpsfml.so", "inputstream_create")]
+    public static function create(InputStreamInterface $stream): self
     {
-        $sfInputStream = $sfml->system->ffi->new("sfInputStream");
-        $sfInputStream->read = function (CData $data, int $size, ?CData $userData) use($stream): int {
-            FFI::memcpy($data, $stream->read($size), $size);
-            return $size;
-        };
-        $sfInputStream->seek = function(int $position, ?CData $userData) use($stream): int {
-            $stream->seek($position);
-            return $position;
-        };
-        $sfInputStream->tell = function(?CData $userData) use($stream): int {
-            return $stream->tell();
-        };
-        $sfInputStream->getSize = function(?CData $userData) use($stream): int {
-            return $stream->getSize();
-        };
-        return new self($sfml, $sfInputStream);
     }
 
     /**
      * @param resource $stream Opened stream
      * @return self
      */
-    public static function createFromStream(Sfml $sfml, mixed $stream): self
+    public static function createFromStream(mixed $stream): self
     {
-        return self::create($sfml, new InputStreamFromStream($stream));
+        return self::create(new InputStreamFromStream($stream));
     }
 
     /**
      * @param string $file Path to file
      * @return self
      */
-    public static function createFromFile(Sfml $sfml, string $file): self
+    public static function createFromFile(string $file): self
     {
-        return self::createFromStream($sfml, fopen($file, "r"));
+        return self::createFromStream(fopen($file, "r"));
     }
 
     /**
      * @param string $string String to be read
      * @return self
      */
-    public static function createFromString(Sfml $sfml, string $string): self
+    public static function createFromString(string $string): self
     {
-        return self::create($sfml, new InputStreamFromString($string));
+        return self::create(new InputStreamFromString($string));
     }
 
+    #[\Spem("libphpsfml.so", "inputstream_read")]
     public function read(int $size): string
     {
-        $string = $this->sfml->system->ffi->new("char[$size]");
-        ($this->cdata->read)($this->sfml->system->ffi->cast("void*", FFI::addr($string)), $size, $this->cdata->userData);
-        return FFI::string($string, $size);
     }
 
-    public function seek(int $position): void
+    #[\Spem("libphpsfml.so", "inputstream_seek")]
+    public function seek(int $position): ?int
     {
-        ($this->cdata->seek)($position, $this->cdata->userData);
     }
 
-    public function tell(): int
+    #[\Spem("libphpsfml.so", "inputstream_tell")]
+    public function tell(): ?int
     {
-        return ($this->cdata->tell)($this->cdata->userData);
     }
+    public ?int $size { #[\Spem("libphpsfml.so", "inputstream_size")] get {}}
 
+
+    #[\Deprecated]
     public function getSize(): int
     {
-        return ($this->cdata->getSize)($this->cdata->userData);
+        return $this->size;
+    }
+
+    #[\Spem("libphpsfml.so", "inputstream_destruct")]
+    public function __destruct()
+    {
     }
 }

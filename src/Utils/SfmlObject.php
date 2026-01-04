@@ -7,6 +7,7 @@ use iggyvolz\SFML\Sfml;
 use Iggyvolz\SimpleAttributeReflection\AttributeReflection;
 use ReflectionClass;
 
+/** @deprecated  */
 abstract class SfmlObject
 {
     /**

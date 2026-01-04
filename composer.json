@@ -9,10 +9,9 @@
     }
   ],
   "require": {
-    "php": "^8.2",
-    "ext-ffi": "*",
-    "ext-mbstring": "*",
-    "iggyvolz/simple-attribute-reflection": "^1.0"
+    "php": "^8.4",
+    "ext-spem": "*",
+    "ext-phpsfml": "*"
   },
   "require-dev": {
     "nette/tester": "^2",
@@ -21,6 +20,7 @@
   "autoload": {
     "psr-4": {
       "iggyvolz\\SFML\\": "src/"
-    }
+    },
+    "files": ["src/functions.php"]
   }
 }

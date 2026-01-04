@@ -9,6 +9,7 @@ use iggyvolz\SFML\System\Vector\Vector3F;
 use iggyvolz\SFML\Utils\Lib;
 use iggyvolz\SFML\Utils\UTF32;
 
+/** @deprecated  */
 readonly class WindowLib extends Lib
 {
     public function __construct(Sfml $sfml, string $libPath)

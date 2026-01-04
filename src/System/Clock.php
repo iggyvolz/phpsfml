@@ -5,16 +5,16 @@ namespace iggyvolz\SFML\System;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\CType;
 
-#[CType("sfClock*")]
-class Clock extends SystemObject
+//#[CType("sfClock*")]
+class Clock// extends SystemObject
 {
     /**
      * Create a new clock and start it
      * @return self A new sfClock object
      */
-    public static function create(Sfml $sfml): self
+    #[\Spem("libphpsfml.so", "clock_create")]
+    public static function create(): self
     {
-        return new self($sfml, $sfml->system->ffi->sfClock_create());
     }
 
     /**
@@ -25,10 +25,13 @@ class Clock extends SystemObject
      * sfClock_restart has not been called).
      * @return Time Time elapsed
      */
+    #[\Deprecated]
     public function getElapsedTime(): Time
     {
-        return new Time($this->sfml, $this->sfml->system->ffi->sfClock_getElapsedTime($this->cdata));
+        return $this->elapsedTime;
     }
+
+    public Time $elapsedTime { #[\Spem("libphpsfml.so", "clock_elapsedTime")] get {}}
 
     /**
      * Restart a clock
@@ -37,19 +40,13 @@ class Clock extends SystemObject
      * It also returns the time elapsed since the clock was started.
      * @return Time Time elapsed
      */
+    #[\Spem("libphpsfml.so", "clock_restart")]
     public function restart(): Time
     {
-        return new Time($this->sfml, $this->sfml->system->ffi->sfClock_restart($this->cdata));
     }
-
-    public function __clone(): void
-    {
-        $this->cdata = $this->sfml->system->ffi->sfClock_copy($this->cdata);
-    }
-
+    #[\Spem("libphpsfml.so", "clock_destruct")]
     public function __destruct()
     {
-        $this->sfml->system->ffi->sfClock_destroy($this->cdata);
     }
 
 }

@@ -17,9 +17,10 @@ class InputStreamFromStream implements InputStreamInterface
         return fread($this->stream, $size);
     }
 
-    public function seek(int $position): void
+    public function seek(int $position): ?int
     {
         fseek($this->stream, $position);
+        return $position;
     }
 
     public function tell(): int
@@ -27,8 +28,9 @@ class InputStreamFromStream implements InputStreamInterface
         return ftell($this->stream);
     }
 
-    public function getSize(): int
-    {
-        return fstat($this->stream)["size"];
+    public int|null $size {
+        get {
+            return fstat($this->stream)["size"];
+        }
     }
 }

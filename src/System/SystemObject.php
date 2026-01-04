@@ -7,6 +7,7 @@ use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\Lib;
 use iggyvolz\SFML\Utils\SfmlObject;
 
+/** @deprecated  */
 abstract class SystemObject extends SfmlObject
 {
     public function asSystem(): CData

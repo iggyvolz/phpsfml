@@ -8,6 +8,7 @@ use iggyvolz\SFML\Network\NetworkLib;
 use iggyvolz\SFML\System\SystemLib;
 use iggyvolz\SFML\Window\WindowLib;
 
+/** @deprecated  */
 readonly class Sfml
 {
     public AudioLib $audio;
