@@ -6,7 +6,7 @@
 #include "zend_exceptions.h"
 #include <SFML/System.hpp>
 
-#include "../main.hpp"
+#include "../util.hpp"
 
 extern "C" {
     ZEND_DLEXPORT void vector2i_construct(zend_execute_data *execute_data, zval *return_value) {

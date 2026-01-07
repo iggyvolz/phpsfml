@@ -5,11 +5,11 @@
 #include "zend_exceptions.h"
 #include <SFML/System.hpp>
 
-#include "../main.hpp"
+#include "../util.hpp"
 
 extern "C" {
     ZEND_DLEXPORT void time_zero(zend_execute_data *execute_data, zval *return_value) {
-        storage_new(return_value, R"(iggyvolz\SFML\System\Time)", new sf::Time(sf::Time::Zero));
+        storage_new(return_value, R"(iggyvolz\SFML\System\Time)", &sf::Time::Zero);
     }
     ZEND_DLEXPORT void time_asSeconds(zend_execute_data *execute_data, zval *return_value) {
         auto time = storage_get<sf::Time>(execute_data);

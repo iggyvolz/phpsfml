@@ -1,10 +1,13 @@
 #pragma once
 #include <map>
 #include <php.h>
+#include <string>
+#include <typeinfo>
+
 void storage_put(uint32_t object_id, const std::type_info& type, void* data);
 void storage_put(uint32_t object_id, const std::type_info& type, const void* data);
 void* storage_get(uint32_t object_id, const std::type_info& type);
-bool storage_remove(uint32_t object_id, const std::type_info& type);
+void* storage_remove(uint32_t object_id, const std::type_info& type);
 
 template<typename T>
 void storage_put(uint32_t object_id, T* data) {
@@ -75,6 +78,13 @@ void storage_remove(zend_execute_data* execute_data) {
 }
 template<typename T>
 void storage_new(zval* zval, const std::string& classname, T* data) {
+    zend_string* str = zend_string_init(classname.c_str(), classname.size(), false);
+    zend_class_entry* ce = zend_lookup_class(str);
+    object_init_ex(zval, ce);
+    storage_put(zval, data);
+}
+template<typename T>
+void storage_new(zval* zval, const std::string& classname, const T* data) {
     zend_string* str = zend_string_init(classname.c_str(), classname.size(), false);
     zend_class_entry* ce = zend_lookup_class(str);
     object_init_ex(zval, ce);

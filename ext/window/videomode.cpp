@@ -6,7 +6,7 @@
 #include "zend_exceptions.h"
 #include <SFML/Window.hpp>
 
-#include "../main.hpp"
+#include "../util.hpp"
 
 extern "C" {
     ZEND_DLEXPORT void videomode_construct(zend_execute_data *execute_data, zval *return_value) {

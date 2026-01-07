@@ -11,8 +11,8 @@ require 'vendor/autoload.php';
 $window = new WindowBase(
     new VideoMode(800, 600),
     "SFML window",
-    windowStyle: [Style::Close],
-    state: State::Fullscreen
+//    windowStyle: [Style::Close],
+//    state: State::Fullscreen
 );
 sleep(Time::fromSeconds(5));
 unset($window);

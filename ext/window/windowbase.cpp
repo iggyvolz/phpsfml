@@ -6,7 +6,7 @@
 #include "zend_exceptions.h"
 #include <SFML/Window.hpp>
 
-#include "../main.hpp"
+#include "../util.hpp"
 extern "C" {
     ZEND_DLEXPORT void windowbase_construct(zend_execute_data *execute_data, zval *return_value) {
         zval* mode_php;
@@ -18,7 +18,6 @@ extern "C" {
         zend_parse_parameters(ZEND_NUM_ARGS(), "os|aoo", &mode_php, &title_c, &title_len, &window_style_arr, &state_php);
         auto* mode = storage_get<sf::VideoMode>(mode_php);
         std::string title(title_c, title_len);
-        // TODO overwrite if set in PHP
         std::uint32_t window_style = sf::Style::Default;
         if (window_style_arr != nullptr) {
             HashTable* arr_hash = Z_ARRVAL_P(window_style_arr);

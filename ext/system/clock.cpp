@@ -3,7 +3,7 @@
 #include "php.h"
 #include "zend_exceptions.h"
 #include <SFML/System.hpp>
-#include "../main.hpp"
+#include "../util.hpp"
 
 extern "C" {
     ZEND_DLEXPORT void clock_construct(zend_execute_data *execute_data, zval *return_value) {

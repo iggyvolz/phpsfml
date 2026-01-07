@@ -34,15 +34,14 @@ include_directories(
 if (WIN32)
     link_directories(${PHP_ROOT}/lib)
 endif ()
-add_library(phpsfml SHARED main.cpp system/time.cpp system/time.hpp system/clock.cpp
+add_library(phpsfml SHARED main.cpp system/time.cpp system/clock.cpp
         system/input_stream.cpp
         system/vector2f.cpp
         system/vector2i.cpp
         system/vector2u.cpp
         system/vector3f.cpp
         window/videomode.cpp
-        window/windowbase.cpp
-        main.hpp)
+        window/windowbase.cpp)
 if(WIN32)
     target_compile_definitions(phpsfml PRIVATE ZEND_WIN32 PHP_WIN32)
     target_link_libraries(phpsfml PRIVATE php8)

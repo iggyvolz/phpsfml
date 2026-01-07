@@ -4,7 +4,7 @@
 #include "php.h"
 #include <SFML/System.hpp>
 
-#include "../main.hpp"
+#include "../util.hpp"
 
 class PhpInputStream : public sf::InputStream
 {
