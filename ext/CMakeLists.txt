@@ -36,9 +36,15 @@ if (WIN32)
 endif ()
 add_library(phpsfml SHARED main.cpp system/time.cpp system/time.hpp system/clock.cpp
         system/input_stream.cpp
-        util.hpp)
+        system/vector2f.cpp
+        system/vector2i.cpp
+        system/vector2u.cpp
+        system/vector3f.cpp
+        window/videomode.cpp
+        window/windowbase.cpp
+        main.hpp)
 if(WIN32)
     target_compile_definitions(phpsfml PRIVATE ZEND_WIN32 PHP_WIN32)
     target_link_libraries(phpsfml PRIVATE php8)
 endif()
-target_link_libraries(phpsfml PRIVATE SFML::System)
+target_link_libraries(phpsfml PRIVATE SFML::System SFML::Window)

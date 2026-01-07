@@ -3,9 +3,8 @@
 
 #include "php.h"
 #include <SFML/System.hpp>
-#include "../util.hpp"
 
-std::map<uint32_t, sf::InputStream*> streams;
+#include "../main.hpp"
 
 class PhpInputStream : public sf::InputStream
 {
@@ -73,14 +72,13 @@ public:
 };
 
 extern "C" {
-    ZEND_DLEXPORT void inputstream_create(zend_execute_data *execute_data, zval *return_value) {
-        zval obj = *ZEND_CALL_ARG(execute_data, 1);
-        new_object(R"(iggyvolz\SFML\System\InputStream)", return_value);
-        streams[Z_OBJ_HANDLE_P(return_value)] = new PhpInputStream(obj);
-
+    ZEND_DLEXPORT void inputstream_construct(zend_execute_data *execute_data, zval *return_value) {
+        zval* obj;
+        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "o", &obj) == SUCCESS);
+        storage_put(execute_data, new PhpInputStream(*obj));
     }
     ZEND_DLEXPORT void inputstream_read(zend_execute_data *execute_data, zval *return_value) {
-        sf::InputStream* stream = streams[Z_OBJ_HANDLE(execute_data->This)];
+        auto stream = storage_get<sf::InputStream>(execute_data);
         long size = Z_LVAL_P(ZEND_CALL_ARG(execute_data, 1));
         void* buff = malloc(size);
         std::optional<std::size_t> bytes = stream->read(buff, size);
@@ -89,25 +87,24 @@ extern "C" {
     }
     ZEND_DLEXPORT void inputstream_seek(zend_execute_data *execute_data, zval *return_value) {
         long position = Z_LVAL_P(ZEND_CALL_ARG(execute_data, 1));
-        sf::InputStream* stream = streams[Z_OBJ_HANDLE(execute_data->This)];
+        auto stream = storage_get<sf::InputStream>(execute_data);
         std::optional<std::size_t> ret = stream->seek(position);
         if (!ret.has_value()) RETURN_NULL();
         RETURN_LONG(ret.value());
     }
     ZEND_DLEXPORT void inputstream_tell(zend_execute_data *execute_data, zval *return_value) {
-        sf::InputStream* stream = streams[Z_OBJ_HANDLE(execute_data->This)];
+        auto stream = storage_get<sf::InputStream>(execute_data);
         std::optional<std::size_t> ret = stream->tell();
         if (!ret.has_value()) RETURN_NULL();
         RETURN_LONG(ret.value());
     }
     ZEND_DLEXPORT void inputstream_size(zend_execute_data *execute_data, zval *return_value) {
-        sf::InputStream* stream = streams[Z_OBJ_HANDLE(execute_data->This)];
+        auto stream = storage_get<sf::InputStream>(execute_data);
         std::optional<std::size_t> ret = stream->getSize();
         if (!ret.has_value()) RETURN_NULL();
         RETURN_LONG(ret.value());
     }
     ZEND_DLEXPORT void inputstream_destruct(zend_execute_data *execute_data, zval *return_value) {
-        delete streams[Z_OBJ_HANDLE(execute_data->This)];
-        streams.erase(Z_OBJ_HANDLE(execute_data->This));
+        storage_remove<sf::InputStream>(execute_data);
     }
 }

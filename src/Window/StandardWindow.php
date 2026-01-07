@@ -16,13 +16,13 @@ class StandardWindow extends WindowObject implements Window
     /**
      * Creates a window.
      *
-     * @param list<WindowStyle> $windowStyle
+     * @param list<Style> $windowStyle
      */
     public static function create(
         Sfml $sfml,
         string $title,
         ?VideoMode $videoMode = null,
-        array $windowStyle = WindowStyle::default,
+        array $windowStyle = Style::default,
         ?ContextSettings $contextSettings = null,
         string $titleEncoding = "UTF-8",
     ): self
@@ -32,7 +32,7 @@ class StandardWindow extends WindowObject implements Window
         return new self($sfml, $sfml->window->ffi->sfWindow_createUnicode(
             $videoMode->asWindow(),
             UTF32::fromString($sfml, $title, $titleEncoding)->asWindow(),
-            WindowStyle::toInt(...$windowStyle),
+            Style::toInt(...$windowStyle),
             FFI::addr($contextSettings->asWindow()),
         ));
     }

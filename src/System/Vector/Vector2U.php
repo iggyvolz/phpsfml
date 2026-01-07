@@ -2,40 +2,17 @@
 
 namespace iggyvolz\SFML\System\Vector;
 
-use iggyvolz\SFML\Sfml;
-use iggyvolz\SFML\System\SystemObject;
-use iggyvolz\SFML\Utils\CType;
-
 /**
  * 2-component vector of unsigned integers
  * @see System/Vector2.h
  */
-#[CType("sfVector2u")]
-class Vector2U extends SystemObject
+class Vector2U
 {
-    public static function create(Sfml $sfml, int $x, int $y): self
-    {
-        $self = static::newObject($sfml);
-        $self->setX($x);
-        $self->setY($y);
-        return $self;
+    #[\Spem("libphpsfml.so", "vector2u_construct")]
+    public function __construct(int $x, int $y){
+
     }
 
-    public function getX(): int
-    {
-        return $this->cdata->x;
-    }
-    public function setX(int $x): void
-    {
-        $this->cdata->x = $x;
-    }
-    public function getY(): int
-    {
-        return $this->cdata->y;
-    }
-    public function setY(int $y): void
-    {
-        $this->cdata->y = $y;
-    }
-
+    public int $x { #[\Spem("libphpsfml.so", "vector2u_getx")] get {}  #[\Spem("libphpsfml.so", "vector2u_setx")] set {}}
+    public int $y { #[\Spem("libphpsfml.so", "vector2u_gety")] get {}  #[\Spem("libphpsfml.so", "vector2u_sety")] set {}}
 }

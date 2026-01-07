@@ -4,16 +4,12 @@ namespace iggyvolz\SFML\System;
 
 class InputStream implements InputStreamInterface
 {
-    private function __construct()
-    {
-    }
 
     /**
      * @param InputStreamInterface $stream Opened stream
-     * @return self
      */
-    #[\Spem("libphpsfml.so", "inputstream_create")]
-    public static function create(InputStreamInterface $stream): self
+    #[\Spem("libphpsfml.so", "inputstream_construct")]
+    public function __construct(InputStreamInterface $stream)
     {
     }
 
@@ -23,7 +19,7 @@ class InputStream implements InputStreamInterface
      */
     public static function createFromStream(mixed $stream): self
     {
-        return self::create(new InputStreamFromStream($stream));
+        return new self(new InputStreamFromStream($stream));
     }
 
     /**
@@ -41,7 +37,7 @@ class InputStream implements InputStreamInterface
      */
     public static function createFromString(string $string): self
     {
-        return self::create(new InputStreamFromString($string));
+        return new self(new InputStreamFromString($string));
     }
 
     #[\Spem("libphpsfml.so", "inputstream_read")]

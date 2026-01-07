@@ -27,7 +27,7 @@ $sfml = new Sfml(
 );
 $window = RenderWindow::create(
     $sfml, "SFML window",
-    VideoMode::create($sfml, 800, 600)
+    new VideoMode(800, 600)
 );
 $texture = Texture::createFromFile($sfml, __DIR__ . "/../phpsfml_/demo/cute_image.jpg") ?? throw new RuntimeException();
 $sprite = Sprite::create($sfml) ?? throw new RuntimeException();

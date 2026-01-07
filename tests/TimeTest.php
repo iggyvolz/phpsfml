@@ -1,7 +1,5 @@
 <?php
 
-use iggyvolz\SFML\Sfml;
-use iggyvolz\SFML\System\SystemLib;
 use iggyvolz\SFML\System\Time;
 use Tester\Assert;
 use Tester\Environment;

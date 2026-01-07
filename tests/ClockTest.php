@@ -7,7 +7,7 @@ use Tester\Environment;
 
 require_once __DIR__ . "/../vendor/autoload.php";
 Environment::setup();
-$clock = Clock::create();
+$clock = new Clock();
 echo "Sleeping 2 seconds...";
 \iggyvolz\SFML\sleep(Time::fromSeconds(2.0));
 echo " Done" . PHP_EOL;

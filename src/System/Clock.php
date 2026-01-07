@@ -5,17 +5,13 @@ namespace iggyvolz\SFML\System;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\Utils\CType;
 
-//#[CType("sfClock*")]
-class Clock// extends SystemObject
+class Clock
 {
     /**
      * Create a new clock and start it
-     * @return self A new sfClock object
      */
-    #[\Spem("libphpsfml.so", "clock_create")]
-    public static function create(): self
-    {
-    }
+    #[\Spem("libphpsfml.so", "clock_construct")]
+    public function __construct(){}
 
     /**
      * Get the time elapsed in a clock
@@ -25,12 +21,6 @@ class Clock// extends SystemObject
      * sfClock_restart has not been called).
      * @return Time Time elapsed
      */
-    #[\Deprecated]
-    public function getElapsedTime(): Time
-    {
-        return $this->elapsedTime;
-    }
-
     public Time $elapsedTime { #[\Spem("libphpsfml.so", "clock_elapsedTime")] get {}}
 
     /**

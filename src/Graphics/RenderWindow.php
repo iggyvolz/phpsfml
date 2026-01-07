@@ -16,7 +16,7 @@ use iggyvolz\SFML\Window\CursorType;
 use iggyvolz\SFML\Window\Event\Event;
 use iggyvolz\SFML\Window\VideoMode;
 use iggyvolz\SFML\Window\Window;
-use iggyvolz\SFML\Window\WindowStyle;
+use iggyvolz\SFML\Window\Style;
 #[CType("sfRenderWindow*")]
 class RenderWindow extends GraphicsObject implements Window, RenderTarget
 {
@@ -24,7 +24,7 @@ class RenderWindow extends GraphicsObject implements Window, RenderTarget
         Sfml $sfml,
         string $title,
         ?VideoMode $videoMode = null,
-        array $windowStyle = WindowStyle::default,
+        array $windowStyle = Style::default,
         ?ContextSettings $contextSettings = null,
         string $titleEncoding = "UTF-8",
     ): RenderWindow
@@ -35,7 +35,7 @@ class RenderWindow extends GraphicsObject implements Window, RenderTarget
         return new self($sfml, $sfml->graphics->ffi->sfRenderWindow_createUnicode(
             $videoMode->asGraphics(),
             UTF32::fromString($sfml, $title, $titleEncoding)->asGraphics(),
-            WindowStyle::toInt(...$windowStyle),
+            Style::toInt(...$windowStyle),
             FFI::addr($contextSettings->asGraphics()),
         ));
     }
