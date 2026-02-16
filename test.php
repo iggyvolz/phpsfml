@@ -27,10 +27,10 @@ EventLoop::repeat(0.1, function() use($window){
 //        var_dump($event);
 //    }
             if($event instanceof \iggyvolz\SFML\Window\Event\TextEnteredEvent) {
-                echo $event->string . PHP_EOL;
+//                echo $event->string . PHP_EOL;
             }
             if($event instanceof ClosedEvent || ($event instanceof KeyPressedEvent && $event->code === Key::Escape)) {
-//                $window->close();
+                $window->close();
             }
         }
 });

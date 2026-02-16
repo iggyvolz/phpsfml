@@ -9,6 +9,20 @@
 #include "../util.hpp"
 #include "event.hpp"
 
+
+#include <cxxabi.h>
+static std::string demangle_type_name(const char* mangled) {
+    int status = 0;
+    char* demangled = abi::__cxa_demangle(mangled, nullptr, nullptr, &status);
+    std::string out = (status == 0 && demangled) ? demangled : mangled;
+    std::free(demangled);
+    return out;
+}
+
+static std::string pretty_type_name(const std::type_info& ti) {
+    return demangle_type_name(ti.name());
+}
+
 extern "C" {
     ZEND_DLEXPORT void windowbase_construct(zend_execute_data *execute_data, zval *return_value) {
         zval* mode_php;
@@ -65,11 +79,10 @@ extern "C" {
         auto event = event_.value();
         auto print_variant_type = [](auto&& value) {
             using T = std::decay_t<decltype(value)>;
-            std::cout << "got a " << typeid(T).name() << std::endl;
+            std::cout << "got a " << pretty_type_name(typeid(T)) << std::endl;
         };
         event.visit(print_variant_type);
-        // RETURN_EVENTS();
-        RETURN_TRUE;
+        RETURN_EVENTS();
     }
     ZEND_DLEXPORT void windowbase_waitevent(zend_execute_data *execute_data, zval *return_value) {
         zval time_obj;
