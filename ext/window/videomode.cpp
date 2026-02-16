@@ -12,7 +12,7 @@ extern "C" {
     ZEND_DLEXPORT void videomode_construct(zend_execute_data *execute_data, zval *return_value) {
         zend_long width, height;
         zend_long bitsPerPixel = 32;
-        zend_parse_parameters(ZEND_NUM_ARGS(), "ll|l", &width, &height, &bitsPerPixel);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "ll|l", &width, &height, &bitsPerPixel) != SUCCESS) return;
         storage_put(execute_data, new sf::VideoMode(sf::Vector2u(width, height), bitsPerPixel));
     }
     ZEND_DLEXPORT void videomode_getwidth(zend_execute_data *execute_data, zval *return_value) {
@@ -20,7 +20,7 @@ extern "C" {
     }
     ZEND_DLEXPORT void videomode_setwidth(zend_execute_data *execute_data, zval *return_value) {
         long value;
-        zend_parse_parameters(ZEND_NUM_ARGS(), "l", &value);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &value) != SUCCESS) return;
         storage_get<sf::VideoMode>(execute_data)->size.x = value;
     }
     ZEND_DLEXPORT void videomode_getheight(zend_execute_data *execute_data, zval *return_value) {
@@ -28,7 +28,7 @@ extern "C" {
     }
     ZEND_DLEXPORT void videomode_setheight(zend_execute_data *execute_data, zval *return_value) {
         long value;
-        zend_parse_parameters(ZEND_NUM_ARGS(), "l", &value);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &value) != SUCCESS) return;
         storage_get<sf::VideoMode>(execute_data)->size.y = value;
     }
     ZEND_DLEXPORT void videomode_getbitsperpixel(zend_execute_data *execute_data, zval *return_value) {
@@ -36,7 +36,7 @@ extern "C" {
     }
     ZEND_DLEXPORT void videomode_setbitsperpixel(zend_execute_data *execute_data, zval *return_value) {
         long value;
-        zend_parse_parameters(ZEND_NUM_ARGS(), "l", &value);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &value) != SUCCESS) return;
         storage_get<sf::VideoMode>(execute_data)->bitsPerPixel = value;
     }
     ZEND_DLEXPORT void videomode_isvalid(zend_execute_data *execute_data, zval *return_value) {

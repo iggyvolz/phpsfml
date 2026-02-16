@@ -6,7 +6,9 @@ use FFI;
 use FFI\CData;
 use iggyvolz\SFML\Sfml;
 use InvalidArgumentException;
+use JetBrains\PhpStorm\Deprecated;
 
+#[Deprecated]
 class PixelArray
 {
     public function __construct(

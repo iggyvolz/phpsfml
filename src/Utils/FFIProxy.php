@@ -4,7 +4,9 @@ namespace iggyvolz\SFML\Utils;
 
 use FFI;
 use FFI\CData;
+use JetBrains\PhpStorm\Deprecated;
 
+#[Deprecated]
 /**
  * A class to make phpstorm stop complaining that methods aren't defined on FFI
  */

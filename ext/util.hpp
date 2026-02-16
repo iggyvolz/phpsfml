@@ -96,24 +96,24 @@ void storage_remove(zend_execute_data* execute_data) {
     storage_remove<T>(execute_data->This);
 }
 template<typename T>
-void storage_new(zval* zval, const std::string& classname, T* data) {
-    zend_string* str = zend_string_init(classname.c_str(), classname.size(), false);
-    if (zend_class_entry* ce = zend_lookup_class_ex(str, nullptr, ZEND_FETCH_CLASS_EXCEPTION); ce != nullptr) {
-        object_init_ex(zval, ce);
-    } else {
-        std::cout << "Failed to load class " << classname << std::endl;
-    }
+void storage_new(zval* zval, zend_string* classname, T* data) {
+    zend_class_entry* ce = zend_lookup_class_ex(classname, nullptr, ZEND_FETCH_CLASS_EXCEPTION);
+    object_init_ex(zval, ce);
     storage_put(zval, data);
 }
 template<typename T>
-void storage_new(zval* zval, const std::string& classname, const T* data) {
-    zend_string* str = zend_string_init(classname.c_str(), classname.size(), false);
-    if (zend_class_entry* ce = zend_lookup_class_ex(str, nullptr, ZEND_FETCH_CLASS_EXCEPTION); ce != nullptr) {
-        object_init_ex(zval, ce);
-    } else {
-        std::cout << "Failed to load class " << classname << std::endl;
-    }
+void storage_new(zval* zval, zend_string* classname, const T* data) {
+    zend_class_entry* ce = zend_lookup_class_ex(classname, nullptr, ZEND_FETCH_CLASS_EXCEPTION);
+    object_init_ex(zval, ce);
     storage_put(zval, data);
+}
+template<typename T>
+void storage_new(zval* zval, const std::string& classname, T* data) {
+    storage_new(zval, zend_string_init(classname.c_str(), classname.size(), false), data);
+}
+template<typename T>
+void storage_new(zval* zval, const std::string& classname, const T* data) {
+    storage_new(zval, zend_string_init(classname.c_str(), classname.size(), false), data);
 }
 inline void enum_get(zval* val, const std::string& classname, const std::variant<std::string, zend_long>& value) {
     zend_string* str = zend_string_init(classname.c_str(), classname.size(), false);

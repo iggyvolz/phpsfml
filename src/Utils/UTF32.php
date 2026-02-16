@@ -5,8 +5,10 @@ namespace iggyvolz\SFML\Utils;
 use FFI;
 use iggyvolz\SFML\Sfml;
 use iggyvolz\SFML\System\SystemObject;
+use JetBrains\PhpStorm\Deprecated;
 
 #[CType("uint32_t*")]
+#[Deprecated]
 class UTF32 extends SystemObject
 {
     public function toString(string $encoding = "UTF-8"): string

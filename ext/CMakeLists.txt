@@ -43,7 +43,9 @@ add_library(phpsfml SHARED main.cpp system/time.cpp system/clock.cpp
         window/videomode.cpp
         window/windowbase.cpp
         window/event.cpp
-        window/event.hpp)
+        window/event.hpp
+        system/angle.cpp
+        system/string.cpp)
 if(WIN32)
     target_compile_definitions(phpsfml PRIVATE ZEND_WIN32 PHP_WIN32)
     target_link_libraries(phpsfml PRIVATE php8)

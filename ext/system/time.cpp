@@ -25,19 +25,19 @@ extern "C" {
     }
     ZEND_DLEXPORT void time_fromSeconds(zend_execute_data *execute_data, zval *return_value) {
         double amount;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &amount) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &amount) != SUCCESS) return;
         const auto duration = std::chrono::microseconds(static_cast<int64_t>(amount * 1000000));
         storage_new(return_value, R"(iggyvolz\SFML\System\Time)", new sf::Time(duration));
     }
     ZEND_DLEXPORT void time_fromMilliseconds(zend_execute_data *execute_data, zval *return_value) {
         zend_long amount;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &amount) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &amount) != SUCCESS) return;
         const auto duration = std::chrono::milliseconds(amount);
         storage_new(return_value, R"(iggyvolz\SFML\System\Time)", new sf::Time(duration));
     }
     ZEND_DLEXPORT void time_fromMicroseconds(zend_execute_data *execute_data, zval *return_value) {
         zend_long amount;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &amount) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &amount) != SUCCESS) return;
         const auto duration = std::chrono::microseconds(amount);
         storage_new(return_value, R"(iggyvolz\SFML\System\Time)", new sf::Time(duration));
     }
@@ -46,7 +46,7 @@ extern "C" {
     }
     ZEND_DLEXPORT void time_sleep(zend_execute_data *execute_data, zval *return_value) {
         zval* time_obj;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "o", &time_obj) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "o", &time_obj) != SUCCESS) return;
         const auto time = storage_get_const<sf::Time>(time_obj);
         sf::sleep(*time);
     }

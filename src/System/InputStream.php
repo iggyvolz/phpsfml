@@ -56,13 +56,6 @@ class InputStream implements InputStreamInterface
     }
     public ?int $size { #[\Spem("libphpsfml.so", "inputstream_size")] get {}}
 
-
-    #[\Deprecated]
-    public function getSize(): int
-    {
-        return $this->size;
-    }
-
     #[\Spem("libphpsfml.so", "inputstream_destruct")]
     public function __destruct()
     {

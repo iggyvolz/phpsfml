@@ -7,7 +7,7 @@
 extern "C" {
     ZEND_DLEXPORT void vector3f_construct(zend_execute_data *execute_data, zval *return_value) {
         double x, y, z;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "ddd", &x, &y, &z) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "ddd", &x, &y, &z) != SUCCESS) return;
         storage_put(execute_data, new sf::Vector3f(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z)));
     }
     ZEND_DLEXPORT void vector3f_getx(zend_execute_data *execute_data, zval *return_value) {
@@ -21,17 +21,17 @@ extern "C" {
     }
     ZEND_DLEXPORT void vector3f_setx(zend_execute_data *execute_data, zval *return_value) {
         double x;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &x) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &x) != SUCCESS) return;
         storage_get<sf::Vector3f>(execute_data)->x = static_cast<float>(x);
     }
     ZEND_DLEXPORT void vector3f_sety(zend_execute_data *execute_data, zval *return_value) {
         double y;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &y) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &y) != SUCCESS) return;
         storage_get<sf::Vector3f>(execute_data)->y = static_cast<float>(y);
     }
     ZEND_DLEXPORT void vector3f_setz(zend_execute_data *execute_data, zval *return_value) {
         double z;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &z) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &z) != SUCCESS) return;
         storage_get<sf::Vector3f>(execute_data)->z = static_cast<float>(z);
     }
 

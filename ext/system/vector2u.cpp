@@ -8,7 +8,7 @@
 extern "C" {
     ZEND_DLEXPORT void vector2u_construct(zend_execute_data *execute_data, zval *return_value) {
         zend_long x, y;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "ll", &x, &y) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "ll", &x, &y) != SUCCESS) return;
         storage_put(execute_data, new sf::Vector2u(static_cast<unsigned>(x), static_cast<unsigned>(y)));
     }
     ZEND_DLEXPORT void vector2u_getx(zend_execute_data *execute_data, zval *return_value) {
@@ -19,12 +19,12 @@ extern "C" {
     }
     ZEND_DLEXPORT void vector2u_setx(zend_execute_data *execute_data, zval *return_value) {
         zend_long x;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &x) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &x) != SUCCESS) return;
         storage_get<sf::Vector2u>(execute_data)->x = static_cast<unsigned>(x);
     }
     ZEND_DLEXPORT void vector2u_sety(zend_execute_data *execute_data, zval *return_value) {
         zend_long y;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &y) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "l", &y) != SUCCESS) return;
         storage_get<sf::Vector2u>(execute_data)->y = static_cast<unsigned>(y);
     }
 

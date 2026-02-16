@@ -74,7 +74,7 @@ public:
 extern "C" {
     ZEND_DLEXPORT void inputstream_construct(zend_execute_data *execute_data, zval *return_value) {
         zval* obj;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "o", &obj) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "o", &obj) != SUCCESS) return;
         storage_put(execute_data, new PhpInputStream(*obj));
     }
     ZEND_DLEXPORT void inputstream_read(zend_execute_data *execute_data, zval *return_value) {

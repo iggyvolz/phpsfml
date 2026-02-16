@@ -11,7 +11,7 @@
 extern "C" {
     ZEND_DLEXPORT void vector2f_construct(zend_execute_data *execute_data, zval *return_value) {
         double x, y;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "dd", &x, &y) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "dd", &x, &y) != SUCCESS) return;
         storage_put(execute_data, new sf::Vector2f(static_cast<float>(x), static_cast<float>(y)));
     }
     ZEND_DLEXPORT void vector2f_getx(zend_execute_data *execute_data, zval *return_value) {
@@ -22,12 +22,12 @@ extern "C" {
     }
     ZEND_DLEXPORT void vector2f_setx(zend_execute_data *execute_data, zval *return_value) {
         double x;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &x) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &x) != SUCCESS) return;
         storage_get<sf::Vector2f>(execute_data)->x = static_cast<float>(x);
     }
     ZEND_DLEXPORT void vector2f_sety(zend_execute_data *execute_data, zval *return_value) {
         double y;
-        ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &y) == SUCCESS);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "d", &y) != SUCCESS) return;
         storage_get<sf::Vector2f>(execute_data)->y = static_cast<float>(y);
     }
 

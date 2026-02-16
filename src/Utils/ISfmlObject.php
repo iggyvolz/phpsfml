@@ -3,7 +3,9 @@
 namespace iggyvolz\SFML\Utils;
 
 use FFI\CData;
+use JetBrains\PhpStorm\Deprecated;
 
+#[Deprecated]
 interface ISfmlObject
 {
     /**
