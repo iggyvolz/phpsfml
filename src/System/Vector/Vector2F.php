@@ -6,6 +6,7 @@ namespace iggyvolz\SFML\System\Vector;
 /**
  * 2-component vector of floats
  * @see System/Vector2.h
+ * @deprecated
  */
 class Vector2F
 {

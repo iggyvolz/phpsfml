@@ -12,10 +12,10 @@ extern "C" {
         storage_put(execute_data, new sf::Vector2u(static_cast<unsigned>(x), static_cast<unsigned>(y)));
     }
     ZEND_DLEXPORT void vector2u_getx(zend_execute_data *execute_data, zval *return_value) {
-        RETURN_LONG(storage_get<sf::Vector2u>(execute_data)->x);
+        RETURN_LONG(storage_get_const<sf::Vector2u>(execute_data)->x);
     }
     ZEND_DLEXPORT void vector2u_gety(zend_execute_data *execute_data, zval *return_value) {
-        RETURN_LONG(storage_get<sf::Vector2u>(execute_data)->y);
+        RETURN_LONG(storage_get_const<sf::Vector2u>(execute_data)->y);
     }
     ZEND_DLEXPORT void vector2u_setx(zend_execute_data *execute_data, zval *return_value) {
         zend_long x;

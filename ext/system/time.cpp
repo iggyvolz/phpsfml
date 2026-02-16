@@ -12,15 +12,15 @@ extern "C" {
         storage_new(return_value, R"(iggyvolz\SFML\System\Time)", &sf::Time::Zero);
     }
     ZEND_DLEXPORT void time_asSeconds(zend_execute_data *execute_data, zval *return_value) {
-        auto time = storage_get<sf::Time>(execute_data);
+        const auto time = storage_get_const<sf::Time>(execute_data);
         RETURN_DOUBLE(time->asSeconds());
     }
     ZEND_DLEXPORT void time_asMilliseconds(zend_execute_data *execute_data, zval *return_value) {
-        auto time = storage_get<sf::Time>(execute_data);
+        const auto time = storage_get_const<sf::Time>(execute_data);
         RETURN_LONG(time->asMilliseconds());
     }
     ZEND_DLEXPORT void time_asMicroseconds(zend_execute_data *execute_data, zval *return_value) {
-        auto time = storage_get<sf::Time>(execute_data);
+        const auto time = storage_get_const<sf::Time>(execute_data);
         RETURN_LONG(time->asMicroseconds());
     }
     ZEND_DLEXPORT void time_fromSeconds(zend_execute_data *execute_data, zval *return_value) {
@@ -47,7 +47,7 @@ extern "C" {
     ZEND_DLEXPORT void time_sleep(zend_execute_data *execute_data, zval *return_value) {
         zval* time_obj;
         ZEND_ASSERT(zend_parse_parameters(ZEND_NUM_ARGS(), "o", &time_obj) == SUCCESS);
-        auto time = storage_get<sf::Time>(time_obj);
+        const auto time = storage_get_const<sf::Time>(time_obj);
         sf::sleep(*time);
     }
 }

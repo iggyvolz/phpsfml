@@ -2,6 +2,7 @@
 
 namespace iggyvolz\SFML\Window\Event;
 
-abstract class Event
+final class FocusGainedEvent extends Event
 {
+
 }

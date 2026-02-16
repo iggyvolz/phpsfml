@@ -15,7 +15,8 @@
   },
   "require-dev": {
     "nette/tester": "^2",
-    "league/event": "^3.0"
+    "league/event": "^3.0",
+    "revolt/event-loop": "^1"
   },
   "autoload": {
     "psr-4": {

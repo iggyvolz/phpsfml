@@ -214,10 +214,10 @@ readonly class WindowLib extends Lib
 
     /**
      * Check if a key is pressed
-     * @param KeyCode $key Key to check
+     * @param Key $key Key to check
      * @return bool True if the key is pressed, false otherwise
      */
-    public function isKeyPressed(KeyCode $key): bool
+    public function isKeyPressed(Key $key): bool
     {
         return $this->ffi->sfKeyboard_isKeyPressed($key->value) === 1;
     }

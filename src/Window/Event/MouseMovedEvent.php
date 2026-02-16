@@ -2,9 +2,7 @@
 
 namespace iggyvolz\SFML\Window\Event;
 
-use iggyvolz\SFML\Window\Event\EventData\MouseMoveDataEvent;
-
-final class MouseMovedEvent extends MouseMoveDataEvent
+final class MouseMovedEvent extends Event
 {
 
 }

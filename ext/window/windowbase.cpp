@@ -7,6 +7,8 @@
 #include <SFML/Window.hpp>
 
 #include "../util.hpp"
+#include "event.hpp"
+
 extern "C" {
     ZEND_DLEXPORT void windowbase_construct(zend_execute_data *execute_data, zval *return_value) {
         zval* mode_php;
@@ -39,5 +41,45 @@ extern "C" {
     }
     ZEND_DLEXPORT void windowbase_destruct(zend_execute_data *execute_data, zval *return_value) {
         storage_remove<sf::WindowBase>(execute_data);
+    }
+    ZEND_DLEXPORT void windowbase_fromhandle(zend_execute_data *execute_data, zval *return_value) {
+        zval* obj;
+        zend_parse_parameters(ZEND_NUM_ARGS(), "o", &obj);
+        // TODO validate that object has a valid handle
+        auto* handle = storage_get<sf::WindowHandle>(obj);
+        if (handle == nullptr) {
+            zend_throw_exception(nullptr, "Object does not have a valid window handle", 0);
+            return;
+        }
+        storage_new(return_value, R"(iggyvolz\SFML\System\WindowBase)", new sf::WindowBase(*handle));
+    }
+    ZEND_DLEXPORT void windowbase_close(zend_execute_data *execute_data, zval *return_value) {
+        storage_get<sf::WindowBase>(execute_data)->close();
+    }
+    ZEND_DLEXPORT void windowbase_isopen(zend_execute_data *execute_data, zval *return_value) {
+        RETURN_BOOL(storage_get<sf::WindowBase>(execute_data)->isOpen());
+    }
+    ZEND_DLEXPORT void windowbase_pollevent(zend_execute_data *execute_data, zval *return_value) {
+        auto event_ = storage_get<sf::WindowBase>(execute_data)->pollEvent();
+        if (!event_.has_value()) RETURN_NULL();
+        auto event = event_.value();
+        auto print_variant_type = [](auto&& value) {
+            using T = std::decay_t<decltype(value)>;
+            std::cout << "got a " << typeid(T).name() << std::endl;
+        };
+        event.visit(print_variant_type);
+        // RETURN_EVENTS();
+        RETURN_TRUE;
+    }
+    ZEND_DLEXPORT void windowbase_waitevent(zend_execute_data *execute_data, zval *return_value) {
+        zval time_obj;
+        ZVAL_NULL(&time_obj);
+        zend_parse_parameters(ZEND_NUM_ARGS(), "|o", &time_obj);
+        const sf::Time* time = ZVAL_IS_NULL(&time_obj) ? &sf::Time::Zero : storage_get<sf::Time>(time_obj);
+        auto event_ = storage_get<sf::WindowBase>(execute_data)->waitEvent(*time);
+        if (!event_.has_value()) RETURN_NULL();
+        auto event = event_.value();
+        RETURN_EVENTS();
+        RETURN_NULL();
     }
 }

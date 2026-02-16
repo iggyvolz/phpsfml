@@ -4,71 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87cbe3ac2a5735f487d5c95107a9bf51",
-    "packages": [
-        {
-            "name": "opis/string",
-            "version": "2.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/opis/string.git",
-                "reference": "3e4d2aaff518ac518530b89bb26ed40f4503635e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/opis/string/zipball/3e4d2aaff518ac518530b89bb26ed40f4503635e",
-                "reference": "3e4d2aaff518ac518530b89bb26ed40f4503635e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-iconv": "*",
-                "ext-json": "*",
-                "php": "^7.4 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Opis\\String\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Marius Sarca",
-                    "email": "marius.sarca@gmail.com"
-                },
-                {
-                    "name": "Sorin Sarca",
-                    "email": "sarca_sorin@hotmail.com"
-                }
-            ],
-            "description": "Multibyte strings as objects",
-            "homepage": "https://opis.io/string",
-            "keywords": [
-                "multi-byte",
-                "opis",
-                "string",
-                "string manipulation",
-                "utf-8"
-            ],
-            "support": {
-                "issues": "https://github.com/opis/string/issues",
-                "source": "https://github.com/opis/string/tree/2.1.0"
-            },
-            "time": "2025-10-17T12:38:41+00:00"
-        }
-    ],
+    "content-hash": "d71bb7823f132136bf84498c302e885d",
+    "packages": [],
     "packages-dev": [
         {
             "name": "league/event",
@@ -131,16 +68,16 @@
         },
         {
             "name": "nette/tester",
-            "version": "v2.5.7",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/tester.git",
-                "reference": "dc02e7811f3491a72e87538044586cee2f483d58"
+                "reference": "0d416a3715ee7547f5e286aa7e65180f35467624"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/dc02e7811f3491a72e87538044586cee2f483d58",
-                "reference": "dc02e7811f3491a72e87538044586cee2f483d58",
+                "url": "https://api.github.com/repos/nette/tester/zipball/0d416a3715ee7547f5e286aa7e65180f35467624",
+                "reference": "0d416a3715ee7547f5e286aa7e65180f35467624",
                 "shasum": ""
             },
             "require": {
@@ -148,7 +85,7 @@
             },
             "require-dev": {
                 "ext-simplexml": "*",
-                "phpstan/phpstan-nette": "^2.0@stable"
+                "phpstan/phpstan": "^2.0@stable"
             },
             "bin": [
                 "src/tester"
@@ -156,7 +93,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -203,9 +140,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/tester/issues",
-                "source": "https://github.com/nette/tester/tree/v2.5.7"
+                "source": "https://github.com/nette/tester/tree/v2.6.0"
             },
-            "time": "2025-11-22T18:50:53+00:00"
+            "time": "2026-01-22T08:39:16+00:00"
         },
         {
             "name": "psr/event-dispatcher",
@@ -256,6 +193,78 @@
                 "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
             },
             "time": "2019-01-08T18:20:26+00:00"
+        },
+        {
+            "name": "revolt/event-loop",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/revoltphp/event-loop.git",
+                "reference": "b6fc06dce8e9b523c9946138fa5e62181934f91c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/revoltphp/event-loop/zipball/b6fc06dce8e9b523c9946138fa5e62181934f91c",
+                "reference": "b6fc06dce8e9b523c9946138fa5e62181934f91c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "ext-json": "*",
+                "jetbrains/phpstorm-stubs": "^2019.3",
+                "phpunit/phpunit": "^9",
+                "psalm/phar": "^5.15"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Revolt\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aaron Piotrowski",
+                    "email": "aaron@trowski.com"
+                },
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                },
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@clue.engineering"
+                },
+                {
+                    "name": "Niklas Keller",
+                    "email": "me@kelunik.com"
+                }
+            ],
+            "description": "Rock-solid event loop for concurrent PHP applications.",
+            "keywords": [
+                "async",
+                "asynchronous",
+                "concurrency",
+                "event",
+                "event-loop",
+                "non-blocking",
+                "scheduler"
+            ],
+            "support": {
+                "issues": "https://github.com/revoltphp/event-loop/issues",
+                "source": "https://github.com/revoltphp/event-loop/tree/v1.0.8"
+            },
+            "time": "2025-08-27T21:33:23+00:00"
         }
     ],
     "aliases": [],

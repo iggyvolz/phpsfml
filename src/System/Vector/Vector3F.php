@@ -5,6 +5,7 @@ namespace iggyvolz\SFML\System\Vector;
 /**
  * 3-component vector of floats
  * @see System/Vector3.h
+ * @deprecated
  */
 class Vector3F
 {

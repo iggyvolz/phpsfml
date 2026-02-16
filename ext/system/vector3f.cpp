@@ -11,13 +11,13 @@ extern "C" {
         storage_put(execute_data, new sf::Vector3f(static_cast<float>(x), static_cast<float>(y), static_cast<float>(z)));
     }
     ZEND_DLEXPORT void vector3f_getx(zend_execute_data *execute_data, zval *return_value) {
-        RETURN_DOUBLE(storage_get<sf::Vector3f>(execute_data)->x);
+        RETURN_DOUBLE(storage_get_const<sf::Vector3f>(execute_data)->x);
     }
     ZEND_DLEXPORT void vector3f_gety(zend_execute_data *execute_data, zval *return_value) {
-        RETURN_DOUBLE(storage_get<sf::Vector3f>(execute_data)->y);
+        RETURN_DOUBLE(storage_get_const<sf::Vector3f>(execute_data)->y);
     }
     ZEND_DLEXPORT void vector3f_getz(zend_execute_data *execute_data, zval *return_value) {
-        RETURN_DOUBLE(storage_get<sf::Vector3f>(execute_data)->z);
+        RETURN_DOUBLE(storage_get_const<sf::Vector3f>(execute_data)->z);
     }
     ZEND_DLEXPORT void vector3f_setx(zend_execute_data *execute_data, zval *return_value) {
         double x;

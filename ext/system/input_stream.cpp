@@ -78,7 +78,7 @@ extern "C" {
         storage_put(execute_data, new PhpInputStream(*obj));
     }
     ZEND_DLEXPORT void inputstream_read(zend_execute_data *execute_data, zval *return_value) {
-        auto stream = storage_get<sf::InputStream>(execute_data);
+        auto stream = storage_get<PhpInputStream>(execute_data);
         long size = Z_LVAL_P(ZEND_CALL_ARG(execute_data, 1));
         void* buff = malloc(size);
         std::optional<std::size_t> bytes = stream->read(buff, size);
@@ -87,19 +87,19 @@ extern "C" {
     }
     ZEND_DLEXPORT void inputstream_seek(zend_execute_data *execute_data, zval *return_value) {
         long position = Z_LVAL_P(ZEND_CALL_ARG(execute_data, 1));
-        auto stream = storage_get<sf::InputStream>(execute_data);
+        auto stream = storage_get<PhpInputStream>(execute_data);
         std::optional<std::size_t> ret = stream->seek(position);
         if (!ret.has_value()) RETURN_NULL();
         RETURN_LONG(ret.value());
     }
     ZEND_DLEXPORT void inputstream_tell(zend_execute_data *execute_data, zval *return_value) {
-        auto stream = storage_get<sf::InputStream>(execute_data);
+        auto stream = storage_get<PhpInputStream>(execute_data);
         std::optional<std::size_t> ret = stream->tell();
         if (!ret.has_value()) RETURN_NULL();
         RETURN_LONG(ret.value());
     }
     ZEND_DLEXPORT void inputstream_size(zend_execute_data *execute_data, zval *return_value) {
-        auto stream = storage_get<sf::InputStream>(execute_data);
+        auto stream = storage_get<PhpInputStream>(execute_data);
         std::optional<std::size_t> ret = stream->getSize();
         if (!ret.has_value()) RETURN_NULL();
         RETURN_LONG(ret.value());

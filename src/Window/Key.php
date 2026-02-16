@@ -2,7 +2,7 @@
 
 namespace iggyvolz\SFML\Window;
 
-enum KeyCode: int
+enum Key: int
 {
     /**
      * Unhandled key
