@@ -2,6 +2,8 @@
 
 namespace iggyvolz\SFML\Window;
 
+use Spem;
+
 enum Key: int
 {
     /**
@@ -412,4 +414,6 @@ enum Key: int
      * The Pause key
      */
     case Pause = 100;
+    #[Spem("libphpsfml.so", "key_delocalize")]
+    public function delocalize(): Scancode {}
 }

@@ -7,53 +7,85 @@ enum CursorType: int
     /**
      * Arrow cursor (default)
      */
-    case CursorArrow =  0;
+    case Arrow = 0;
     /**
      * Busy arrow cursor
      */
-    case CursorArrowWait =  1;
+    case ArrowWait = 1;
     /**
      * Busy cursor
      */
-    case CursorWait = 2;
+    case Wait = 2;
     /**
-     * I-beam
+     * I-beam, cursor when hovering over a field allowing text entry
      */
-    case CursorText = 3;
+    case Text = 3;
     /**
      * Pointing hand cursor
      */
-    case CursorHand = 4;
+    case Hand = 4;
     /**
      * Horizontal double arrow cursor
      */
-    case CursorSizeHorizontal = 5;
+    case SizeHorizontal = 5;
     /**
      * Vertical double arrow cursor
      */
-    case CursorSizeVertical = 6;
+    case SizeVertical = 6;
     /**
      * Double arrow cursor going from top-left to bottom-right
      */
-    case CursorSizeTopLeftBottomRight = 7;
+    case SizeTopLeftBottomRight = 7;
     /**
      * Double arrow cursor going from bottom-left to top-right
      */
-    case CursorSizeBottomLeftTopRight = 8;
+    case SizeBottomLeftTopRight = 8;
+    /**
+     * Left arrow cursor on Linux, same as SizeHorizontal on other platforms
+     */
+    case SizeLeft = 9;
+    /**
+     * Right arrow cursor on Linux, same as SizeHorizontal on other platforms
+     */
+    case SizeRight = 10;
+    /**
+     * Up arrow cursor on Linux, same as SizeVertical on other platforms
+     */
+    case SizeTop = 11;
+    /**
+     * Down arrow cursor on Linux, same as SizeVertical on other platforms
+     */
+    case SizeBottom = 12;
+    /**
+     * Top-left arrow cursor on Linux, same as SizeTopLeftBottomRight on other platforms
+     */
+    case SizeTopLeft = 13;
+    /**
+     * Bottom-right arrow cursor on Linux, same as SizeTopLeftBottomRight on other platforms
+     */
+    case SizeBottomRight = 14;
+    /**
+     * Bottom-left arrow cursor on Linux, same as SizeBottomLeftTopRight on other platforms
+     */
+    case SizeBottomLeft = 15;
+    /**
+     * Top-right arrow cursor on Linux, same as SizeBottomLeftTopRight on other platforms
+     */
+    case SizeTopRight = 16;
     /**
      * Combination of SizeHorizontal and SizeVertical
      */
-    case CursorSizeAll = 9;
+    case SizeAll = 17;
     /**
      * Crosshair cursor
      */
-    case CursorCross = 10;
+    case Cross = 18;
     /**
      * Help cursor
      */
-    case CursorHelp = 11;
+    case Help = 19;
     /**
      * Action not allowed cursor
      */
-    case CursorNotAllowed = 12;
+    case NotAllowed = 20;
 }

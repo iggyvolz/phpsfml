@@ -24,7 +24,6 @@ class VideoMode
     #[\Spem("libphpsfml.so", "videomode_destruct")]
     public function __destruct()
     {
-        // TODO: Implement __destruct() method.
     }
 
 }

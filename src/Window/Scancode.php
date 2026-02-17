@@ -2,7 +2,10 @@
 
 namespace iggyvolz\SFML\Window;
 
-enum Scan: int
+use iggyvolz\SFML\Utils\SfString;
+use Spem;
+
+enum Scancode: int
 {
     /**
      * Represents any scancode not present in this enum.
@@ -592,4 +595,8 @@ enum Scan: int
      * Keyboard Launch Media Select key.
      */
     case LaunchMediaSelect = 145;
+    #[Spem("libphpsfml.so", "scancode_localize")]
+    public function localize(): Key {}
+    #[Spem("libphpsfml.so", "scancode_getDescription")]
+    public function getDescription(): SfString {}
 }

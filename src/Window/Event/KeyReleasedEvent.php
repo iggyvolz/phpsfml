@@ -3,13 +3,13 @@
 namespace iggyvolz\SFML\Window\Event;
 
 use iggyvolz\SFML\Window\Key;
-use iggyvolz\SFML\Window\Scan;
+use iggyvolz\SFML\Window\Scancode;
 use Spem;
 
 final class KeyReleasedEvent extends Event
 {
     public Key $code{#[Spem("libphpsfml.so", "keyreleased_getcode")]get{}}
-    public Scan $scancode{#[Spem("libphpsfml.so", "keyreleased_getscancode")]get{}}
+    public Scancode $scancode{#[Spem("libphpsfml.so", "keyreleased_getscancode")]get{}}
     public bool $alt{#[Spem("libphpsfml.so", "keyreleased_getalt")]get{}}
     public bool $control{#[Spem("libphpsfml.so", "keyreleased_getcontrol")]get{}}
     public bool $shift{#[Spem("libphpsfml.so", "keyreleased_getshift")]get{}}
