@@ -29,7 +29,7 @@ class WindowBase
     public function waitEvent(?Time $timeout = null): ?Event {
     }
     #[\Spem("libphpsfml.so", "windowbase_pollevent")]
-    public function pollEvent(?Time $timeout = null): null|Event|true {
+    public function pollEvent(?Time $timeout = null): null|Event {
     }
 
     /**

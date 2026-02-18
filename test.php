@@ -26,6 +26,8 @@ $window = new WindowBase(
 //    [Style::Close],
 //    State::Fullscreen,
 );
+
+var_dump(\iggyvolz\SFML\Window\Vulkan::getGraphicsRequiredInstanceExtensions());
 //$window->mouseCursor = \iggyvolz\SFML\Window\Cursor::createFromSystem(CursorType::Help);
 //var_dump($window->size);
 //$window->size = [400, 300];

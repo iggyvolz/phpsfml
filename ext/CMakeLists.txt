@@ -51,7 +51,11 @@ add_library(phpsfml SHARED main.cpp system/time.cpp system/clock.cpp
         window/cursor.cpp
         window/clipboard.cpp
         window/joystick.cpp
-        window/keyboard.cpp)
+        window/keyboard.cpp
+        window/mouse.cpp
+        window/sensor.cpp
+        window/touch.cpp
+        window/vulkan.cpp)
 if(WIN32)
     target_compile_definitions(phpsfml PRIVATE ZEND_WIN32 PHP_WIN32)
     target_link_libraries(phpsfml PRIVATE php8)
