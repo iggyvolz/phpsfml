@@ -58,7 +58,7 @@ extern "C" {
         zval* id_php = zend_read_property(nullptr, Z_OBJ(execute_data->This), ZEND_STRL("index"), false, &_);
         zend_long id = Z_LVAL_P(id_php);
         auto* name = new sf::String(sf::Joystick::getIdentification(id).name);
-        storage_new(return_value, R"(iggyvolz\SFML\Utils\SfString)", name);
+        RETURN_STRINGL(reinterpret_cast<const char *>(name->toUtf8().c_str()), name->toUtf8().size());
     }
     ZEND_DLEXPORT void joystick_getVendorId(zend_execute_data *execute_data, zval *return_value) {
         if(zend_parse_parameters_none() != SUCCESS) return;

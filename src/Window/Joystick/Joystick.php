@@ -2,7 +2,6 @@
 
 namespace iggyvolz\SFML\Window\Joystick;
 
-use iggyvolz\SFML\Utils\SfString;
 use OutOfRangeException;
 use Spem;
 
@@ -40,7 +39,7 @@ class Joystick
     public function isButtonPressed(int $button): bool {}
     #[Spem("libphpsfml.so", "joystick_getAxisPosition")]
     public function getAxisPosition(Axis $axis): float {}
-    public SfString $name { #[Spem("libphpsfml.so", "joystick_getName")] get {}}
+    public string $name { #[Spem("libphpsfml.so", "joystick_getName")] get {}}
     public int $vendorId { #[Spem("libphpsfml.so", "joystick_getVendorId")] get {}}
     public int $productId { #[Spem("libphpsfml.so", "joystick_getProductId")] get {}}
 

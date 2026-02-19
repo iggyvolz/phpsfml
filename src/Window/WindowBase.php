@@ -3,7 +3,6 @@
 namespace iggyvolz\SFML\Window;
 
 use iggyvolz\SFML\System\Time;
-use iggyvolz\SFML\Utils\SfString;
 use iggyvolz\SFML\Window\Event\Event;
 
 class WindowBase
@@ -11,7 +10,7 @@ class WindowBase
     #[\Spem("libphpsfml.so", "windowbase_construct")]
     public function __construct(
         VideoMode $mode,
-        SfString $title,
+        string $title,
         array $windowStyle = Style::default,
         State $state = State::Windowed
     )
@@ -62,7 +61,7 @@ class WindowBase
         #[\Spem("libphpsfml.so", "windowbase_setMaximumSize")] set {}
     }
 
-    public SfString $title {
+    public string $title {
         #[\Spem("libphpsfml.so", "windowbase_setTitle")] set {}
     }
 

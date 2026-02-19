@@ -2,15 +2,13 @@
 
 namespace iggyvolz\SFML\Window;
 
-use iggyvolz\SFML\Utils\SfString;
-
 class Window extends WindowBase
 {
 
     #[\Spem("libphpsfml.so", "window_construct")]
     public function __construct(
         VideoMode $mode,
-        SfString $title,
+        string $title,
         array $windowStyle = Style::default,
         State $state = State::Windowed,
         ContextSettings $settings = new ContextSettings(),

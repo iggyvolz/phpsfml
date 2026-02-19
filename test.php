@@ -1,7 +1,6 @@
 <?php
 
 use iggyvolz\SFML\System\Time;
-use iggyvolz\SFML\Utils\SfString;
 use iggyvolz\SFML\Window\ContextSettings;
 use iggyvolz\SFML\Window\CursorType;
 use iggyvolz\SFML\Window\Event\ClosedEvent;
@@ -22,7 +21,7 @@ require 'vendor/autoload.php';
 $sett = new ContextSettings();
 $window = new WindowBase(
     new VideoMode(800, 600),
-    new SfString("SFML window"),
+    "SFML window",
 //    [Style::Close],
 //    State::Fullscreen,
 );
@@ -33,7 +32,7 @@ var_dump(\iggyvolz\SFML\Window\Vulkan::getGraphicsRequiredInstanceExtensions());
 //$window->size = [400, 300];
 //var_dump($window->size);
 //var_dump(\iggyvolz\SFML\getClipboard()->toString());
-//\iggyvolz\SFML\setClipboard(new SfString("Hello world"));
+//\iggyvolz\SFML\setClipboard("Hello world");
 //foreach(Joystick::getConnected() as $i => $joystick) {
 //    echo "Joystick $i: " . $joystick->name . PHP_EOL;
 //    echo "  Vendor ID: " . $joystick->vendorId . PHP_EOL;
@@ -45,7 +44,7 @@ var_dump(\iggyvolz\SFML\Window\Vulkan::getGraphicsRequiredInstanceExtensions());
 //}
 
 var_dump(Scancode::Apostrophe->localize()->name);
-$window->title = new SfString("New title");
+$window->title = "New title";
 
 EventLoop::repeat(0.1, function(string $callbackId) use($window){
         while($event = $window->pollEvent()) {

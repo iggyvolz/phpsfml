@@ -16,8 +16,7 @@ extern "C" {
     ZEND_DLEXPORT void window_construct(zend_execute_data *execute_data, zval *return_value) {
         zval* mode_php;
         zend_class_entry* videomode_ce = zend_lookup_class_ex(zend_string_init(ZEND_STRL("iggyvolz\\SFML\\Window\\VideoMode"), false), nullptr, ZEND_FETCH_CLASS_EXCEPTION);
-        zval* title_php;
-        zend_class_entry* string_ce = zend_lookup_class_ex(zend_string_init(ZEND_STRL("iggyvolz\\SFML\\Utils\\SfString"), false), nullptr, ZEND_FETCH_CLASS_EXCEPTION);
+        zend_string* title_php;
         zval* window_style_arr = nullptr;
         zval* state_php = nullptr;
         zend_class_entry* state_ce = zend_lookup_class_ex(zend_string_init(ZEND_STRL("iggyvolz\\SFML\\Window\\State"), false), nullptr, ZEND_FETCH_CLASS_EXCEPTION);
@@ -27,9 +26,9 @@ extern "C" {
 
 
 
-        if(zend_parse_parameters(ZEND_NUM_ARGS(), "OO|aOO", &mode_php, videomode_ce, &title_php, string_ce, &window_style_arr, &state_php, state_ce, &contextsettings_php, contextsettings_ce) != SUCCESS) return;
-        auto* mode = storage_get<sf::VideoMode>(mode_php);
-        auto* title = storage_get_const<sf::String>(title_php);
+        if(zend_parse_parameters(ZEND_NUM_ARGS(), "OS|aOO", &mode_php, videomode_ce, &title_php, &window_style_arr, &state_php, state_ce, &contextsettings_php, contextsettings_ce) != SUCCESS) return;
+        auto mode = *storage_get<sf::VideoMode>(mode_php);
+        auto title = sf::String::fromUtf8(title_php->val, title_php->val + title_php->len);
         std::uint32_t window_style = sf::Style::Default;
         if (window_style_arr != nullptr) {
             HashTable* arr_hash = Z_ARRVAL_P(window_style_arr);
@@ -48,7 +47,7 @@ extern "C" {
             state = static_cast<sf::State>(Z_LVAL_P(x));
         }
         auto contextSettings = (contextsettings_php == nullptr) ? sf::ContextSettings() : *storage_get_const<sf::ContextSettings>(contextsettings_php);
-        storage_put(execute_data, new sf::Window(*mode, *title, window_style, state, contextSettings));
+        storage_put(execute_data, new sf::Window(mode, title, window_style, state, contextSettings));
     }
     ZEND_DLEXPORT void window_getSettings(zend_execute_data *execute_data, zval *return_value) {
         if (zend_parse_parameters_none() != SUCCESS) return;

@@ -2,7 +2,6 @@
 
 namespace iggyvolz\SFML\Window;
 
-use iggyvolz\SFML\Utils\SfString;
 use Spem;
 
 enum Scancode: int
@@ -598,5 +597,5 @@ enum Scancode: int
     #[Spem("libphpsfml.so", "scancode_localize")]
     public function localize(): Key {}
     #[Spem("libphpsfml.so", "scancode_getDescription")]
-    public function getDescription(): SfString {}
+    public function getDescription(): string {}
 }

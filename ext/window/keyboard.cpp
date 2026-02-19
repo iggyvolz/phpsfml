@@ -52,7 +52,6 @@ extern "C" {
         zval* key_php = zend_read_property(nullptr, Z_OBJ(execute_data->This), ZEND_STRL("value"), false, &_);
         auto code = static_cast<sf::Keyboard::Scancode>(Z_LVAL_P(key_php));
         auto* name = new sf::String(sf::Keyboard::getDescription(code));
-        storage_new(return_value, R"(iggyvolz\SFML\Utils\SfString)", name);
-
+        RETURN_STRINGL(reinterpret_cast<const char *>(name->toUtf8().c_str()), name->toUtf8().size());
     }
 }
