@@ -10,7 +10,7 @@ class Clock
     /**
      * Create a new clock and start it
      */
-    #[\Spem("libphpsfml.so", "clock_construct")]
+    #[\Spem("clock_construct")]
     public function __construct(){}
 
     /**
@@ -21,7 +21,7 @@ class Clock
      * sfClock_restart has not been called).
      * @return Time Time elapsed
      */
-    public Time $elapsedTime { #[\Spem("libphpsfml.so", "clock_elapsedTime")] get {}}
+    public Time $elapsedTime { #[\Spem("clock_elapsedTime")] get {}}
 
     /**
      * Restart a clock
@@ -30,11 +30,11 @@ class Clock
      * It also returns the time elapsed since the clock was started.
      * @return Time Time elapsed
      */
-    #[\Spem("libphpsfml.so", "clock_restart")]
+    #[\Spem("clock_restart")]
     public function restart(): Time
     {
     }
-    #[\Spem("libphpsfml.so", "clock_destruct")]
+    #[\Spem("clock_destruct")]
     public function __destruct()
     {
     }

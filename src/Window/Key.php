@@ -414,6 +414,6 @@ enum Key: int
      * The Pause key
      */
     case Pause = 100;
-    #[Spem("libphpsfml.so", "key_delocalize")]
+    #[Spem("key_delocalize")]
     public function delocalize(): Scancode {}
 }

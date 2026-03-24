@@ -25,38 +25,38 @@ final class ContextSettings
     }
 
     public int $depthBits {
-        #[\Spem("libphpsfml.so", "contextSettings_getDepthBits")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setDepthBits")] set {}
+        #[\Spem("contextSettings_getDepthBits")] get {}
+        #[\Spem("contextSettings_setDepthBits")] set {}
     }
     public int $stencilBits {
-        #[\Spem("libphpsfml.so", "contextSettings_getStencilBits")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setStencilBits")] set {}
+        #[\Spem("contextSettings_getStencilBits")] get {}
+        #[\Spem("contextSettings_setStencilBits")] set {}
     }
     public int $antialiasingLevel {
-        #[\Spem("libphpsfml.so", "contextSettings_getAntialiasingLevel")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setAntialiasingLevel")] set {}
+        #[\Spem("contextSettings_getAntialiasingLevel")] get {}
+        #[\Spem("contextSettings_setAntialiasingLevel")] set {}
     }
     public int $majorVersion {
-        #[\Spem("libphpsfml.so", "contextSettings_getMajorVersion")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setMajorVersion")] set {}
+        #[\Spem("contextSettings_getMajorVersion")] get {}
+        #[\Spem("contextSettings_setMajorVersion")] set {}
     }
     public int $minorVersion {
-        #[\Spem("libphpsfml.so", "contextSettings_getMinorVersion")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setMinorVersion")] set {}
+        #[\Spem("contextSettings_getMinorVersion")] get {}
+        #[\Spem("contextSettings_setMinorVersion")] set {}
     }
     public array $attributeFlags {
-        #[\Spem("libphpsfml.so", "contextSettings_getAttributeFlags")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setAttributeFlags")] set {}
+        #[\Spem("contextSettings_getAttributeFlags")] get {}
+        #[\Spem("contextSettings_setAttributeFlags")] set {}
     }
     public bool $sRgbCapable {
-        #[\Spem("libphpsfml.so", "contextSettings_getSRgbCapable")] get {}
-        #[\Spem("libphpsfml.so", "contextSettings_setSRgbCapable")] set {}
+        #[\Spem("contextSettings_getSRgbCapable")] get {}
+        #[\Spem("contextSettings_setSRgbCapable")] set {}
     }
-    #[\Spem("libphpsfml.so", "contextSettings_construct")]
+    #[\Spem("contextSettings_construct")]
     private function construct():void
     {
     }
-    #[\Spem("libphpsfml.so", "contextSettings_destruct")]
+    #[\Spem("contextSettings_destruct")]
     public function __destruct()
     {
     }

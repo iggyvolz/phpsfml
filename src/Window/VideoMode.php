@@ -9,19 +9,19 @@ namespace iggyvolz\SFML\Window;
  */
 class VideoMode
 {
-    #[\Spem("libphpsfml.so", "videomode_construct")]
+    #[\Spem("videomode_construct")]
     public function __construct(
         int $width,
         int $height,
         int $bitsPerPixel = 32,
     ) {}
 
-    public int $width { #[\Spem("libphpsfml.so", "videomode_getwidth")] get {} #[\Spem("libphpsfml.so", "videomode_setwidth")] set {}}
-    public int $height { #[\Spem("libphpsfml.so", "videomode_getheight")] get {} #[\Spem("libphpsfml.so", "videomode_setheight")] set {}}
-    public int $bitsPerPixel { #[\Spem("libphpsfml.so", "videomode_getbitsperpixel")] get {} #[\Spem("libphpsfml.so", "videomode_setbitsperpixel")] set {}}
+    public int $width { #[\Spem("videomode_getwidth")] get {} #[\Spem("videomode_setwidth")] set {}}
+    public int $height { #[\Spem("videomode_getheight")] get {} #[\Spem("videomode_setheight")] set {}}
+    public int $bitsPerPixel { #[\Spem("videomode_getbitsperpixel")] get {} #[\Spem("videomode_setbitsperpixel")] set {}}
 
-    public bool $isValid { #[\Spem("libphpsfml.so", "videomode_isvalid")] get {}}
-    #[\Spem("libphpsfml.so", "videomode_destruct")]
+    public bool $isValid { #[\Spem("videomode_isvalid")] get {}}
+    #[\Spem("videomode_destruct")]
     public function __destruct()
     {
     }

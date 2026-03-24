@@ -10,9 +10,9 @@ final class Keyboard
     {
     }
 
-    #[Spem("libphpsfml.so", "keyboard_isKeyPressed")]
+    #[Spem("keyboard_isKeyPressed")]
     public static function isKeyPressed(Key|Scancode $key): bool {}
-    #[Spem("libphpsfml.so", "keyboard_setVirtualKeyboardVisible")]
+    #[Spem("keyboard_setVirtualKeyboardVisible")]
     public static function setVirtualKeyboardVisible(bool $visible): void {}
 
 }

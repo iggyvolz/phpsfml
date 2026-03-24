@@ -39,7 +39,8 @@ extern "C" {
         auto key = static_cast<sf::Keyboard::Key>(Z_LVAL_P(key_php));
         enum_get(return_value, R"(iggyvolz\SFML\Window\Scancode)", (zend_long)sf::Keyboard::delocalize(key));
     }
-    ZEND_DLEXPORT void scancode_localize(zend_execute_data *execute_data, zval *return_value) {
+    ZEND_DLEXPORT void spem_iggyvolz_SFML_Window_Scancode_localize(zend_execute_data *execute_data, zval *return_value) {
+        std::cout << "localize" << std::endl;
         if(zend_parse_parameters_none() != SUCCESS) return;
         zval _;
         zval* key_php = zend_read_property(nullptr, Z_OBJ(execute_data->This), ZEND_STRL("value"), false, &_);

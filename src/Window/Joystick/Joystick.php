@@ -31,19 +31,19 @@ class Joystick
     private function __construct(public readonly int $index) {
 
     }
-    public bool $isConnected { #[Spem("libphpsfml.so", "joystick_isConnected")] get {}}
-    public int $buttonCount { #[Spem("libphpsfml.so", "joystick_getButtonCount")] get {}}
-    #[Spem("libphpsfml.so", "joystick_hasAxis")]
+    public bool $isConnected { #[Spem("joystick_isConnected")] get {}}
+    public int $buttonCount { #[Spem("joystick_getButtonCount")] get {}}
+    #[Spem("joystick_hasAxis")]
     public function hasAxis(Axis $axis): bool { }
-    #[Spem("libphpsfml.so", "joystick_isButtonPressed")]
+    #[Spem("joystick_isButtonPressed")]
     public function isButtonPressed(int $button): bool {}
-    #[Spem("libphpsfml.so", "joystick_getAxisPosition")]
+    #[Spem("joystick_getAxisPosition")]
     public function getAxisPosition(Axis $axis): float {}
-    public string $name { #[Spem("libphpsfml.so", "joystick_getName")] get {}}
-    public int $vendorId { #[Spem("libphpsfml.so", "joystick_getVendorId")] get {}}
-    public int $productId { #[Spem("libphpsfml.so", "joystick_getProductId")] get {}}
+    public string $name { #[Spem("joystick_getName")] get {}}
+    public int $vendorId { #[Spem("joystick_getVendorId")] get {}}
+    public int $productId { #[Spem("joystick_getProductId")] get {}}
 
-    #[Spem("libphpsfml.so", "joystick_update")]
+    #[Spem("joystick_update")]
     public static function update(): void
     {
 

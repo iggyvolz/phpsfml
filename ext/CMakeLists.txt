@@ -3,9 +3,6 @@ project(phpsfml)
 
 set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-#add_compile_options(-O0 -g -fno-omit-frame-pointer -fno-optimize-sibling-calls -fsanitize=address,undefined)
-#add_link_options(-fsanitize=address,undefined)
-set(CMAKE_POSITION_INDEPENDENT_CODE ON)  # affects everything built after this
 include(FetchContent)
 FetchContent_Declare(
         SFML

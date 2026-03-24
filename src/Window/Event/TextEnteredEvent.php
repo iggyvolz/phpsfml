@@ -4,7 +4,7 @@ namespace iggyvolz\SFML\Window\Event;
 
 final class TextEnteredEvent extends Event
 {
-    public int $unicode {#[\Spem("libphpsfml.so", "textentered_unicode")]get {}}
+    public int $unicode {#[\Spem("textentered_unicode")]get {}}
     public string $string {
         get {
             $code = $this->unicode;

@@ -10,13 +10,13 @@ final class Touch
     {
     }
 
-    #[Spem("libphpsfml.so", "touch_isDown")]
+    #[Spem("touch_isDown")]
     public static function isDown(int $finger): bool {}
 
     /**
      * @return array{0: int, 1: int}
      */
-    #[Spem("libphpsfml.so", "touch_getPosition")]
+    #[Spem("touch_getPosition")]
     public static function getPosition(int $finger, ?WindowBase $relativeTo = null): array {}
 
 }

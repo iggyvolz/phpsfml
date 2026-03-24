@@ -3,11 +3,11 @@ namespace iggyvolz\SFML;
 
 use iggyvolz\SFML\System\Time;
 
-#[\Spem("libphpsfml.so", "time_sleep")]
+#[\Spem("time_sleep")]
 function sleep(Time $time): void {
 
 }
-#[\Spem("libphpsfml.so", "getClipboard")]
+#[\Spem("getClipboard")]
 function getClipboard(): string {}
-#[\Spem("libphpsfml.so", "setClipboard")]
+#[\Spem("setClipboard")]
 function setClipboard(string $string): void {}

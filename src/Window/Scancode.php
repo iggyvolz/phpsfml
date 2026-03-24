@@ -594,8 +594,9 @@ enum Scancode: int
      * Keyboard Launch Media Select key.
      */
     case LaunchMediaSelect = 145;
-    #[Spem("libphpsfml.so", "scancode_localize")]
-    public function localize(): Key {}
-    #[Spem("libphpsfml.so", "scancode_getDescription")]
+    #[\Spem]
+    public function localize(): Key {
+    }
+    #[\Spem("scancode_getDescription")]
     public function getDescription(): string {}
 }

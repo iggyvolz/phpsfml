@@ -12,7 +12,7 @@ use iggyvolz\SFML\Window\VideoMode;
 
 #[Attribute(Attribute::TARGET_FUNCTION | Attribute::TARGET_METHOD)]
 class Spem {
-    public function __construct(public string $lib, public string $cMethod)
+    public function __construct(public ?string $cMethod = null)
     {
     }
 }

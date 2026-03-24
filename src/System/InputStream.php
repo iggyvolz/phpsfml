@@ -8,7 +8,7 @@ class InputStream implements InputStreamInterface
     /**
      * @param InputStreamInterface $stream Opened stream
      */
-    #[\Spem("libphpsfml.so", "inputstream_construct")]
+    #[\Spem("inputstream_construct")]
     public function __construct(InputStreamInterface $stream)
     {
     }
@@ -40,23 +40,23 @@ class InputStream implements InputStreamInterface
         return new self(new InputStreamFromString($string));
     }
 
-    #[\Spem("libphpsfml.so", "inputstream_read")]
+    #[\Spem("inputstream_read")]
     public function read(int $size): string
     {
     }
 
-    #[\Spem("libphpsfml.so", "inputstream_seek")]
+    #[\Spem("inputstream_seek")]
     public function seek(int $position): ?int
     {
     }
 
-    #[\Spem("libphpsfml.so", "inputstream_tell")]
+    #[\Spem("inputstream_tell")]
     public function tell(): ?int
     {
     }
-    public ?int $size { #[\Spem("libphpsfml.so", "inputstream_size")] get {}}
+    public ?int $size { #[\Spem("inputstream_size")] get {}}
 
-    #[\Spem("libphpsfml.so", "inputstream_destruct")]
+    #[\Spem("inputstream_destruct")]
     public function __destruct()
     {
     }

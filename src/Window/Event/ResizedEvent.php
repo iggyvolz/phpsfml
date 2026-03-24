@@ -4,8 +4,8 @@ namespace iggyvolz\SFML\Window\Event;
 
 final class ResizedEvent extends Event
 {
-    public int $width {#[\Spem("libphpsfml.so", "resizedevent_getwidth")]get {}}
-    public int $height { #[\Spem("libphpsfml.so", "resizedevent_getheight")]get {}}
+    public int $width {#[\Spem("resizedevent_getwidth")]get {}}
+    public int $height { #[\Spem("resizedevent_getheight")]get {}}
 
     public function __debugInfo(): ?array
     {

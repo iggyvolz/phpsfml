@@ -5,7 +5,7 @@ namespace iggyvolz\SFML\Window;
 class Window extends WindowBase
 {
 
-    #[\Spem("libphpsfml.so", "window_construct")]
+    #[\Spem("window_construct")]
     public function __construct(
         VideoMode $mode,
         string $title,
@@ -17,18 +17,18 @@ class Window extends WindowBase
     }
 
     public ContextSettings $settings {
-        #[\Spem("libphpsfml.so", "window_getSettings")] get {}
+        #[\Spem("window_getSettings")] get {}
     }
 
     public bool $verticalSyncEnabled {
-        #[\Spem("libphpsfml.so", "window_setVerticalSyncEnabled")] set {}
+        #[\Spem("window_setVerticalSyncEnabled")] set {}
     }
 
     public int $framerateLimit {
-        #[\Spem("libphpsfml.so", "window_setFramerateLimit")] set {}
+        #[\Spem("window_setFramerateLimit")] set {}
     }
 
-    #[\Spem("libphpsfml.so", "window_display")]
+    #[\Spem("window_display")]
     public function display(): void {}
 
 }

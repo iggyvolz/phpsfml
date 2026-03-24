@@ -10,13 +10,13 @@ final class Vulkan
     {
     }
 
-    #[Spem("libphpsfml.so", "vulkan_isAvailable")]
+    #[Spem("vulkan_isAvailable")]
     public static function isAvailable(bool $requireGraphics = true): bool {}
 
     /**
      * @return list<string>
      */
-    #[Spem("libphpsfml.so", "vulkan_getGraphicsRequiredInstanceExtensions")]
+    #[Spem("vulkan_getGraphicsRequiredInstanceExtensions")]
     public static function getGraphicsRequiredInstanceExtensions(): array {}
 
 }
